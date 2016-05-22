@@ -39,4 +39,8 @@ public class Student {
     public void setAverageMark(double averageMark) {
         this.averageMark = averageMark;
     }
+
+    public String asString(){
+        return String.format("%s, BD - %s, averageMark - %.1f", name, birthDay.asString(), averageMark);
+    }
 }
