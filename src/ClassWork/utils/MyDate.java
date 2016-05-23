@@ -1,4 +1,4 @@
-package utils;
+package ClassWork.utils;
 
 /**
  * Created by Pustik41 on 22.05.16.

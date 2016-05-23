@@ -1,6 +1,6 @@
-package week1.day2.Student;
+package ClassWork.week1.day2.Student;
 
-import utils.MyDate;
+import ClassWork.utils.MyDate;
 
 /**
  * Created by Pustik41 on 22.05.16.

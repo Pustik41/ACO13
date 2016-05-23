@@ -1,4 +1,4 @@
-package week1.day1;
+package ClassWork.week1.day1;
 
 /**
  * Created by Pustik41 on 21.05.16.
