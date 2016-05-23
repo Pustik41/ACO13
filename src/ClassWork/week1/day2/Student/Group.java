@@ -79,7 +79,6 @@ public class Group {
         }
 
         System.arraycopy(sort, 0, students, 0, studentsCounter);
-
     }
 
     public Student searchStudent(String name){
