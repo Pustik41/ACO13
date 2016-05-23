@@ -33,7 +33,7 @@ public class Group {
 
         if(studentsCounter >= students.length){
 
-            Student[] plusSize = new Student[students.length  +1];
+            Student[] plusSize = new Student[students.length  + 1];
             System.arraycopy(students, 0, plusSize, 0, students.length);
             students = plusSize;
         }
@@ -78,27 +78,29 @@ public class Group {
         System.arraycopy(sort, 0, students, 0, studentsCounter);
     }
 
-    public Student searchStudent(String name){
+    public String searchStudent(String name){
 
         for(int i = 0; i < studentsCounter; i++){
 
-            if(name.equals(students[i].getName())) return students[i];
+            if(name.equals(students[i].getName())){
+                return new String("Information about " + name + ": \n" + students[i].asString()) ;
+            }
         }
 
-        return null;
+        return new String("Student " + name + " - not found");
     }
 
     public boolean delStudent(String name){
 
         Student[] delStudent = new Student[students.length];
 
-        if(name.equals("")){
+        if(name.equals("") || name == null){
             System.out.println("Entered not valid value");
         } else {
 
             for (int i = 0; i < studentsCounter; i++) {
 
-                if (students[i] == searchStudent(name)) {
+                if (name.equals(students[i].getName())) {
                     students[i] = null;
 
                     System.arraycopy(students, 0, delStudent, 0, i);
@@ -109,6 +111,7 @@ public class Group {
 
                     this.students = delStudent;
 
+                    System.out.println("Student - " + name + " was deleted from this group");
                     return true;
                 }
 

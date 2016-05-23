@@ -30,26 +30,28 @@ public class StudentTest {
         aco13.addStudent(st5);
 
 
-
-
-
-        String searchName = "Pro";
-
-        //System.out.println("Information about searching name - " + searchName + ": \n" + aco13.searchStudent(searchName).asString());
-
-        System.out.println();
-
+        System.out.println("Students in Groupe ACO13: ");
         aco13.showGroupe();
-        aco13.sortStudents();
+
         System.out.println();
+
+        String searchName = "Vasja";
+        System.out.println(aco13.searchStudent(searchName));
+
+        System.out.println();
+
+        System.out.println("Sort group by name:");
+        aco13.sortStudents();
         aco13.showGroupe();
-        /*aco13.delStudent("Katja");
-        aco13.sortStudents();
 
         System.out.println();
 
+        aco13.delStudent("Kolja");
 
-        //aco13.showGroupe();*/
+        System.out.println();
+
+        System.out.println("Group after delete student:");
+        aco13.showGroupe();
 
     }
 }
