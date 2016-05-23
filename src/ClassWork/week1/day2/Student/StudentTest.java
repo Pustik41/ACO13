@@ -9,8 +9,13 @@ public class StudentTest {
 
     public static void main(String[] args) {
 
-        Student st1 = new Student("Kola", new MyDate(1991, 12, 12),'M');
-        Student st2 = new Student("Lok", new MyDate(1993, 11, 7),'M');
+
+
+        Student st1 = new Student("Kolja", new MyDate(1991, 12, 12),'M');
+        Student st2 = new Student("Vasja", new MyDate(1993, 11, 7),'M');
+        Student st3 = new Student("Sveta", new MyDate(1992, 10, 25),'F');
+        Student st4 = new Student("Serega", new MyDate(1991, 03, 5),'M');
+        Student st5 = new Student("Igor", new MyDate(1991, 03, 5),'M');
 
         st1.setAverageMark(4.0);
 
@@ -20,9 +25,31 @@ public class StudentTest {
 
         aco13.addStudent(st1);
         aco13.addStudent(st2);
+        aco13.addStudent(st3);
+        aco13.addStudent(st4);
+        aco13.addStudent(st5);
+
+
+
+
+
+        String searchName = "Pro";
+
+        //System.out.println("Information about searching name - " + searchName + ": \n" + aco13.searchStudent(searchName).asString());
+
+        System.out.println();
 
         aco13.showGroupe();
+        aco13.sortStudents();
+        System.out.println();
+        aco13.showGroupe();
+        /*aco13.delStudent("Katja");
+        aco13.sortStudents();
 
+        System.out.println();
+
+
+        //aco13.showGroupe();*/
 
     }
 }
