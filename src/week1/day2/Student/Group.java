@@ -1,7 +1,7 @@
 package week1.day2.Student;
 
 /**
- * Created by zhabenya on 22.05.16.
+ * Created by Pustik41 on 22.05.16.
  */
 public class Group {
 
@@ -28,7 +28,7 @@ public class Group {
     public boolean addStudent(Student student){
 
         if(student == null) return false;
-        if(studentsCounter >= students.length) return false;
+        if(studentsCounter >= students.length - 1) return false;
 
         // todo check if present in group
 
@@ -46,5 +46,18 @@ public class Group {
         for(int i = 0; i < studentsCounter; i++){
             System.out.println(students[i].asString());
         }
+
+    }
+
+    public Student sortStudents(Student[] students){
+        return null;
+    }
+
+    public Student search(String name){
+        return null;
+    }
+
+    public boolean delStudent(Student student){
+        return false;
     }
 }

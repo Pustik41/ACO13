@@ -1,7 +1,7 @@
 package utils;
 
 /**
- * Created by zhabenya on 22.05.16.
+ * Created by Pustik41 on 22.05.16.
  */
 public class MyDate {
 

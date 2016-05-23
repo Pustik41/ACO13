@@ -1,7 +1,7 @@
 package week1.day1;
 
 /**
- * Created by zhabenya on 21.05.16.
+ * Created by Pustik41 on 21.05.16.
  */
 public class Test {
 

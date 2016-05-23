@@ -3,7 +3,7 @@ package week1.day2.Student;
 import utils.MyDate;
 
 /**
- * Created by zhabenya on 22.05.16.
+ * Created by Pustik41 on 22.05.16.
  */
 public class StudentTest {
 
