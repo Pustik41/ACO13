@@ -31,18 +31,18 @@ public class StudentTest {
 
 
         System.out.println("Students in Groupe ACO13: ");
-        aco13.showGroupe();
+        aco13.showGroup();
 
         System.out.println();
 
         String searchName = "Vasja";
-        System.out.println(aco13.searchStudent(searchName));
+        aco13.searchStudent(searchName);
 
         System.out.println();
 
         System.out.println("Sort group by name:");
         aco13.sortStudents();
-        aco13.showGroupe();
+        aco13.showGroup();
 
         System.out.println();
 
@@ -51,7 +51,7 @@ public class StudentTest {
         System.out.println();
 
         System.out.println("Group after delete student:");
-        aco13.showGroupe();
+        aco13.showGroup();
 
     }
 }

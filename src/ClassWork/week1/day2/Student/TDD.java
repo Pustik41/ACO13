@@ -16,6 +16,21 @@ public class TDD {
         boolean expected = true;
         boolean actual = group.addStudent(st1);
 
-        System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n", "addStudent", expected == actual, expected, actual);
+        System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
+                "addStudent", expected == actual, expected, actual);
+
+        Student expected2 = st1;
+        Student actual2 = group.searchStudent(st1.getName());
+
+        System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
+                "searchStudent", expected2 == actual2, expected2.asString(), actual2.asString());
+
+        boolean expected3 = true;
+        boolean actual3 = group.delStudent(st1.getName());
+
+        System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
+                "addStudent", expected3 == actual3, expected3, actual3);
+
+
     }
 }

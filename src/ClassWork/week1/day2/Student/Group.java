@@ -32,7 +32,6 @@ public class Group {
         if(student == null) return false;
 
         if(studentsCounter >= students.length){
-
             Student[] plusSize = new Student[students.length  + 1];
             System.arraycopy(students, 0, plusSize, 0, students.length);
             students = plusSize;
@@ -44,11 +43,10 @@ public class Group {
         return true;
     }
 
-    public void showGroupe(){
+    public void showGroup(){
 
         for(int i = 0; i < studentsCounter; i++){
             System.out.println(students[i].asString());
-
         }
 
     }
@@ -78,16 +76,16 @@ public class Group {
         System.arraycopy(sort, 0, students, 0, studentsCounter);
     }
 
-    public String searchStudent(String name){
+    public Student searchStudent(String name){
 
         for(int i = 0; i < studentsCounter; i++){
 
             if(name.equals(students[i].getName())){
-                return new String("Information about " + name + ": \n" + students[i].asString()) ;
+                return students[i];
             }
         }
 
-        return new String("Student " + name + " - not found");
+        return null;
     }
 
     public boolean delStudent(String name){
@@ -105,7 +103,6 @@ public class Group {
 
                     System.arraycopy(students, 0, delStudent, 0, i);
                     System.arraycopy(students, i + 1, delStudent, i, studentsCounter - i - 1);
-                    delStudent[studentsCounter - 1] = students[i];
 
                     studentsCounter--;
 
