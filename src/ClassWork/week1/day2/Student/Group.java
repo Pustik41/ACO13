@@ -57,27 +57,20 @@ public class Group {
 
     public void sortStudents(){
 
-        String[] name = new String[studentsCounter];
-        Student[] sort = new Student[studentsCounter];
+        for (int i = 0; i < studentsCounter ; i++) {
 
-        for (int i = 0; i < name.length; i++) {
-            name[i] = students[i].getName();
-        }
+            for (int j = i + 1; j < studentsCounter ; j++) {
 
-        Arrays.sort(name);
+                if(students[i].getName().compareTo(students[j].getName()) > 0){
 
-        for (int i = 0; i < name.length; i++) {
-
-            for (int j = 0; j < name.length; j++) {
-
-                if(name[i].equals(students[j].getName())){
-                    sort[i] = students[j];
+                    Student change = students[j];
+                    students[j] = students[i];
+                    students[i] = change;
                 }
             }
 
         }
 
-        System.arraycopy(sort, 0, students, 0, studentsCounter);
     }
 
     public Student searchStudent(String name){
