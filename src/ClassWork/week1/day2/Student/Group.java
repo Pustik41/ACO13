@@ -31,16 +31,20 @@ public class Group {
 
         if(student == null) return false;
 
-        if(studentsCounter >= students.length){
-            Student[] plusSize = new Student[students.length  + 1];
-            System.arraycopy(students, 0, plusSize, 0, students.length);
-            students = plusSize;
+        if(searchStudent(student.getName()) == null) {
+
+            if (studentsCounter >= students.length) {
+                Student[] plusSize = new Student[students.length + 1];
+                System.arraycopy(students, 0, plusSize, 0, students.length);
+                students = plusSize;
+            }
+
+            students[studentsCounter] = student;
+            studentsCounter++;
+
+            return true;
         }
-
-        students[studentsCounter] = student;
-        studentsCounter++;
-
-        return true;
+        return false;
     }
 
     public void showGroup(){
@@ -78,6 +82,7 @@ public class Group {
 
     public Student searchStudent(String name){
 
+
         for(int i = 0; i < studentsCounter; i++){
 
             if(name.equals(students[i].getName())){
@@ -108,13 +113,11 @@ public class Group {
 
                     this.students = delStudent;
 
-                    System.out.println("Student - " + name + " was deleted from this group");
                     return true;
                 }
 
             }
 
-            System.out.println(name + " - not found in this group");
         }
 
         return false;

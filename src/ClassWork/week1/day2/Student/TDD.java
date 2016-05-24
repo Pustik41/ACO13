@@ -11,25 +11,45 @@ public class TDD {
 
         Group group = new Group("ACO");
 
-        Student st1 = new Student("Kola", new MyDate(1991, 12, 12),'M');
+        Student st1 = new Student("Kola", new MyDate(1991, 12, 12), 'M');
+        Student st2 = new Student("Serg", new MyDate(1991, 12, 12), 'M');
 
+        addStudent(st1, group);
+        addStudent(st1, group);
+
+        searchStudent(st1, group);
+        searchStudent(st2, group);
+
+        delStudent(st1, group);
+        delStudent(st1, group);
+
+
+    }
+
+
+
+    public static void addStudent(Student st1, Group group) {
         boolean expected = true;
         boolean actual = group.addStudent(st1);
 
         System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
                 "addStudent", expected == actual, expected, actual);
+        }
 
-        Student expected2 = st1;
-        Student actual2 = group.searchStudent(st1.getName());
+    public static void searchStudent(Student st1, Group group) {
+            Student expected = st1;
+            Student actual = group.searchStudent(st1.getName());
+
+            System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
+                    "searchStudent", expected == actual, expected, actual);
+        }
+
+    public static void delStudent(Student st1, Group group) {
+        boolean expected = true;
+        boolean actual = group.delStudent(st1.getName());
 
         System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
-                "searchStudent", expected2 == actual2, expected2.asString(), actual2.asString());
-
-        boolean expected3 = true;
-        boolean actual3 = group.delStudent(st1.getName());
-
-        System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
-                "addStudent", expected3 == actual3, expected3, actual3);
+                "delStudent", expected == actual, expected, actual);
 
 
     }
