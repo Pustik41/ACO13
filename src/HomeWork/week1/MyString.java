@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class MyString {
 
-    private  char[] str;
+    private static char[] str;
 
     public MyString( String original){
 
@@ -51,6 +51,9 @@ public class MyString {
 
     public  MyString subMyString(int start, int end){
 
+        if(!checkIndex(start)) return null;
+        if(!checkIndex(end)) return null;
+
         char[] sub = new char[end - start];
 
         for (int id = 0; start < end; start++) {
@@ -61,6 +64,8 @@ public class MyString {
     }
 
     public  MyString subMyString(int start){
+
+        if(!checkIndex(start)) return null;
 
         char[] sub = new char[str.length - start];
 
@@ -73,7 +78,7 @@ public class MyString {
 
     public char charAt(int index){
 
-        if(index > str.length || index < 0) return 0;
+        if(!checkIndex(index)) return 0;
 
         return str[index];
     }
@@ -168,6 +173,16 @@ public class MyString {
         }
 
         return new MyString(str).subMyString(start, end + 1);
+    }
+
+    private static boolean checkIndex(int index){
+
+        if(index < 0 || index >= str.length){
+            System.out.println("Index not valid");
+            return false;
+        }
+
+        return true;
     }
 
 }
