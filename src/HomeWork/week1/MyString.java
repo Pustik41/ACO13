@@ -6,6 +6,7 @@ import java.util.Arrays;
  * Created by dfsdfsddfsdf on 23.05.16.
  */
 public class MyString {
+//    todo if your methods receive reference type - make checks on NullPointerException
 
     private  char[] str;
 
@@ -21,10 +22,11 @@ public class MyString {
         return str.length;
     }
 
-    public void showMystring() {
+    public void showMyString() {
         for (int i = 0; i < str.length; i++) {
             System.out.print(str[i]);
         }
+        System.out.println();
     }
 
     public MyString concat (MyString value2){
@@ -37,35 +39,33 @@ public class MyString {
        return new MyString(concatenation);
     }
 
-    public  MyString submystring(int start, int end){
-
+    public  MyString subMyString(int start, int end){
+//      refactored
         char[] sub = new char[end - start];
-        int id = 0;
-
-        for (int i = start; i < end ; i++) {
-            sub[id++] = str[i];
+        for (int id = 0; start < end; start++) {
+            sub[id++] = str[start];
         }
 
         return new MyString(sub);
     }
 
-    public  MyString submystring(int start){
+    public  MyString subMyString(int start){
+//      refactored
 
         char[] sub = new char[str.length - start];
-        int id = 0;
-
-        for (int i = start; i <str.length ; i++) {
-            sub[id++] = str[i];
+        for (int id = 0; start <str.length; start++) {
+            sub[id++] = str[start];
         }
 
         return new MyString(sub);
     }
-
+//todo you can have ArrayOutOfBoundException
     public char charAt(int index){
         return str[index];
     }
 
     public boolean equals(Object value){
+//        todo refactoring
 
         char[] same = new char[0];
 
@@ -119,7 +119,7 @@ public class MyString {
     }
 
     public boolean contains(String value){
-
+// at first check on null!!!
         if(value.equals("") || value == null) {return false;}
 
         MyString original = new MyString(str);
@@ -129,7 +129,7 @@ public class MyString {
 
             for (int i = 0; i < original.length() - contain.length() + 1 ; i++) {
 
-                if(original.submystring(i, i + contain.length()).equals(contain)){
+                if(original.subMyString(i, i + contain.length()).equals(contain)){
                     return true;
                 }
             }
@@ -152,7 +152,7 @@ public class MyString {
             end--;
         }
 
-        return new MyString(str).submystring(start, end + 1);
+        return new MyString(str).subMyString(start, end + 1);
     }
 
 }

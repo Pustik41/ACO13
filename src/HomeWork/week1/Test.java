@@ -11,9 +11,13 @@ public class Test {
         String str1 = "      ";
         String str2 = "Vasjx";
 
-        MyString name1= new MyString(str1);
+        MyString name1= new MyString(mas);
         MyString name2 = new MyString(str2);
         MyString name3 = name1.concat(name2);
+
+        name1.showMyString();
+        mas[0] = 'E';
+        name1.showMyString();
 
     }
 }
