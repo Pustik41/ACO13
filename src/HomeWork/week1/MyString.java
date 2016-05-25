@@ -10,10 +10,22 @@ public class MyString {
     private  char[] str;
 
     public MyString( String original){
+
+        if(original == null){
+            this.str = new char[0];
+            return;
+        }
+
         this.str = original.toCharArray();
     }
 
     public MyString(char[] str) {
+
+        if(str == null){
+            this.str = new char[0];
+            return;
+        }
+
         this.str = Arrays.copyOf(str, str.length);
     }
 
@@ -27,7 +39,7 @@ public class MyString {
         }
     }
 
-    public MyString concat (MyString value2){
+    public MyString concat(MyString value2){
 
         char[] concatenation = new char[str.length + value2.length()];
 
@@ -37,35 +49,38 @@ public class MyString {
        return new MyString(concatenation);
     }
 
-    public  MyString submystring(int start, int end){
+    public  MyString subMyString(int start, int end){
 
         char[] sub = new char[end - start];
-        int id = 0;
 
-        for (int i = start; i < end ; i++) {
-            sub[id++] = str[i];
+        for (int id = 0; start < end; start++) {
+            sub[id++] = str[start];
         }
 
         return new MyString(sub);
     }
 
-    public  MyString submystring(int start){
+    public  MyString subMyString(int start){
 
         char[] sub = new char[str.length - start];
-        int id = 0;
 
-        for (int i = start; i <str.length ; i++) {
-            sub[id++] = str[i];
+        for (int id = 0; start <str.length; start++) {
+            sub[id++] = str[start];
         }
 
         return new MyString(sub);
     }
 
     public char charAt(int index){
+
+        if(index > str.length || index < 0) return 0;
+
         return str[index];
     }
 
     public boolean equals(Object value){
+
+        if(value == null) {return false;}
 
         char[] same = new char[0];
 
@@ -120,7 +135,7 @@ public class MyString {
 
     public boolean contains(String value){
 
-        if(value.equals("") || value == null) {return false;}
+        if(value == null || value.equals("")) {return false;}
 
         MyString original = new MyString(str);
         MyString contain = new MyString(value);
@@ -129,7 +144,7 @@ public class MyString {
 
             for (int i = 0; i < original.length() - contain.length() + 1 ; i++) {
 
-                if(original.submystring(i, i + contain.length()).equals(contain)){
+                if(original.subMyString(i, i + contain.length()).equals(contain)){
                     return true;
                 }
             }
@@ -152,7 +167,7 @@ public class MyString {
             end--;
         }
 
-        return new MyString(str).submystring(start, end + 1);
+        return new MyString(str).subMyString(start, end + 1);
     }
 
 }
