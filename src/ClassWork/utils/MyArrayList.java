@@ -9,10 +9,10 @@ public class MyArrayList<E>  {
 
     static  Object[] arr;
 
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    private static final Object[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
 
     public MyArrayList() {
-        this.arr = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+        this.arr = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
     }
 
     public int size(){
@@ -82,27 +82,13 @@ public class MyArrayList<E>  {
 
         E[] tmp = (E[]) new Object[arr.length - 1];
 
-        if(value instanceof String){
+        for (int i = 0; i <arr.length ; i++) {
 
-            for (int i = 0; i <arr.length ; i++) {
-
-                if(value.equals(arr[i])){
-                    System.arraycopy(arr, 0, tmp, 0, i);
-                    System.arraycopy(arr, i + 1, tmp, i, arr.length - i - 1);
-                    arr = Arrays.copyOf(tmp, tmp.length);
-                    break;
-                }
-            }
-        } else {
-
-            for (int i = 0; i < arr.length; i++) {
-
-                if (value == arr[i]) {
-                    System.arraycopy(arr, 0, tmp, 0, i);
-                    System.arraycopy(arr, i + 1, tmp, i, arr.length - i - 1);
-                    arr = Arrays.copyOf(tmp, tmp.length);
-                    break;
-                }
+            if(value.equals(arr[i])){
+                System.arraycopy(arr, 0, tmp, 0, i);
+                System.arraycopy(arr, i + 1, tmp, i, arr.length - i - 1);
+                arr = Arrays.copyOf(tmp, tmp.length);
+                break;
             }
         }
 
@@ -112,29 +98,15 @@ public class MyArrayList<E>  {
 
         if(!checkValue(value)) return false;
 
-        if(value instanceof String){
+        for (int i = 0; i <arr.length ; i++) {
 
-            for (int i = 0; i <arr.length ; i++) {
-
-                if(value.equals(arr[i])){
-                    return true;
-                }
-
+            if(value.equals(arr[i])){
+                return true;
             }
 
-            return false;
-
-        } else {
-
-            for (int i = 0; i < arr.length; i++) {
-
-                if ((E) value == arr[i]) {
-                   return true;
-                }
-            }
-
-            return false;
         }
+
+        return false;
     }
 
     private static boolean checkIndex(int index){
