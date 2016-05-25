@@ -7,36 +7,30 @@ import java.util.Arrays;
  */
 public class MyString {
 
-    private static char[] str;
+//    it can't be static
 
-    public MyString( String original){
+    private char[] str;
 
-        if(original == null){
-            this.str = new char[0];
-            return;
-        }
+    public MyString(String original){
 
-        this.str = original.toCharArray();
+        str = original != null ? original.toCharArray() : new char[0];
     }
 
-    public MyString(char[] str) {
+    public MyString(char[] array) {
 
-        if(str == null){
-            this.str = new char[0];
-            return;
-        }
 
-        this.str = Arrays.copyOf(str, str.length);
+        str = array != null ? Arrays.copyOf(array, array.length) : new char[0];
     }
 
     public int length(){
         return str.length;
     }
 
-    public void showMystring() {
+    public void showMyString() {
         for (int i = 0; i < str.length; i++) {
             System.out.print(str[i]);
         }
+        System.out.println();
     }
 
     public MyString concat(MyString value2){
@@ -44,15 +38,14 @@ public class MyString {
         char[] concatenation = new char[str.length + value2.length()];
 
         System.arraycopy(str, 0, concatenation, 0, str.length);
-        System.arraycopy(value2.str, 0, concatenation, str.length, value2.length());
+        System.arraycopy(str, 0, concatenation, str.length, value2.length());
 
        return new MyString(concatenation);
     }
 
     public  MyString subMyString(int start, int end){
 
-        if(!checkIndex(start)) return null;
-        if(!checkIndex(end)) return null;
+        if(!checkIndex(start) || !checkIndex(end)) return null;
 
         char[] sub = new char[end - start];
 
@@ -78,49 +71,37 @@ public class MyString {
 
     public char charAt(int index){
 
-        if(!checkIndex(index)) return 0;
+        return checkIndex(index) ? str[index] : '\u0000';
 
-        return str[index];
     }
 
     public boolean equals(Object value){
 
-        if(value == null) {return false;}
+        if(this == value) return true;
 
-        char[] same = new char[0];
+        if(value == null) return false;
 
-        if(value instanceof String){
-            same = ((String) value).toCharArray();
-        }
 
-        if(value instanceof char[]){
-            same = Arrays.copyOf((char[])value, ((char[]) value).length);
-        }
+        if(value.getClass() != MyString.class) return false;
+        MyString tmp = (MyString) value;
+        if(this.str.length != tmp.str.length) return false;
 
-        if(value instanceof MyString){
-            same = Arrays.copyOf(((MyString) value).str, ((MyString) value).str.length);
-        }
+        for (int i = 0; i < str.length; i++) {
 
-        if(str.length == same.length){
-
-            for (int i = 0; i <str.length; i++) {
-
-                if(str[i] != same[i]){
-                    return false;
-                }
+            if(this.str[i] != tmp.str[i]){
+                return false;
             }
-
-            return true;
         }
 
-        return false;
+        return true;
+
     }
 
     public MyString toLowerCase(){
 
         char[] lower = new char[str.length];
 
-        for (int i = 0; i < str.length ; i++) {
+        for (int i = 0; i < str.length; i++) {
             lower[i] = Character.toLowerCase(str[i]);
         }
 
@@ -138,9 +119,10 @@ public class MyString {
         return new MyString(upper);
     }
 
+//    must receive MyString, not String
     public boolean contains(String value){
 
-        if(value == null || value.equals("")) {return false;}
+        if(value == null || value.equals("")) return false;
 
         MyString original = new MyString(str);
         MyString contain = new MyString(value);
@@ -175,10 +157,10 @@ public class MyString {
         return new MyString(str).subMyString(start, end + 1);
     }
 
-    private static boolean checkIndex(int index){
+    private boolean checkIndex(int index){
 
         if(index < 0 || index >= str.length){
-            System.out.println("Index not valid");
+            System.err.println("Index not valid");
             return false;
         }
 

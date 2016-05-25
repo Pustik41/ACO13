@@ -9,11 +9,10 @@ public class Test {
         char[] mas = {'V', 'a', 's', 'j', 'a'};
 
         String str1 = "      ";
-        String str2 = "Vasjx";
+        String str2 = "Vasj";
 
-        MyString name1= new MyString(str1);
+        MyString name1= new MyString(mas);
         MyString name2 = new MyString(str2);
-        MyString name3 = name1.concat(name2);
 
     }
 }
