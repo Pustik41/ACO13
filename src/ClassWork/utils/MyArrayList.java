@@ -24,6 +24,7 @@ public class MyArrayList<E>  {
         return counter;
     }
 
+//    todo boolean
     public void add(E value){
 
         if(!checkValue(value)) return;
@@ -36,7 +37,7 @@ public class MyArrayList<E>  {
 
         E[] mas = (E[]) new Object[newSize];
 
-        System.arraycopy((E[]) arr, 0, mas, 0, counter);
+        System.arraycopy(arr, 0, mas, 0, counter);
         mas[counter] = value;
 
         counter++;
@@ -44,7 +45,7 @@ public class MyArrayList<E>  {
         this.arr = Arrays.copyOf(mas, newSize);
 
     }
-
+// todo boolean
     public void add(int index, E value){
 
         if(!checkIndex(index)) return;
@@ -94,7 +95,7 @@ public class MyArrayList<E>  {
         if(!checkIndex(index)) return null;
 
         E origin = arr[index];
-
+//     todo KISS you don't need new array, make changes in yours
         E[] tmp = (E[]) new Object[arr.length];
 
         System.arraycopy(arr, 0, tmp, 0, index);
@@ -110,7 +111,7 @@ public class MyArrayList<E>  {
     public boolean remove(E value){
 
         if(!checkValue(value)) return false;
-
+//     todo KISS you don't need new array, make changes in yours
         E[] tmp = (E[]) new Object[arr.length];
 
         for (int i = 0; i <arr.length ; i++) {
@@ -126,7 +127,6 @@ public class MyArrayList<E>  {
                 return  true;
             }
         }
-
         System.err.println(value + " - not found, try again");
 
         return false;
@@ -136,14 +136,12 @@ public class MyArrayList<E>  {
 
         if(!checkValue(value)) return false;
 
-        for (int i = 0; i <arr.length ; i++) {
+        for (int i = 0; i < arr.length ; i++) {
 
             if(value.equals(arr[i])){
                 return true;
             }
-
         }
-
         return false;
     }
 
