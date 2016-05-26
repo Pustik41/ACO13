@@ -6,13 +6,13 @@ import java.util.Arrays;
  * Created by dfsdfsddfsdf on 25.05.16.
  */
 public class MyArrayList<E>  {
-
-    static  Object[] arr;
+// why static?
+    private  E[] arr;
 
     private static final Object[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
 
     public MyArrayList() {
-        this.arr = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+        this.arr = (E[])DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
     }
 
     public int size(){
@@ -49,7 +49,7 @@ public class MyArrayList<E>  {
 
         if(!checkIndex(index)) return null;
 
-        return (E) arr[index];
+        return arr[index];
     }
 
     public void set(int index, E value){
@@ -57,7 +57,7 @@ public class MyArrayList<E>  {
         if(!checkIndex(index)) return;
         if(!checkValue(value)) return;
 
-        arr[index] = (E) value;
+        arr[index] = value;
     }
 
     public void clear(){
@@ -109,7 +109,7 @@ public class MyArrayList<E>  {
         return false;
     }
 
-    private static boolean checkIndex(int index){
+    private boolean checkIndex(int index){
 
         if(index < 0 || index >= arr.length){
             System.out.println("Index not valid");
