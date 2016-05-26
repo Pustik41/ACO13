@@ -16,7 +16,17 @@ public class MyArrayListTest {
 
             System.out.print(list.get(i));
         }
-        list.clear();
+
+        String name = list.set(0, "Katja");
+        System.out.println("\n" + name);
+
+        for (int i = 0; i < list.size(); i++) {
+
+            System.out.print(list.get(i));
+        }
+
+        System.out.println("\n" + list.remove(0));
+        System.out.println(list.remove(" "));
 
         for (int i = 0; i < list.size(); i++) {
 

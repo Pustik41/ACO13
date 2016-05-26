@@ -73,25 +73,29 @@ public class MyArrayList<E>  {
 
         return arr[index];
     }
-//     * @return the element previously at the specified position
-    public void set(int index, E value){
+    //   Fixed
+    public E set(int index, E value){
 
-        if(!checkIndex(index)) return;
-        if(!checkValue(value)) return;
+        if(!checkIndex(index) || !checkValue(value) ) return null;
 
+        E origin = arr[index];
         arr[index] = value;
+
+        return origin;
     }
-//forgot about counter
+    //   Fixed
     public void clear(){
         this.arr = (E[]) new Object[0];
+        counter = 0;
     }
+    //   Fixed
+    public E remove(int index){
 
-    // @return the element that was removed from the list
-    public void remove(int index){
+        if(!checkIndex(index)) return null;
 
-        if(!checkIndex(index)) return;
-//        when you remove actual size doesn't change see AL
-        E[] tmp = (E[]) new Object[arr.length - 1];
+        E origin = arr[index];
+
+        E[] tmp = (E[]) new Object[arr.length];
 
         System.arraycopy(arr, 0, tmp, 0, index);
         System.arraycopy(arr, index + 1, tmp, index, arr.length - index - 1);
@@ -99,15 +103,15 @@ public class MyArrayList<E>  {
         counter--;
 
         this.arr = Arrays.copyOf(tmp, tmp.length);
+
+        return origin;
     }
-//    @return <tt>true</tt> if this list contained the specified element
-    public void remove(E value){
+//   Fixed
+    public boolean remove(E value){
 
-        if(!checkValue(value)) return;
+        if(!checkValue(value)) return false;
 
-//        when you remove actual size doesn't change see AL
-
-        E[] tmp = (E[]) new Object[arr.length - 1];
+        E[] tmp = (E[]) new Object[arr.length];
 
         for (int i = 0; i <arr.length ; i++) {
 
@@ -119,12 +123,13 @@ public class MyArrayList<E>  {
                 counter--;
 
                 arr = Arrays.copyOf(tmp, tmp.length);
-                break;
+                return  true;
             }
         }
 
         System.err.println(value + " - not found, try again");
 
+        return false;
     }
 
     public boolean contains(E value){
