@@ -8,9 +8,7 @@ import ClassWork.utils.MyDate;
 public class Student {
 
     private String name;
-
     private MyDate birthDay;
-
     private double averageMark;
     private char gender;
 

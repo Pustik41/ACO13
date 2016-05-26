@@ -39,7 +39,7 @@ public class StudentTest {
         System.out.println();
 
         String searchName = "Vasja";
-        aco13.searchStudent(searchName);
+        aco13.contains(searchName);
 
         System.out.println();
 
