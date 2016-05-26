@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class MyString {
 
-    private static char[] str;
+    private  char[] str;
 
     public MyString( String original){
 
@@ -175,7 +175,7 @@ public class MyString {
         return new MyString(str).subMyString(start, end + 1);
     }
 
-    private static boolean checkIndex(int index){
+    private boolean checkIndex(int index){
 
         if(index < 0 || index >= str.length){
             System.out.println("Index not valid");

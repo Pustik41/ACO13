@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class MyArrayList<E>  {
 
-    static  Object[] arr;
+    Object[] arr;
 
     private static final Object[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
 
@@ -109,7 +109,7 @@ public class MyArrayList<E>  {
         return false;
     }
 
-    private static boolean checkIndex(int index){
+    private boolean checkIndex(int index){
 
         if(index < 0 || index >= arr.length){
             System.out.println("Index not valid");
@@ -119,7 +119,7 @@ public class MyArrayList<E>  {
         return true;
     }
 
-    private static boolean checkValue(Object value){
+    private boolean checkValue(Object value){
 
         if(value == null){
             System.out.println("Value not valid");
