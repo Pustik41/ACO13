@@ -7,19 +7,17 @@ import java.util.Arrays;
  */
 public class MyArrayList<E>  {
 
-    Object[] arr;
-
+    private E[] arr;
     private int counter = 0;
-
-    private static final Object[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
+    private static final int DEFAULT_ARRAY_SIZE = 10;
 
     public MyArrayList() {
-        this.arr = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+        this.arr = (E[])new Object[DEFAULT_ARRAY_SIZE];
 
     }
 
     public MyArrayList(int size) {
-        this.arr = new Object[size];
+        this.arr = (E[])new Object[size];
     }
 
     public int size(){
@@ -60,9 +58,9 @@ public class MyArrayList<E>  {
 
         E[] mas = (E[]) new Object[newSize];
 
-        System.arraycopy((E[]) arr, 0, mas, 0, index);
+        System.arraycopy(arr, 0, mas, 0, index);
         mas[index] = value;
-        System.arraycopy((E[]) arr, index, mas, index + 1, counter - index);
+        System.arraycopy(arr, index, mas, index + 1, counter - index);
 
         counter++;
 
@@ -73,38 +71,41 @@ public class MyArrayList<E>  {
 
         if(!checkIndex(index)) return null;
 
-        return (E) arr[index];
+        return arr[index];
     }
-
+//     * @return the element previously at the specified position
     public void set(int index, E value){
 
         if(!checkIndex(index)) return;
         if(!checkValue(value)) return;
 
-        arr[index] = (E) value;
+        arr[index] = value;
     }
-
+//forgot about counter
     public void clear(){
         this.arr = (E[]) new Object[0];
     }
 
+    // @return the element that was removed from the list
     public void remove(int index){
 
         if(!checkIndex(index)) return;
-
+//        when you remove actual size doesn't change see AL
         E[] tmp = (E[]) new Object[arr.length - 1];
 
-        System.arraycopy((E[]) arr, 0, tmp, 0, index);
-        System.arraycopy((E[]) arr, index + 1, tmp, index, arr.length - index - 1);
+        System.arraycopy(arr, 0, tmp, 0, index);
+        System.arraycopy(arr, index + 1, tmp, index, arr.length - index - 1);
 
         counter--;
 
         this.arr = Arrays.copyOf(tmp, tmp.length);
     }
-
+//    @return <tt>true</tt> if this list contained the specified element
     public void remove(E value){
 
         if(!checkValue(value)) return;
+
+//        when you remove actual size doesn't change see AL
 
         E[] tmp = (E[]) new Object[arr.length - 1];
 
@@ -122,7 +123,7 @@ public class MyArrayList<E>  {
             }
         }
 
-        System.out.println(value + " - not found, try again");
+        System.err.println(value + " - not found, try again");
 
     }
 
