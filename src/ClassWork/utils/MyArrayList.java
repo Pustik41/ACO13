@@ -6,29 +6,45 @@ import java.util.Arrays;
  * Created by dfsdfsddfsdf on 25.05.16.
  */
 public class MyArrayList<E>  {
-// why static?
-    private  E[] arr;
+
+    Object[] arr;
+
+    private int counter = 0;
 
     private static final Object[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
 
     public MyArrayList() {
-        this.arr = (E[])DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+        this.arr = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
+
+    }
+
+    public MyArrayList(int size) {
+        this.arr = new Object[size];
     }
 
     public int size(){
-        return arr.length;
+        return counter;
     }
 
     public void add(E value){
 
         if(!checkValue(value)) return;
 
-        E[] mas = (E[]) new Object[arr.length + 1];
+        int newSize = arr.length;
 
-        System.arraycopy((E[]) arr, 0, mas, 0, arr.length);
-        mas[arr.length] = value;
+        if(!checkSize(counter + 1)){
+            newSize = moreSize(arr.length);
+        }
 
-        this.arr = Arrays.copyOf(mas, mas.length);
+        E[] mas = (E[]) new Object[newSize];
+
+        System.arraycopy((E[]) arr, 0, mas, 0, counter);
+        mas[counter] = value;
+
+        counter++;
+
+        this.arr = Arrays.copyOf(mas, newSize);
+
     }
 
     public void add(int index, E value){
@@ -36,20 +52,28 @@ public class MyArrayList<E>  {
         if(!checkIndex(index)) return;
         if(!checkValue(value)) return;
 
-        E[] mas = (E[]) new Object[arr.length + 1];
+        int newSize = arr.length;
+
+        if(!checkSize(counter + 1)){
+            newSize = moreSize(arr.length);
+        }
+
+        E[] mas = (E[]) new Object[newSize];
 
         System.arraycopy((E[]) arr, 0, mas, 0, index);
         mas[index] = value;
-        System.arraycopy((E[]) arr, index, mas, index + 1, arr.length - index);
+        System.arraycopy((E[]) arr, index, mas, index + 1, counter - index);
 
-        this.arr = Arrays.copyOf(mas, mas.length);
+        counter++;
+
+        this.arr = Arrays.copyOf(mas, newSize);
     }
 
     public E get(int index){
 
         if(!checkIndex(index)) return null;
 
-        return arr[index];
+        return (E) arr[index];
     }
 
     public void set(int index, E value){
@@ -57,7 +81,7 @@ public class MyArrayList<E>  {
         if(!checkIndex(index)) return;
         if(!checkValue(value)) return;
 
-        arr[index] = value;
+        arr[index] = (E) value;
     }
 
     public void clear(){
@@ -73,6 +97,8 @@ public class MyArrayList<E>  {
         System.arraycopy((E[]) arr, 0, tmp, 0, index);
         System.arraycopy((E[]) arr, index + 1, tmp, index, arr.length - index - 1);
 
+        counter--;
+
         this.arr = Arrays.copyOf(tmp, tmp.length);
     }
 
@@ -85,12 +111,18 @@ public class MyArrayList<E>  {
         for (int i = 0; i <arr.length ; i++) {
 
             if(value.equals(arr[i])){
+
                 System.arraycopy(arr, 0, tmp, 0, i);
                 System.arraycopy(arr, i + 1, tmp, i, arr.length - i - 1);
+
+                counter--;
+
                 arr = Arrays.copyOf(tmp, tmp.length);
                 break;
             }
         }
+
+        System.out.println(value + " - not found, try again");
 
     }
 
@@ -111,7 +143,7 @@ public class MyArrayList<E>  {
 
     private boolean checkIndex(int index){
 
-        if(index < 0 || index >= arr.length){
+        if(index < 0 || index >= counter){
             System.out.println("Index not valid");
             return false;
         }
@@ -119,7 +151,7 @@ public class MyArrayList<E>  {
         return true;
     }
 
-    private static boolean checkValue(Object value){
+    private boolean checkValue(Object value){
 
         if(value == null){
             System.out.println("Value not valid");
@@ -127,6 +159,18 @@ public class MyArrayList<E>  {
         }
 
         return true;
+    }
+
+    private boolean checkSize(int count){
+
+        if(count > arr.length) {return false;}
+
+        return true;
+    }
+
+    private int moreSize(int size){
+
+        return (size * 3) / 2 + 1;
     }
 
 }

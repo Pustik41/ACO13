@@ -7,30 +7,36 @@ import java.util.Arrays;
  */
 public class MyString {
 
-//    it can't be static
+    private  char[] str;
 
-    private char[] str;
+    public MyString( String original){
 
-    public MyString(String original){
+        if(original == null){
+            this.str = new char[0];
+            return;
+        }
 
-        str = original != null ? original.toCharArray() : new char[0];
+        this.str = original.toCharArray();
     }
 
-    public MyString(char[] array) {
+    public MyString(char[] str) {
 
+        if(str == null){
+            this.str = new char[0];
+            return;
+        }
 
-        str = array != null ? Arrays.copyOf(array, array.length) : new char[0];
+        this.str = Arrays.copyOf(str, str.length);
     }
 
     public int length(){
         return str.length;
     }
 
-    public void showMyString() {
+    public void showMystring() {
         for (int i = 0; i < str.length; i++) {
             System.out.print(str[i]);
         }
-        System.out.println();
     }
 
     public MyString concat(MyString value2){
@@ -38,14 +44,15 @@ public class MyString {
         char[] concatenation = new char[str.length + value2.length()];
 
         System.arraycopy(str, 0, concatenation, 0, str.length);
-        System.arraycopy(str, 0, concatenation, str.length, value2.length());
+        System.arraycopy(value2.str, 0, concatenation, str.length, value2.length());
 
-       return new MyString(concatenation);
+        return new MyString(concatenation);
     }
 
     public  MyString subMyString(int start, int end){
 
-        if(!checkIndex(start) || !checkIndex(end)) return null;
+        if(!checkIndex(start)) return null;
+        if(!checkIndex(end)) return null;
 
         char[] sub = new char[end - start];
 
@@ -71,37 +78,49 @@ public class MyString {
 
     public char charAt(int index){
 
-        return checkIndex(index) ? str[index] : '\u0000';
+        if(!checkIndex(index)) return 0;
 
+        return str[index];
     }
 
     public boolean equals(Object value){
 
-        if(this == value) return true;
+        if(value == null) {return false;}
 
-        if(value == null) return false;
+        char[] same = new char[0];
 
-
-        if(value.getClass() != MyString.class) return false;
-        MyString tmp = (MyString) value;
-        if(this.str.length != tmp.str.length) return false;
-
-        for (int i = 0; i < str.length; i++) {
-
-            if(this.str[i] != tmp.str[i]){
-                return false;
-            }
+        if(value instanceof String){
+            same = ((String) value).toCharArray();
         }
 
-        return true;
+        if(value instanceof char[]){
+            same = Arrays.copyOf((char[])value, ((char[]) value).length);
+        }
 
+        if(value instanceof MyString){
+            same = Arrays.copyOf(((MyString) value).str, ((MyString) value).str.length);
+        }
+
+        if(str.length == same.length){
+
+            for (int i = 0; i <str.length; i++) {
+
+                if(str[i] != same[i]){
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     public MyString toLowerCase(){
 
         char[] lower = new char[str.length];
 
-        for (int i = 0; i < str.length; i++) {
+        for (int i = 0; i < str.length ; i++) {
             lower[i] = Character.toLowerCase(str[i]);
         }
 
@@ -119,10 +138,9 @@ public class MyString {
         return new MyString(upper);
     }
 
-//    must receive MyString, not String
     public boolean contains(String value){
 
-        if(value == null || value.equals("")) return false;
+        if(value == null || value.equals("")) {return false;}
 
         MyString original = new MyString(str);
         MyString contain = new MyString(value);
@@ -160,7 +178,7 @@ public class MyString {
     private boolean checkIndex(int index){
 
         if(index < 0 || index >= str.length){
-            System.err.println("Index not valid");
+            System.out.println("Index not valid");
             return false;
         }
 
