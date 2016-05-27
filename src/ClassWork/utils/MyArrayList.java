@@ -24,10 +24,10 @@ public class MyArrayList<E>  {
         return counter;
     }
 
-//    todo boolean
-    public void add(E value){
+//    Fixed boolean
+    public boolean add(E value){
 
-        if(!checkValue(value)) return;
+        if(!checkValue(value)) return false;
 
         int newSize = arr.length;
 
@@ -44,12 +44,12 @@ public class MyArrayList<E>  {
 
         this.arr = Arrays.copyOf(mas, newSize);
 
+        return true;
     }
-// todo boolean
-    public void add(int index, E value){
+// Fixed boolean
+    public boolean add(int index, E value){
 
-        if(!checkIndex(index)) return;
-        if(!checkValue(value)) return;
+        if(!checkIndex(index) || !checkValue(value)) return false;
 
         int newSize = arr.length;
 
@@ -66,6 +66,8 @@ public class MyArrayList<E>  {
         counter++;
 
         this.arr = Arrays.copyOf(mas, newSize);
+
+        return  true;
     }
 
     public E get(int index){
@@ -74,7 +76,7 @@ public class MyArrayList<E>  {
 
         return arr[index];
     }
-    //   Fixed
+
     public E set(int index, E value){
 
         if(!checkIndex(index) || !checkValue(value) ) return null;
@@ -84,46 +86,39 @@ public class MyArrayList<E>  {
 
         return origin;
     }
-    //   Fixed
+
     public void clear(){
         this.arr = (E[]) new Object[0];
         counter = 0;
     }
-    //   Fixed
+    //     Fixed KISS
     public E remove(int index){
 
         if(!checkIndex(index)) return null;
 
         E origin = arr[index];
-//     todo KISS you don't need new array, make changes in yours
-        E[] tmp = (E[]) new Object[arr.length];
 
-        System.arraycopy(arr, 0, tmp, 0, index);
-        System.arraycopy(arr, index + 1, tmp, index, arr.length - index - 1);
+        System.arraycopy(arr, 0, arr, 0, index);
+        System.arraycopy(arr, index + 1, arr, index, arr.length - index - 1);
 
         counter--;
 
-        this.arr = Arrays.copyOf(tmp, tmp.length);
-
         return origin;
     }
-//   Fixed
+//   Fixed KISS
     public boolean remove(E value){
 
         if(!checkValue(value)) return false;
-//     todo KISS you don't need new array, make changes in yours
-        E[] tmp = (E[]) new Object[arr.length];
 
         for (int i = 0; i <arr.length ; i++) {
 
             if(value.equals(arr[i])){
 
-                System.arraycopy(arr, 0, tmp, 0, i);
-                System.arraycopy(arr, i + 1, tmp, i, arr.length - i - 1);
+                System.arraycopy(arr, 0, arr, 0, i);
+                System.arraycopy(arr, i + 1, arr, i, arr.length - i - 1);
 
                 counter--;
 
-                arr = Arrays.copyOf(tmp, tmp.length);
                 return  true;
             }
         }

@@ -26,7 +26,7 @@ public class MyArrayListTest {
         }
 
         System.out.println("\n" + list.remove(0));
-        System.out.println(list.remove(" "));
+        //System.out.println(list.remove(" "));
 
         for (int i = 0; i < list.size(); i++) {
 
