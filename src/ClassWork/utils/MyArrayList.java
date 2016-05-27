@@ -27,7 +27,7 @@ public class MyArrayList<E>  {
 //    Fixed boolean
     public boolean add(E value){
 
-        if(!checkValue(value)) return false;
+        if(value == null) return false;
 
         int newSize = arr.length;
 
@@ -49,7 +49,7 @@ public class MyArrayList<E>  {
 // Fixed boolean
     public boolean add(int index, E value){
 
-        if(!checkIndex(index) || !checkValue(value)) return false;
+        if(!checkIndex(index) || value == null) return false;
 
         int newSize = arr.length;
 
@@ -79,7 +79,7 @@ public class MyArrayList<E>  {
 
     public E set(int index, E value){
 
-        if(!checkIndex(index) || !checkValue(value) ) return null;
+        if(!checkIndex(index) || value == null) return null;
 
         E origin = arr[index];
         arr[index] = value;
@@ -107,7 +107,7 @@ public class MyArrayList<E>  {
 //   Fixed KISS
     public boolean remove(E value){
 
-        if(!checkValue(value)) return false;
+        if(value == null) return false;
 
         for (int i = 0; i <arr.length ; i++) {
 
@@ -127,7 +127,7 @@ public class MyArrayList<E>  {
 
     public boolean contains(E value){
 
-        if(!checkValue(value)) return false;
+        if(value == null) return false;
 
         for (int i = 0; i < arr.length ; i++) {
 
@@ -148,7 +148,9 @@ public class MyArrayList<E>  {
         return true;
     }
 
-    private boolean checkValue(Object value){
+//    todo can't compare ref types with ==
+
+    /*private boolean checkValue(Object value){
 
         if(value == null){
             System.out.println("Value not valid");
@@ -157,7 +159,7 @@ public class MyArrayList<E>  {
 
         return true;
     }
-
+*/
     private boolean checkSize(int count){
 
         if(count > arr.length) {return false;}
