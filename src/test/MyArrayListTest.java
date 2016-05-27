@@ -2,6 +2,8 @@ package test;
 
 import ClassWork.utils.MyArrayList;
 
+import java.util.ArrayList;
+
 /**
  * Created by gorobec on 26.05.16.
  */
@@ -31,6 +33,29 @@ public class MyArrayListTest {
         for (int i = 0; i < list.size(); i++) {
 
             System.out.print(list.get(i));
+
+        }
+
+        System.out.println();
+
+        MyArrayList<Integer> numList = new MyArrayList<Integer>();
+
+        for (int i = 0; i <10 ; i++) {
+
+            numList.add(i * 2);
+            System.out.print(numList.get(i) + " ");
+        }
+
+        Integer num = 12;
+
+        numList.remove(3);
+        numList.remove(num);
+
+        System.out.println();
+
+        for (int i = 0; i < numList.size() ; i++) {
+
+            System.out.print(numList.get(i) + " ");
         }
     }
 }

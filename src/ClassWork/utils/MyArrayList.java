@@ -98,7 +98,6 @@ public class MyArrayList<E>  {
 
         E origin = arr[index];
 
-        System.arraycopy(arr, 0, arr, 0, index);
         System.arraycopy(arr, index + 1, arr, index, arr.length - index - 1);
 
         counter--;
@@ -114,7 +113,6 @@ public class MyArrayList<E>  {
 
             if(value.equals(arr[i])){
 
-                System.arraycopy(arr, 0, arr, 0, i);
                 System.arraycopy(arr, i + 1, arr, i, arr.length - i - 1);
 
                 counter--;
