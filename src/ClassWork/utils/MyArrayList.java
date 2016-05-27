@@ -24,10 +24,13 @@ public class MyArrayList<E>  {
         return counter;
     }
 
-//    Fixed boolean
     public boolean add(E value){
 
-        if(value == null) return false;
+        if(value == null){
+            System.out.println("\n" + "Value not valid");
+            return false;
+        }
+
 
         int newSize = arr.length;
 
@@ -46,10 +49,16 @@ public class MyArrayList<E>  {
 
         return true;
     }
-// Fixed boolean
+
     public boolean add(int index, E value){
 
-        if(!checkIndex(index) || value == null) return false;
+        if(!checkIndex(index)) return false;
+
+        if(value == null){
+            System.out.println("\n" + "Value not valid");
+            return false;
+        }
+
 
         int newSize = arr.length;
 
@@ -79,7 +88,13 @@ public class MyArrayList<E>  {
 
     public E set(int index, E value){
 
-        if(!checkIndex(index) || value == null) return null;
+        if(!checkIndex(index)) return null;
+
+        if(value == null){
+            System.out.println("\n" + "Value not valid");
+            return null;
+        }
+
 
         E origin = arr[index];
         arr[index] = value;
@@ -107,7 +122,11 @@ public class MyArrayList<E>  {
 //   Fixed KISS
     public boolean remove(E value){
 
-        if(value == null) return false;
+        if(value == null){
+            System.out.println("\n" + "Value not valid");
+            return false;
+        }
+
 
         for (int i = 0; i <arr.length ; i++) {
 
@@ -127,7 +146,11 @@ public class MyArrayList<E>  {
 
     public boolean contains(E value){
 
-        if(value == null) return false;
+        if(value == null){
+            System.out.println("\n" + "Value not valid");
+            return false;
+        }
+
 
         for (int i = 0; i < arr.length ; i++) {
 
@@ -148,18 +171,6 @@ public class MyArrayList<E>  {
         return true;
     }
 
-//    todo can't compare ref types with ==
-
-    /*private boolean checkValue(Object value){
-
-        if(value == null){
-            System.out.println("Value not valid");
-            return false;
-        }
-
-        return true;
-    }
-*/
     private boolean checkSize(int count){
 
         if(count > arr.length) {return false;}

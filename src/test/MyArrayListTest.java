@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class MyArrayListTest {
     public static void main(String[] args) {
-        MyArrayList<String> list = new MyArrayList<>();
+        /*MyArrayList<String> list = new MyArrayList<>();
 
         list.add("Hello");
         list.add(" ");
@@ -36,7 +36,7 @@ public class MyArrayListTest {
 
         }
 
-        System.out.println();
+        System.out.println();*/
 
         MyArrayList<Integer> numList = new MyArrayList<Integer>();
 
@@ -46,7 +46,7 @@ public class MyArrayListTest {
             System.out.print(numList.get(i) + " ");
         }
 
-        Integer num = 12;
+        Integer num = null;
 
         numList.remove(3);
         numList.remove(num);
