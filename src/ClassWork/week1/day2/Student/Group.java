@@ -74,10 +74,11 @@ public class Group {
 
     public boolean contains(String name) {
 
-//      todo check null
-        for (int i = 0; i < studentsCounter; i++) {
-            if (name.equals(students[i].getName())) {
-                return true;
+        if(name != null) {
+            for (int i = 0; i < studentsCounter; i++) {
+                if (name.equals(students[i].getName())) {
+                    return true;
+                }
             }
         }
         return false;
@@ -87,8 +88,7 @@ public class Group {
 //        todo don't need new array (KISS)
         Student[] delStudent = new Student[students.length];
 
-//      todo can get NullPointerException
-        if (name.equals("") || name == null) {
+        if (name == null || name.equals("")) {
             System.out.println("Entered not valid value");
         } else {
             for (int i = 0; i < studentsCounter; i++) {
