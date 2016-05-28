@@ -7,8 +7,22 @@ public class TestCompany {
 
     public static void main(String[] args) {
 
-        Coder coder = new Coder(25, "Vasja", "Rogozov", "Java");
+        Employee coder = new Coder(25, "Vasja", "Rogozov", "Java");
+        Employee tester = new QA(23, "Serg", "kol", 100);
+        Employee juniour = new Junior(21, "Jhon", "Fla", "Java");
+        Employee middle = new Middle(24, "Georg", "Ibrahim", "Java");
 
-        System.out.println(coder.asString());
+
+        Employee[] employs= new Employee[15];
+        employs[0] = coder;
+        employs[1] = tester;
+        employs[2] = juniour;
+        employs[3] = middle;
+
+        Employee manager = new Manager(36, "Ivan", "Korchi",employs);
+        manager.work();
+        System.out.println(manager.asString());
+
+        //System.out.println(coder.asString());
     }
 }

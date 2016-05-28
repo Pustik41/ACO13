@@ -12,14 +12,22 @@ public class Coder extends Employee {
         this.programmingLanguage = programmingLanguage;
     }
 
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
+    }
+
     @Override
     public String asString() {
 
         return String.format("%s, Lang - %s", super.asString(), programmingLanguage);
     }
 
+    public void writeCode(){
+        System.out.println("write code");
+    }
+
     @Override
     public void work() {
-        System.out.println("Coder coding");
+        System.out.println("I`m making art");
     }
 }

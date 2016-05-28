@@ -5,13 +5,28 @@ package ClassWork.week2.day1.Inheart;
  */
 public class Manager extends  Employee {
 
-    private Coder[] coders;
-    private QA[] testers;
+    private Employee[] employee;
 
-    public Manager(int age, String name, String surname, Coder[] coders, QA[] testers ) {
+    public Manager(int age, String name, String surname, Employee[] employee) {
         super(age, name, surname);
-        this.coders = coders;
-        this.testers = testers;
+        this.employee = employee;
     }
 
+    @Override
+    public void work() {
+
+        System.out.println("I`m do manager work");
+
+        for (Employee emp: employee) {
+            if(emp != null) {
+                emp.work();
+                if(emp instanceof Coder){
+                    Coder tmp = (Coder) emp;
+                    tmp.writeCode();
+                }
+            }
+
+        }
+
+    }
 }
