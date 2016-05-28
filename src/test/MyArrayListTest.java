@@ -2,14 +2,14 @@ package test;
 
 import ClassWork.utils.MyArrayList;
 
-import java.util.ArrayList;
-
 /**
  * Created by gorobec on 26.05.16.
  */
 public class MyArrayListTest {
     public static void main(String[] args) {
-        /*MyArrayList<String> list = new MyArrayList<>();
+
+        String name;
+        MyArrayList<String> list = new MyArrayList<>();
 
         list.add("Hello");
         list.add(" ");
@@ -19,7 +19,7 @@ public class MyArrayListTest {
             System.out.print(list.get(i));
         }
 
-        String name = list.set(0, "Katja");
+        name = list.set(0, "Katja");
         System.out.println("\n" + name);
 
         for (int i = 0; i < list.size(); i++) {
@@ -36,7 +36,7 @@ public class MyArrayListTest {
 
         }
 
-        System.out.println();*/
+        System.out.println();
 
         MyArrayList<Integer> numList = new MyArrayList<Integer>();
 
