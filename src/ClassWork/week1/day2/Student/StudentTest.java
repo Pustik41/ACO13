@@ -9,17 +9,11 @@ public class StudentTest {
 
     public static void main(String[] args) {
 
-
-
         Student st1 = new Student("Jhon", new MyDate(1991, 12, 12),'M');
         Student st2 = new Student("Fred", new MyDate(1993, 11, 7),'M');
         Student st3 = new Student("Sunny", new MyDate(1992, 10, 25),'F');
         Student st4 = new Student("Loyd", new MyDate(1991, 03, 5),'M');
         Student st5 = new Student("Bob", new MyDate(1991, 03, 5),'M');
-
-        st1.setAverageMark(4.0);
-
-        //System.out.println(st1.asString());
 
         Group aco13 = new Group("Aco13");
 
@@ -27,34 +21,15 @@ public class StudentTest {
         aco13.addStudent(st2);
         aco13.addStudent(st3);
         aco13.addStudent(st4);
-        aco13.addStudent(st5);
+       // aco13.addStudent(st5);
+
 
         aco13.showGroup();
-        System.out.println();
         aco13.sortStudents();
-        aco13.showGroup();
-        /*System.out.println("Students in Groupe ACO13: ");
-        aco13.showGroup();
 
-        System.out.println();
+        System.out.println("\n" + "Sort group:");
 
-        String searchName = "Vasja";
-        aco13.contains(searchName);
 
-        System.out.println();
-
-        System.out.println("Sort group by name:");
-        aco13.sortStudents();
-        aco13.showGroup();
-
-        System.out.println();
-
-        aco13.delStudent("Kolja");
-
-        System.out.println();
-
-        System.out.println("Group after delete student:");
-        aco13.showGroup();*/
-
+        System.out.println(aco13.contains(st5));
     }
 }

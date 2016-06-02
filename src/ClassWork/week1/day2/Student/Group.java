@@ -1,5 +1,7 @@
 package ClassWork.week1.day2.Student;
 
+import java.util.ArrayList;
+
 /**
  * Created by Pustik41 on 22.05.16.
  */
@@ -8,19 +10,19 @@ public class Group {
     private static final int DEFAULT_GROUP_SIZE = 20;
     private int studentsCounter;
     private String name;
-    private Student[] students;
+    private ArrayList<Student> students;
 
     public Group(String name) {
         this.name = name;
-        this.students = new Student[DEFAULT_GROUP_SIZE];
+        this.students = new ArrayList<Student>(DEFAULT_GROUP_SIZE);
     }
 
     public Group(String name, int groupSize) {
         this.name = name;
-        this.students = new Student[groupSize];
+        this.students = new ArrayList<Student>(groupSize);
     }
 
-    public Group(String name, Student[] students) {
+    public Group(String name, ArrayList<Student> students) {
         this.name = name;
         this.students = students;
     }
@@ -29,16 +31,10 @@ public class Group {
 
         if (student == null) return false;
 
-        if (!contains(student.getName())) {
+        if (!students.contains(student)) {
 
-            if (studentsCounter >= students.length) {
-//                todo make method
-                Student[] plusSize = new Student[students.length + 1];
-                System.arraycopy(students, 0, plusSize, 0, students.length);
-                students = plusSize;
-            }
+            students.add(student);
 
-            students[studentsCounter] = student;
             studentsCounter++;
 
             return true;
@@ -48,8 +44,8 @@ public class Group {
 
     public void showGroup() {
 
-        for (int i = 0; i < studentsCounter; i++) {
-            System.out.println(students[i].asString());
+        for (Student st: students) {
+            System.out.println(st.toString());
         }
 
     }
@@ -60,11 +56,11 @@ public class Group {
 
             for (int j = i + 1; j < studentsCounter; j++) {
 
-                if (students[i].getName().compareTo(students[j].getName()) > 0) {
+                if (students.get(i).getName().compareTo(students.get(j).getName()) > 0) {
 
-                    Student change = students[j];
-                    students[j] = students[i];
-                    students[i] = change;
+                    Student change = students.get(j);
+                    students.set(j, students.get(i));
+                    students.set(i, change);
                 }
             }
 
@@ -72,34 +68,26 @@ public class Group {
 
     }
 
-    public boolean contains(String name) {
+    public boolean contains(Student student) {
 
-        if(name != null) {
-            for (int i = 0; i < studentsCounter; i++) {
-                if (name.equals(students[i].getName())) {
-                    return true;
-                }
-            }
+        if(student != null) {
+
+            return students.contains(student);
         }
         return false;
     }
 
     public boolean delStudent(String name) {
-//        todo don't need new array (KISS)
-        Student[] delStudent = new Student[students.length];
 
         if (name == null || name.equals("")) {
             System.out.println("Entered not valid value");
         } else {
             for (int i = 0; i < studentsCounter; i++) {
-                if (name.equals(students[i].getName())) {
-                    students[i] = null;
+                if (name.equals(students.get(i).getName())) {
 
-                    System.arraycopy(students, 0, delStudent, 0, i);
-                    System.arraycopy(students, i + 1, delStudent, i, studentsCounter - i - 1);
+                   students.remove(i);
 
                     studentsCounter--;
-                    this.students = delStudent;
                     return true;
                 }
             }

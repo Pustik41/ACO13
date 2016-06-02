@@ -38,7 +38,8 @@ public class Student {
         this.averageMark = averageMark;
     }
 
-    public String asString(){
+    @Override
+    public String toString(){
         return String.format("%s, BD - %s, averageMark - %.1f", name, birthDay.asString(), averageMark);
     }
 }
