@@ -20,6 +20,7 @@ public class StudentTest {
         Student st3 = new Student("Sunny", "Jakore", new MyDate(1992, 10, 25),'F');
         Student st4 = new Student("Loyd", "Bubble", new MyDate(1991, 03, 10),'M');
         Student st5 = new Student("Bob", "Loris", new MyDate(1991, 03, 5),'M');
+        Student st6 = null;
 
         Group aco13 = new Group("Aco13");
 
@@ -28,6 +29,7 @@ public class StudentTest {
         aco13.addStudent(st3);
         aco13.addStudent(st4);
         aco13.addStudent(st5);
+        aco13.addStudent(st6);
 
         st1.setAverageMark(9.8);
         st2.setAverageMark(9.0);
