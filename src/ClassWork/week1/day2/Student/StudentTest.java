@@ -2,11 +2,6 @@ package ClassWork.week1.day2.Student;
 
 import ClassWork.utils.MyDate;
 import ClassWork.week1.day2.Student.Comparators.AverageMarkComparator;
-import ClassWork.week1.day2.Student.Comparators.DateComparator;
-import ClassWork.week1.day2.Student.Comparators.NameComparator;
-import ClassWork.week1.day2.Student.Comparators.SurnameComparator;
-
-import java.util.ArrayList;
 
 /**
  * Created by Pustik41 on 22.05.16.
@@ -39,10 +34,8 @@ public class StudentTest {
 
 
         aco13.showGroup();
+        aco13.setComparator(new AverageMarkComparator());
 
-        //aco13.sortStudents(new DateComparator());
-        //aco13.sortStudents(new NameComparator());
-        //aco13.sortStudents(new SurnameComparator());
         aco13.sortStudent();
 
         System.out.println("\n" + "Sort group:");

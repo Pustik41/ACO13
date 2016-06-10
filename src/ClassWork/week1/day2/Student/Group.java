@@ -1,11 +1,7 @@
 package ClassWork.week1.day2.Student;
 
-import ClassWork.week1.day2.Student.Comparators.AverageMarkComparator;
 import ClassWork.week1.day2.Student.Comparators.DateComparator;
-import ClassWork.week1.day2.Student.Comparators.NameComparator;
-import ClassWork.week1.day2.Student.Comparators.SurnameComparator;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
