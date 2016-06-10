@@ -41,7 +41,7 @@ public class StudentTest {
         //aco13.sortStudents(new DateComparator());
         //aco13.sortStudents(new NameComparator());
         //aco13.sortStudents(new SurnameComparator());
-        aco13.sortStudents(new AverageMarkComparator());
+        aco13.sortStudent();
 
         System.out.println("\n" + "Sort group:");
         aco13.showGroup();

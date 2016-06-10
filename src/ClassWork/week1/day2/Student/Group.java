@@ -36,14 +36,13 @@ public class Group {
 
     public boolean addStudent(Student student) {
 
-        if (student == null) return false;
-
         if (!searchStudent(student)) {
 
             students.add(student);
 
             return true;
         }
+
         return false;
     }
 
@@ -67,12 +66,7 @@ public class Group {
 
     public boolean searchStudent(Student student) {
 
-        if(student != null) {
-
             return students.contains(student);
-        }
-
-        return false;
     }
 
     public boolean delStudent(Student student) {
