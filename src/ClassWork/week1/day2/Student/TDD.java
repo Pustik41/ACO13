@@ -11,8 +11,8 @@ public class TDD {
 
         Group group = new Group("ACO");
 
-        Student st1 = new Student("Kola", new MyDate(1991, 12, 12), 'M');
-        Student st2 = new Student("Serg", new MyDate(1991, 12, 12), 'M');
+        Student st1 = new Student("Kola", "Kola", new MyDate(1991, 12, 12), 'M');
+        Student st2 = new Student("Serg", "Kola", new MyDate(1991, 12, 12), 'M');
 
         addStudent(st1, group);
         addStudent(st1, group);
@@ -47,7 +47,7 @@ public class TDD {
 
     public static void delStudent(Student st1, Group group) {
         boolean expected = true;
-        boolean actual = group.delStudent(st1.getName());
+        boolean actual = group.delStudent(st1);
 
         System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
                 "delStudent", expected == actual, expected, actual);

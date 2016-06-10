@@ -1,6 +1,14 @@
 package ClassWork.week1.day2.Student;
 
+import ClassWork.week1.day2.Student.Comparators.AverageMarkComparator;
+import ClassWork.week1.day2.Student.Comparators.DateComparator;
+import ClassWork.week1.day2.Student.Comparators.NameComparator;
+import ClassWork.week1.day2.Student.Comparators.SurnameComparator;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Created by Pustik41 on 22.05.16.
@@ -31,7 +39,7 @@ public class Group {
 
         if (student == null) return false;
 
-        if (!students.contains(student)) {
+        if (!searchStudent(student)) {
 
             students.add(student);
 
@@ -42,6 +50,7 @@ public class Group {
         return false;
     }
 
+
     public void showGroup() {
 
         for (Student st: students) {
@@ -50,47 +59,55 @@ public class Group {
 
     }
 
-    public void sortStudents() {
+    public void sortStudents(Comparator comparator) {
 
-        for (int i = 0; i < studentsCounter; i++) {
-
-            for (int j = i + 1; j < studentsCounter; j++) {
-
-                if (students.get(i).getName().compareTo(students.get(j).getName()) > 0) {
-
-                    Student change = students.get(j);
-                    students.set(j, students.get(i));
-                    students.set(i, change);
-                }
-            }
-
+        if(comparator instanceof NameComparator){
+            students.sort(new NameComparator());
+            return;
         }
 
+        if(comparator instanceof SurnameComparator){
+            students.sort(new SurnameComparator());
+            return;
+        }
+
+        if(comparator instanceof DateComparator){
+            students.sort(new DateComparator());
+            return;
+        }
+
+        if(comparator instanceof AverageMarkComparator){
+            students.sort(new AverageMarkComparator());
+            return;
+        }
+
+        System.out.println("Not valid Comparator");
     }
 
-    public boolean contains(Student student) {
+    public boolean searchStudent(Student student) {
 
         if(student != null) {
 
             return students.contains(student);
         }
+
         return false;
     }
 
-    public boolean delStudent(String name) {
+    public boolean delStudent(Student student) {
 
         if (name == null || name.equals("")) {
             System.out.println("Entered not valid value");
         } else {
-            for (int i = 0; i < studentsCounter; i++) {
-                if (name.equals(students.get(i).getName())) {
 
-                   students.remove(i);
+                if (searchStudent(student)) {
 
+                    students.remove(student);
                     studentsCounter--;
+
                     return true;
                 }
-            }
+
         }
         return false;
     }
