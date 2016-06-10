@@ -6,10 +6,7 @@ import ClassWork.week1.day2.Student.Comparators.NameComparator;
 import ClassWork.week1.day2.Student.Comparators.SurnameComparator;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Pustik41 on 22.05.16.
@@ -19,6 +16,7 @@ public class Group {
     private static final int DEFAULT_GROUP_SIZE = 20;
     private String name;
     private List<Student> students;
+    private Comparator<Student> comparator = new DateComparator();
 
     public Group(String name) {
         this.name = name;
@@ -58,29 +56,13 @@ public class Group {
 
     }
 
-    public void sortStudents(Comparator comparator) {
+    public void sortStudent() {
 
-        if(comparator instanceof NameComparator){
-            students.sort(new NameComparator());
-            return;
-        }
+        Collections.sort(students,comparator);
+    }
 
-        if(comparator instanceof SurnameComparator){
-            students.sort(new SurnameComparator());
-            return;
-        }
-
-        if(comparator instanceof DateComparator){
-            students.sort(new DateComparator());
-            return;
-        }
-
-        if(comparator instanceof AverageMarkComparator){
-            students.sort(new AverageMarkComparator());
-            return;
-        }
-
-        System.out.println("Not valid Comparator");
+    public void setComparator(Comparator<Student> comparator) {
+        this.comparator = comparator;
     }
 
     public boolean searchStudent(Student student) {
