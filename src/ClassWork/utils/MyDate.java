@@ -16,6 +16,10 @@ public class MyDate {
         this.birthDay = birthDay;
     }
 
+    public int getYearBirth(){return yearBirth;}
+    public int getMonthBirth(){return monthBirth;}
+    public int getBirthDay(){return birthDay;}
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
