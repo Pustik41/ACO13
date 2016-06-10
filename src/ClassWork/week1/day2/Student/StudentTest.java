@@ -36,10 +36,10 @@ public class StudentTest {
 
         aco13.showGroup();
 
-        aco13.sortStudents(new DateComparator());
+        //aco13.sortStudents(new DateComparator());
         //aco13.sortStudents(new NameComparator());
         //aco13.sortStudents(new SurnameComparator());
-        //aco13.sortStudents(new AverageMarkComparator());
+        aco13.sortStudents(new AverageMarkComparator());
 
         System.out.println("\n" + "Sort group:");
         aco13.showGroup();

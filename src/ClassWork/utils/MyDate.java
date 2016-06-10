@@ -3,7 +3,7 @@ package ClassWork.utils;
 /**
  * Created by Pustik41 on 22.05.16.
  */
-public class MyDate {
+public class MyDate implements Comparable<MyDate> {
 
     private int yearBirth;
     private int monthBirth;
@@ -44,5 +44,14 @@ public class MyDate {
 
     public String asString(){
         return String.format("%d.%d.%d", birthDay, monthBirth, yearBirth);
+    }
+
+    @Override
+    public int compareTo(MyDate o) {
+
+        if(this.yearBirth != o.yearBirth) return this.yearBirth - o.yearBirth;
+        if(this.monthBirth != o.monthBirth) return this.monthBirth - o.monthBirth;
+        if(this.birthDay != o.birthDay) return this.birthDay - o.birthDay;
+        return 0;
     }
 }
