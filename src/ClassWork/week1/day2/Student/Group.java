@@ -9,6 +9,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by Pustik41 on 22.05.16.
@@ -16,9 +17,8 @@ import java.util.Comparator;
 public class Group {
 
     private static final int DEFAULT_GROUP_SIZE = 20;
-    private int studentsCounter;
     private String name;
-    private ArrayList<Student> students;
+    private List<Student> students;
 
     public Group(String name) {
         this.name = name;
@@ -30,7 +30,7 @@ public class Group {
         this.students = new ArrayList<Student>(groupSize);
     }
 
-    public Group(String name, ArrayList<Student> students) {
+    public Group(String name, List<Student> students) {
         this.name = name;
         this.students = students;
     }
@@ -42,8 +42,6 @@ public class Group {
         if (!searchStudent(student)) {
 
             students.add(student);
-
-            studentsCounter++;
 
             return true;
         }
@@ -96,20 +94,7 @@ public class Group {
 
     public boolean delStudent(Student student) {
 
-        if (name == null || name.equals("")) {
-            System.out.println("Entered not valid value");
-        } else {
-
-                if (searchStudent(student)) {
-
-                    students.remove(student);
-                    studentsCounter--;
-
-                    return true;
-                }
-
-        }
-        return false;
+        return students.remove(student);
     }
 
 }
