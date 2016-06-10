@@ -31,6 +31,7 @@ public class Group {
     }
 
     public Group(String name, List<Student> students) {
+        if(students == null) students = new ArrayList<Student>();
         this.name = name;
         this.students = students;
     }
