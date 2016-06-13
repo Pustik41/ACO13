@@ -16,29 +16,29 @@ public class Group {
 
     public Group(String name) {
         this.name = name;
-        this.students = new ArrayList<Student>(DEFAULT_GROUP_SIZE);
+        this.students = new ArrayList<>(DEFAULT_GROUP_SIZE);
     }
 
     public Group(String name, int groupSize) {
         this.name = name;
-        this.students = new ArrayList<Student>(groupSize);
+        this.students = new ArrayList<>(groupSize);
     }
 
     public Group(String name, List<Student> students) {
-        if(students == null) students = new ArrayList<Student>();
+        if(students == null) students = new ArrayList<>();
         this.name = name;
         this.students = students;
     }
 
     public boolean addStudent(Student student) {
-
+//      todo use ArrayList methods    students.contains(student);
         if(student != null) {
 
             if (!searchStudent(student)) {
+//              also return true
+                return students.add(student);
 
-                students.add(student);
-
-                return true;
+//                return true;
             }
         }
 
@@ -49,6 +49,7 @@ public class Group {
     public void showGroup() {
 
         for (Student st: students) {
+//        todo    can use without toString
             System.out.println(st.toString());
         }
 
