@@ -22,6 +22,11 @@ public class Author {
     }
 
     @Override
+    public String toString() {
+        return String.format("%s %s", authorName, authorSurName);
+    }
+
+    @Override
     public boolean equals(Object obj) {
 
         if (this == obj) return true;

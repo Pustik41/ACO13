@@ -9,9 +9,44 @@ public class Prints {
 
     private String title;
     private Author author;
-    private MyDate publicationDate;
+    private int year;
     private int numOfPage;
-    private int countPrints = 0;
 
+    public Prints(String title, Author author, int year, int numOfPage) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
+        this.numOfPage = numOfPage;
+    }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getNumOfPage() {
+        return numOfPage;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Title - %s, Published year - %d, Number of page - %d, ", title, year, numOfPage);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(this == obj) return true;
+
+        Prints tmp = (Prints) obj;
+
+        return this.title.equals(tmp.title) && this.year == tmp.year && this.numOfPage == tmp.numOfPage && this.author.equals(tmp.author);
+    }
 }
