@@ -41,7 +41,7 @@ public class Prints {
     public String toString() {
         return String.format("Title - %s, Published year - %d, Number of page - %d, ", title, year, numOfPage);
     }
-
+// todo 'equals()' should check the class of its parameter
     @Override
     public boolean equals(Object obj) {
 

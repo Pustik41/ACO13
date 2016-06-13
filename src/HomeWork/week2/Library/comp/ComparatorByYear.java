@@ -10,10 +10,12 @@ import java.util.Comparator;
 public class ComparatorByYear implements Comparator<Prints> {
     @Override
     public int compare(Prints o1, Prints o2) {
-
+/*
         if(o1.getYear() - o2.getYear() < 0) return -1;
         if(o1.getYear() - o2.getYear() > 0) return 1;
 
-        return 0;
+        return 0;*/
+//        todo KISS
+        return o1.getYear() - o2.getYear();
     }
 }

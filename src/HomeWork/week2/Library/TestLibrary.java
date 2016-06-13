@@ -45,7 +45,7 @@ public class TestLibrary {
         lib.addClient(cl4);
         lib.addClient(cl5);
 
-        lib.addBlackList(cl5);
+        lib.addToBlackList(cl5);
 
         lib.showClients();
 

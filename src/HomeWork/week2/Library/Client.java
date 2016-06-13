@@ -11,6 +11,7 @@ public class Client {
 
     private String nameClient;
     private String surNameClient;
+//    todo better use String
     private long numTelClient;
     private boolean inBlackList;
     private final int MAX_COUNT_PRINTS = 3;
@@ -20,7 +21,7 @@ public class Client {
         this.nameClient = nameClient;
         this.surNameClient = surNameClient;
         this.numTelClient = numTelClient;
-        this.clientPrints = new ArrayList<>();
+        this.clientPrints = new ArrayList<>(MAX_COUNT_PRINTS);
     }
 
     public String getNameClient() {
@@ -59,11 +60,10 @@ public class Client {
 
     public boolean addPrint(Prints print){
 
-        if(clientPrints.size() + 1 <= MAX_COUNT_PRINTS) {
+        if(clientPrints.size() < MAX_COUNT_PRINTS) {
 
             if (!clientPrints.contains(print)) {
-                clientPrints.add(print);
-                return true;
+                return clientPrints.add(print);
             }
         }
 
@@ -71,7 +71,7 @@ public class Client {
 
         return false;
     }
-
+//    todo better boolean
     public Prints delPrint(Prints print){
 
         if (clientPrints.remove(print)) {
@@ -86,7 +86,7 @@ public class Client {
 
         return String.format("Client - %s %s, Tel: %d;", nameClient, surNameClient, numTelClient);
     }
-
+// todo    equals() should check the class of its parameter
     @Override
     public boolean equals(Object obj) {
 

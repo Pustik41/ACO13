@@ -16,7 +16,9 @@ public class Library {
 
     private ArrayList<Prints> prints;
     private ArrayList<Client> clients;
+//todo you can manage your library without this array, think how(DRY)
     private ArrayList<Client> blackList;
+//    todo what for did you create this array?
     private ArrayList<Author> authors;
 
 
@@ -31,7 +33,7 @@ public class Library {
     }
 
     public boolean addPrints(Prints print){
-
+//  todo does libraries contain only unique books?
         if(print != null && !prints.contains(print)) {
 
             prints.add(print);
@@ -49,15 +51,13 @@ public class Library {
 
         if(client != null && !clients.contains(client)) {
 
-            clients.add(client);
-
-            return true;
+            return clients.add(client);
         }
 
         return false;
     }
 
-    public boolean addBlackList(Client client){
+    public boolean addToBlackList(Client client){
 
         if(client != null && !blackList.contains(client)) {
             blackList.add(client);
@@ -68,7 +68,7 @@ public class Library {
 
         return false;
     }
-
+// todo boolean
     public Prints delPrints(Prints print){
 
         if(prints.remove(print)){
@@ -100,12 +100,12 @@ public class Library {
 
         return false;
     }
-
-    public boolean issuePrints(Client client, Prints print){
+// todo simplify your code (a lot of "if")
+public boolean issuePrints(Client client, Prints print){
 
         if(client != null){
 
-            if(client.getInBlackList() == true){
+            if(client.getInBlackList()){
                 System.out.println("Client in blackList!!!");
                 return false;
             }
@@ -269,7 +269,7 @@ public class Library {
 
         System.out.println("Prints of " + year + " was not found");
     }
-
+// todo you can find more than one book
     public Prints searchPrints(String title){
 
         if(title != null){
