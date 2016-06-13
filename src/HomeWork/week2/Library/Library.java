@@ -13,6 +13,8 @@ public class Library {
     private ArrayList<Prints> prints;
     private ArrayList<Client> clients;
     private ArrayList<Client> blackList;
+    private ArrayList<Author> authors;
+
 
 
     public Library(String nameLibrary, long numTelLib) {
@@ -21,6 +23,7 @@ public class Library {
         this.prints = new ArrayList<>();
         this.clients = new ArrayList<>();
         this.blackList = new ArrayList<>();
+        this.authors = new ArrayList<>();
     }
 
     public boolean addPrints(Prints print){
@@ -28,6 +31,8 @@ public class Library {
         if(print != null && !prints.contains(print)) {
 
             prints.add(print);
+
+            if(!authors.contains(print.getAuthor())) authors.add(print.getAuthor());
 
             return true;
         }
@@ -64,6 +69,14 @@ public class Library {
 
         if(prints.remove(print)){
 
+            int counterAuthorPrints = 0;
+
+            for (Prints pr: prints) {
+                if(print.getAuthor().equals(pr.getAuthor())) counterAuthorPrints++;
+            }
+
+            if(counterAuthorPrints == 0) authors.remove(print.getAuthor());
+
             return print;
         }
 
@@ -74,9 +87,8 @@ public class Library {
 
     public boolean delBlackList(Client client){
 
-        if(client != null && blackList.contains(client)) {
+        if(client != null && blackList.remove(client)) {
 
-            blackList.remove(client);
             client.setInBlackList(false);
 
             return true;
@@ -95,10 +107,8 @@ public class Library {
             }
 
             if(delPrints(print) != null) {
-
                 return client.addPrint(print);
             }
-
         }
 
         return false;
@@ -112,6 +122,15 @@ public class Library {
         }
 
         return false;
+    }
+
+    public void showAuthorList(){
+
+        System.out.println("Author List:");
+
+        for (Author ar: authors) {
+            System.out.println(ar);
+        }
     }
 
     public void showBlackList(){
@@ -130,15 +149,15 @@ public class Library {
 
         for (Client cl: clients) {
 
-            System.out.println(cl.toString());
+            System.out.println(cl);
         }
     }
 
-    public void showPtins(){
+    public void showPrints(){
 
         System.out.println("Prints List:");
 
-        for (Prints pr: prints) { System.out.println(pr.toString());}
+        for (Prints pr: prints) { System.out.println(pr);}
 
     }
 
@@ -182,7 +201,7 @@ public class Library {
         for (Prints pr : prints) {
 
             if (author.equals(pr.getAuthor())) {
-                System.out.println(pr.toString());
+                System.out.println(pr);
                 countFind++;
             }
         }
@@ -197,7 +216,7 @@ public class Library {
         for (Prints pr : prints) {
 
             if (year == pr.getYear()) {
-                System.out.println(pr.toString());
+                System.out.println(pr);
                 countFind++;
             }
         }

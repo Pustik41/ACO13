@@ -14,9 +14,11 @@ public class Prints {
 
     public Prints(String title, Author author, int year, int numOfPage) {
         this.title = title;
-        this.author = author;
         this.year = year;
         this.numOfPage = numOfPage;
+
+        if(author == null) author = new Author("Author", "unknown");
+        this.author = author;
     }
 
     public String getTitle() {
