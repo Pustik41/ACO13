@@ -1,5 +1,9 @@
 package HomeWork.week2.Library;
 
+import HomeWork.week2.Library.comp.ComparatorByNameClient;
+import HomeWork.week2.Library.comp.ComparatorByTitle;
+import HomeWork.week2.Library.comp.ComparatorByYear;
+
 import java.util.ArrayList;
 
 /**
@@ -137,6 +141,8 @@ public class Library {
 
         System.out.println("Black List:");
 
+        blackList.sort(new ComparatorByNameClient());
+
         for (Client cl: blackList) {
 
             System.out.println(cl.toString());
@@ -147,6 +153,8 @@ public class Library {
 
         System.out.println("Clients List:");
 
+        clients.sort(new ComparatorByNameClient());
+
         for (Client cl: clients) {
 
             System.out.println(cl);
@@ -156,6 +164,8 @@ public class Library {
     public void showPrints(){
 
         System.out.println("Prints List:");
+
+        prints.sort(new ComparatorByTitle());
 
         for (Prints pr: prints) { System.out.println(pr);}
 
@@ -183,45 +193,81 @@ public class Library {
 
     public void showPrintsInOut(){
 
+        ArrayList<Prints> out = new ArrayList<>();
+
         System.out.println("Issued books:");
 
         for (Client cl: clients) {
 
             for (Prints pr: cl.getClientPrints()) {
 
-                System.out.println(pr.toString());
+                out.add(pr);
             }
         }
+
+        if(out.size() > 0){
+
+            out.sort(new ComparatorByTitle());
+
+            for (Prints pr: out) {
+
+                System.out.println(pr);
+            }
+
+            return;
+        }
+
+        System.out.println("Was mot issued any prints");
     }
 
     public void showPrintsByAuthor(Author author){
 
-        int countFind = 0;
+        ArrayList<Prints> tmp = new ArrayList<>();
 
         for (Prints pr : prints) {
 
             if (author.equals(pr.getAuthor())) {
-                System.out.println(pr);
-                countFind++;
+                tmp.add(pr);
             }
         }
 
-        if(countFind == 0) { System.out.println(author.toString() + " writer's book was not found");}
+        if(tmp.size() > 0) {
+
+            tmp.sort(new ComparatorByTitle());
+
+            for (Prints pr : tmp) {
+                System.out.println(pr);
+            }
+
+            return;
+        }
+
+        System.out.println(author.toString() + " writer's book was not found");
     }
 
     public void showPrintsByYear(int year){
 
-        int countFind = 0;
+        ArrayList<Prints> tmp = new ArrayList<>();
 
         for (Prints pr : prints) {
 
             if (year == pr.getYear()) {
-                System.out.println(pr);
-                countFind++;
+                tmp.add(pr);
             }
         }
 
-        if(countFind == 0) { System.out.println("Prints of " + year + " was not found");}
+        if(tmp.size() > 0) {
+
+            tmp.sort(new ComparatorByTitle());
+
+            for (Prints pr : tmp) {
+                System.out.println(pr);
+            }
+
+            return;
+        }
+
+        System.out.println("Prints of " + year + " was not found");
     }
 
     public Prints searchPrints(String title){

@@ -1,5 +1,7 @@
 package HomeWork.week2.Library;
 
+import HomeWork.week2.Library.comp.ComparatorByTitle;
+
 import java.util.ArrayList;
 
 /**
@@ -38,6 +40,8 @@ public class Client {
     }
 
     public ArrayList<Prints> getClientPrints() {
+
+        clientPrints.sort(new ComparatorByTitle());
         return clientPrints;
     }
 

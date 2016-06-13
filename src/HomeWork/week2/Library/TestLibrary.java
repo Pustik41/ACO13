@@ -15,10 +15,10 @@ public class TestLibrary {
         Author ar4 = new Author("Dante", "Alighieri");
 
 
-        Prints bk1 = new Book("Inferno", ar1, 2013, 654);
+        Prints bk1 = new Book("Inferno", ar1, 2009, 654);
         Prints mag1 = new Magazine("Rolling Stone", ar2, 2016, 35);
         Prints bk2 = new Book("Nous les dieux", ar3, 2004, 612);
-        Prints mag2 = new Magazine("Rolling Stone", ar2, 2015, 38);
+        Prints mag2 = new Magazine("Rolling Stone", ar2, 2009, 38);
         Prints bk3 = new Book("The Divine Comedy", ar4, 1998, 654);
         Prints bk4 = new Book("The Lost Symbol", ar1, 2009, 684);
         Prints bk5 = null;
@@ -49,24 +49,27 @@ public class TestLibrary {
 
         lib.showClients();
 
-        lib.issuePrints(cl1, bk1);
+
+        //lib.issuePrints(cl1, bk1);
         lib.issuePrints(cl1, bk2);
         lib.issuePrints(cl1, mag2);
         lib.issuePrints(cl2, bk3);
 
 
-        lib.returnPrints(cl1, bk2);
-        lib.returnPrints(cl2, bk3);
+        //lib.returnPrints(cl1, bk2);
+        //lib.returnPrints(cl2, bk3);
+
+        lib.showPrintsByAuthor(ar1);
 
 
-        System.out.println();
+        /*System.out.println();
         lib.showPrints();
 
         System.out.println();
         lib.showAuthorList();
 
 
-        /*
+
         System.out.println();
         lib.showPrintsInOut();
 
