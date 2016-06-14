@@ -62,7 +62,7 @@ public class TestLibrary {
         lib.addClient(cl5);
         lib.addClient(cl6);
 
-        lib.showClients();
+       /* lib.showClients();
 
         lib.addToBlackList(cl5);
 
@@ -89,7 +89,26 @@ public class TestLibrary {
         lib.showNeededPrints();
 
         System.out.println();
-        lib.showAvailablePrints();
-
+        lib.showAvailablePrints();*/
+//todo test failed
+        lib.showBlackList();
+        Client cl7 = new Client("Stiv", "Gardner", "044_295_48_25");
+        System.out.println("Does client add to BL - " + lib.addToBlackList(cl7));
+        lib.showBlackList();
+//todo test failed
+        lib.showPrintsInOut();
+        Client cl8 = new Client("Stiv", "Gardner", "044_295_48_25");
+        System.out.println("Does client take bookL - " + lib.issuePrints(cl8, bk1));
+        lib.showPrintsInOut();
+//todo test failed
+        lib.showPrintsInOut();
+        System.out.println("Does client take bookL - " + lib.issuePrints(cl2, bk6));
+        lib.showPrintsInOut();
+//todo test failed
+        lib.showBlackList();
+        System.out.println("Does client add to BL - " + lib.addToBlackList(cl1));
+        lib.showBlackList();
+        System.out.println("Does client remove from BL - " + lib.delBlackList(cl7));
+        lib.showBlackList();
     }
 }
