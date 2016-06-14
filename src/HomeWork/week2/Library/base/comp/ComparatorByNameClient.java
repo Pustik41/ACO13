@@ -1,7 +1,7 @@
-package HomeWork.week2.Library.comp;
+package HomeWork.week2.Library.base.comp;
 
 import java.util.Comparator;
-import HomeWork.week2.Library.Client;
+import HomeWork.week2.Library.base.Client;
 
 /**
  * Created by dfsdfsddfsdf on 13.06.16.

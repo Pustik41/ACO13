@@ -1,6 +1,6 @@
-package HomeWork.week2.Library.comp;
+package HomeWork.week2.Library.base.comp;
 
-import HomeWork.week2.Library.Prints;
+import HomeWork.week2.Library.base.Prints;
 
 import java.util.Comparator;
 

@@ -1,6 +1,6 @@
-package HomeWork.week2.Library;
+package HomeWork.week2.Library.base;
 
-import HomeWork.week2.Library.comp.ComparatorByTitle;
+import HomeWork.week2.Library.base.comp.ComparatorByTitle;
 
 import java.util.ArrayList;
 
@@ -11,13 +11,13 @@ public class Client {
 
     private String nameClient;
     private String surNameClient;
-//    todo better use String
-    private long numTelClient;
+
+    private String numTelClient;
     private boolean inBlackList;
     private final int MAX_COUNT_PRINTS = 3;
     private ArrayList<Prints> clientPrints;
 
-    public Client(String nameClient, String surNameClient, long numTelClient) {
+    public Client(String nameClient, String surNameClient, String numTelClient) {
         this.nameClient = nameClient;
         this.surNameClient = surNameClient;
         this.numTelClient = numTelClient;
@@ -32,7 +32,7 @@ public class Client {
         return surNameClient;
     }
 
-    public long getNumTelClient() {
+    public String getNumTelClient() {
         return numTelClient;
     }
 
@@ -71,29 +71,32 @@ public class Client {
 
         return false;
     }
-//    todo better boolean
-    public Prints delPrint(Prints print){
 
-        if (clientPrints.remove(print)) {
-            return print;
-        }
+    public boolean delPrint(Prints print){
 
-        return null;
+        return clientPrints.remove(print);
     }
 
     @Override
     public String toString() {
 
-        return String.format("Client - %s %s, Tel: %d;", nameClient, surNameClient, numTelClient);
+        return String.format("Client - %s %s, Tel: %s;", nameClient, surNameClient, numTelClient);
     }
-// todo    equals() should check the class of its parameter
+
     @Override
     public boolean equals(Object obj) {
 
         if(this == obj) return true;
 
-        Client tmp = (Client) obj;
+        if(obj.getClass() == this.getClass()) {
 
-        return this.nameClient.equals(tmp.nameClient) && this.surNameClient.equals(tmp.surNameClient) && this.numTelClient == tmp.numTelClient;
+            Client tmp = (Client) obj;
+
+            return this.nameClient.equals(tmp.nameClient) &&
+                    this.surNameClient.equals(tmp.surNameClient) &&
+                    this.numTelClient.equals(tmp.numTelClient);
+        }
+
+        return false;
     }
 }

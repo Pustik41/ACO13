@@ -1,6 +1,6 @@
-package HomeWork.week2.Library.comp;
+package HomeWork.week2.Library.base.comp;
 
-import HomeWork.week2.Library.Prints;
+import HomeWork.week2.Library.base.Prints;
 
 import java.util.Comparator;
 
@@ -10,12 +10,7 @@ import java.util.Comparator;
 public class ComparatorByYear implements Comparator<Prints> {
     @Override
     public int compare(Prints o1, Prints o2) {
-/*
-        if(o1.getYear() - o2.getYear() < 0) return -1;
-        if(o1.getYear() - o2.getYear() > 0) return 1;
 
-        return 0;*/
-//        todo KISS
         return o1.getYear() - o2.getYear();
     }
 }

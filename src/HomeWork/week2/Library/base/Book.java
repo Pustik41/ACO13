@@ -1,4 +1,4 @@
-package HomeWork.week2.Library;
+package HomeWork.week2.Library.base;
 
 /**
  * Created by dfsdfsddfsdf on 13.06.16.
@@ -11,6 +11,7 @@ public class Book extends Prints {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("Author - %s;", getAuthor().toString());
+        String info = super.toString();
+        return String.format("Author - %s, ", getAuthor().toString()) + info;
     }
 }

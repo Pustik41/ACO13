@@ -1,6 +1,4 @@
-package HomeWork.week2.Library;
-
-import ClassWork.utils.MyDate;
+package HomeWork.week2.Library.base;
 
 /**
  * Created by dfsdfsddfsdf on 10.06.16.
@@ -11,6 +9,7 @@ public class Prints {
     private Author author;
     private int year;
     private int numOfPage;
+    int amountPrints = 0;
 
     public Prints(String title, Author author, int year, int numOfPage) {
         this.title = title;
@@ -39,16 +38,24 @@ public class Prints {
 
     @Override
     public String toString() {
-        return String.format("Title - %s, Published year - %d, Number of page - %d, ", title, year, numOfPage);
+        return String.format("Title - %s, Published year - %d, Number of page - %d", title, year, numOfPage);
     }
-// todo 'equals()' should check the class of its parameter
+
     @Override
     public boolean equals(Object obj) {
 
         if(this == obj) return true;
 
-        Prints tmp = (Prints) obj;
+        if(obj.getClass() == this.getClass()) {
 
-        return this.title.equals(tmp.title) && this.year == tmp.year && this.numOfPage == tmp.numOfPage && this.author.equals(tmp.author);
+            Prints tmp = (Prints) obj;
+
+            return this.title.equals(tmp.title) &&
+                    this.year == tmp.year &&
+                    this.numOfPage == tmp.numOfPage &&
+                    this.author.equals(tmp.author);
+        }
+
+        return false;
     }
 }

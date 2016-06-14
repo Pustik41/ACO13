@@ -1,8 +1,8 @@
-package HomeWork.week2.Library;
+package HomeWork.week2.Library.base;
 
-import HomeWork.week2.Library.comp.ComparatorByNameClient;
-import HomeWork.week2.Library.comp.ComparatorByTitle;
-import HomeWork.week2.Library.comp.ComparatorByYear;
+import HomeWork.week2.Library.base.comp.ComparatorByNameClient;
+import HomeWork.week2.Library.base.comp.ComparatorByTitle;
+import HomeWork.week2.Library.base.comp.ComparatorByYear;
 
 import java.util.ArrayList;
 
@@ -12,34 +12,32 @@ import java.util.ArrayList;
 public class Library {
 
     private String nameLibrary;
-    private long numTelLib;
+    private String numTelLib;
 
     private ArrayList<Prints> prints;
     private ArrayList<Client> clients;
-//todo you can manage your library without this array, think how(DRY)
-    private ArrayList<Client> blackList;
-//    todo what for did you create this array?
-    private ArrayList<Author> authors;
 
 
-
-    public Library(String nameLibrary, long numTelLib) {
+    public Library(String nameLibrary, String numTelLib) {
         this.nameLibrary = nameLibrary;
         this.numTelLib = numTelLib;
         this.prints = new ArrayList<>();
         this.clients = new ArrayList<>();
-        this.blackList = new ArrayList<>();
-        this.authors = new ArrayList<>();
     }
 
     public boolean addPrints(Prints print){
-//  todo does libraries contain only unique books?
-        if(print != null && !prints.contains(print)) {
 
-            prints.add(print);
+        if(print != null){
 
-            if(!authors.contains(print.getAuthor())) authors.add(print.getAuthor());
+            if(!prints.contains(print)) {
 
+                prints.add(print);
+                print.amountPrints++;
+
+                return true;
+            }
+
+            print.amountPrints++;
             return true;
         }
 
@@ -59,8 +57,8 @@ public class Library {
 
     public boolean addToBlackList(Client client){
 
-        if(client != null && !blackList.contains(client)) {
-            blackList.add(client);
+        if(client != null && client.getInBlackList() == false) {
+
             client.setInBlackList(true);
 
             return true;
@@ -68,30 +66,27 @@ public class Library {
 
         return false;
     }
-// todo boolean
-    public Prints delPrints(Prints print){
 
-        if(prints.remove(print)){
+    public boolean delPrints(Prints print){
 
-            int counterAuthorPrints = 0;
+        if(print != null && prints.contains(print)){
 
-            for (Prints pr: prints) {
-                if(print.getAuthor().equals(pr.getAuthor())) counterAuthorPrints++;
+            if(print.amountPrints - 1 > 0){
+
+                print.amountPrints--;
+                return true;
             }
 
-            if(counterAuthorPrints == 0) authors.remove(print.getAuthor());
-
-            return print;
+            print.amountPrints--;
+            return prints.remove(print);
         }
 
-        System.out.println("Prints not found");
-
-        return null;
+        return false;
     }
 
     public boolean delBlackList(Client client){
 
-        if(client != null && blackList.remove(client)) {
+        if(client != null && client.getInBlackList() == true) {
 
             client.setInBlackList(false);
 
@@ -100,20 +95,13 @@ public class Library {
 
         return false;
     }
-// todo simplify your code (a lot of "if")
-public boolean issuePrints(Client client, Prints print){
 
-        if(client != null){
+    public boolean issuePrints(Client client, Prints print){
 
-            if(client.getInBlackList()){
-                System.out.println("Client in blackList!!!");
-                return false;
-            }
+        if(client != null && client.getInBlackList() == false && delPrints(print)){
 
-            if(delPrints(print) != null) {
-                return client.addPrint(print);
-            }
-        }
+            return client.addPrint(print);
+         }
 
         return false;
     }
@@ -128,24 +116,15 @@ public boolean issuePrints(Client client, Prints print){
         return false;
     }
 
-    public void showAuthorList(){
-
-        System.out.println("Author List:");
-
-        for (Author ar: authors) {
-            System.out.println(ar);
-        }
-    }
-
     public void showBlackList(){
 
         System.out.println("Black List:");
 
-        blackList.sort(new ComparatorByNameClient());
+        clients.sort(new ComparatorByNameClient());
 
-        for (Client cl: blackList) {
+        for (Client cl: clients) {
 
-            System.out.println(cl.toString());
+            if(cl.getInBlackList() == true) System.out.println(cl);
         }
     }
 
@@ -167,7 +146,7 @@ public boolean issuePrints(Client client, Prints print){
 
         prints.sort(new ComparatorByTitle());
 
-        for (Prints pr: prints) { System.out.println(pr);}
+        for (Prints pr: prints) { System.out.println(pr + ", Amount - " + pr.amountPrints + ";");}
 
     }
 
@@ -209,9 +188,20 @@ public boolean issuePrints(Client client, Prints print){
 
             out.sort(new ComparatorByTitle());
 
-            for (Prints pr: out) {
+            for (int i = 0; i < out.size() ; i++) {
 
-                System.out.println(pr);
+                int counterSame = 0;
+
+                for (int j = i; j < out.size() ; j++) {
+
+                    if(out.get(i).equals(out.get(j))){
+                        counterSame++;
+                    }
+                }
+
+                System.out.println(out.get(i) + ", Amount - " + counterSame + ";");
+
+                i = i + counterSame - 1;
             }
 
             return;
@@ -220,7 +210,7 @@ public boolean issuePrints(Client client, Prints print){
         System.out.println("Was mot issued any prints");
     }
 
-    public void showPrintsByAuthor(Author author){
+    public void searchPrintsByAuthor(Author author){
 
         ArrayList<Prints> tmp = new ArrayList<>();
 
@@ -236,7 +226,7 @@ public boolean issuePrints(Client client, Prints print){
             tmp.sort(new ComparatorByTitle());
 
             for (Prints pr : tmp) {
-                System.out.println(pr);
+                System.out.println(pr + ", Amount - " + pr.amountPrints + ";");
             }
 
             return;
@@ -245,7 +235,7 @@ public boolean issuePrints(Client client, Prints print){
         System.out.println(author.toString() + " writer's book was not found");
     }
 
-    public void showPrintsByYear(int year){
+    public void searchPrintsByYear(int year){
 
         ArrayList<Prints> tmp = new ArrayList<>();
 
@@ -261,7 +251,7 @@ public boolean issuePrints(Client client, Prints print){
             tmp.sort(new ComparatorByTitle());
 
             for (Prints pr : tmp) {
-                System.out.println(pr);
+                System.out.println(pr + ", Amount - " + pr.amountPrints + ";");
             }
 
             return;
@@ -269,15 +259,24 @@ public boolean issuePrints(Client client, Prints print){
 
         System.out.println("Prints of " + year + " was not found");
     }
-// todo you can find more than one book
-    public Prints searchPrints(String title){
+
+    public ArrayList<Prints> searchPrints(String title){
 
         if(title != null){
 
-            for (Prints pr: prints) {
+            ArrayList<Prints> sameTitles = new ArrayList<>();
 
-                if(title.equals(pr.getTitle())) return pr;
+            prints.sort(new ComparatorByYear());
+
+            for (Prints pr: prints) {
+                if(pr.getTitle().equals(title)) {
+
+                    System.out.println(pr + ", Amount - " + pr.amountPrints + ";");
+                    sameTitles.add(pr);
+                }
             }
+
+            return (ArrayList<Prints>) sameTitles;
         }
 
         System.out.println("Prints not found!!!");
