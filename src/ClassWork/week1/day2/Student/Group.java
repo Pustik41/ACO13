@@ -31,14 +31,13 @@ public class Group {
     }
 
     public boolean addStudent(Student student) {
-//      todo use ArrayList methods    students.contains(student);
+
         if(student != null) {
 
-            if (!searchStudent(student)) {
-//              also return true
-                return students.add(student);
+            if (!students.contains(student)) {
 
-//                return true;
+                students.add(student);
+                return true;
             }
         }
 
@@ -49,8 +48,8 @@ public class Group {
     public void showGroup() {
 
         for (Student st: students) {
-//        todo    can use without toString
-            System.out.println(st.toString());
+
+            System.out.println(st);
         }
 
     }

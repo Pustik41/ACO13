@@ -11,11 +11,6 @@ public class AverageMarkComparator implements Comparator<Student> {
     @Override
     public int compare(Student o1, Student o2) {
 
-        if( o1.getAverageMark() - o2.getAverageMark() < 0) return -1;
-        if( o1.getAverageMark() - o2.getAverageMark() > 0) return 1;
-
-        return 0;
-
-//   todo or  return Double.compare(o1.getAverageMark(), o2.getAverageMark());
+        return Double.compare(o1.getAverageMark(), o2.getAverageMark());
     }
 }

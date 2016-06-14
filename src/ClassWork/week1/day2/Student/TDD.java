@@ -16,9 +16,9 @@ public class TDD {
 
         addStudent(st1, group);
         addStudent(st1, group);
-//todo change
-       /* searchStudent(st1, group);
-        searchStudent(st2, group);*/
+
+        searchStudent(st1, group);
+        searchStudent(st2, group);
 
         delStudent(st1, group);
         delStudent(st1, group);
@@ -35,15 +35,15 @@ public class TDD {
         System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
                 "addStudent", expected == actual, expected, actual);
         }
-//todo change
 
-    /*public static void searchStudent(Student st1, Group group) {
-            Student expected = st1;
-            Student actual = group.contains(st1.getName());
+
+    public static void searchStudent(Student st1, Group group) {
+            boolean expected = true;
+            boolean actual = group.searchStudent(st1);
 
             System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
                     "contains", expected == actual, expected, actual);
-    }*/
+    }
 
     public static void delStudent(Student st1, Group group) {
         boolean expected = true;
@@ -51,7 +51,5 @@ public class TDD {
 
         System.out.printf("Method name - %s, result - %s," + " exccepted - %s, acttual - %s\n",
                 "delStudent", expected == actual, expected, actual);
-
-
     }
 }
