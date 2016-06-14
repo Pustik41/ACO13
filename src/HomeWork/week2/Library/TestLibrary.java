@@ -22,9 +22,11 @@ public class TestLibrary {
         Prints bk2 = new Book("Nous les dieux", ar3, 2004, 612);
         Prints bk3 = new Book("The Divine Comedy", ar4, 1998, 654);
         Prints bk4 = new Book("The Lost Symbol", ar1, 2015, 684);
-        Prints mag1 = new Magazine("Rolling Stone", ar2, 2016, 35);
-        Prints mag2 = new Magazine("Rolling Stone", ar2, 2009, 38);
+        Prints mag1 = new Magazine("Rolling Stone", ar2, 2016, 35, 1);
+        Prints mag2 = new Magazine("Rolling Stone", ar2, 2009, 38, 1);
+        Prints mag3 = new Magazine("Rolling Stone", ar2, 2016, 35, 2);
         Prints bk5 = new Book("Inferno", ar5, 1987, 310);
+        Prints bk6 = new Book("Inferno", ar1, 2009, 654);
         //Prints bk6 = null;
 
 
@@ -33,6 +35,7 @@ public class TestLibrary {
         Client cl3 = new Client("Bob", "Riger", "044_385_75_84");
         Client cl4 = new Client("John", "Min", "044_876_42_94");
         Client cl5 = new Client("Bob", "Lee", "044_983_63_19");
+        Client cl6 = new Client("Bob", "Lee", "044_983_63_12");
 
         lib.addPrints(bk1);
         lib.addPrints(bk2);
@@ -43,6 +46,11 @@ public class TestLibrary {
         lib.addPrints(bk1);
         lib.addPrints(bk1);
         lib.addPrints(bk5);
+        lib.addPrints(bk6);
+        lib.addPrints(bk6);
+        lib.addPrints(mag3);
+        lib.addPrints(mag2);
+        lib.addPrints(mag3);
 
 
         //lib.addPrints(bk6); // null
@@ -52,11 +60,16 @@ public class TestLibrary {
         lib.addClient(cl3);
         lib.addClient(cl4);
         lib.addClient(cl5);
+        lib.addClient(cl6);
+
+        lib.showClients();
 
         lib.addToBlackList(cl5);
 
+        System.out.println();
+        lib.showAvailablePrints();
 
-        lib.showPrints();
+        lib.delBlackList(cl5);
 
 
 
@@ -66,23 +79,17 @@ public class TestLibrary {
         lib.issuePrints(cl2, bk3);
         lib.issuePrints(cl3, bk1);
         lib.issuePrints(cl4, bk1);
-
-
-
-        lib.returnPrints(cl1, bk2);
-        lib.returnPrints(cl2, bk3);
-        lib.returnPrints(cl1, mag2);
-        lib.returnPrints(cl3, bk1);
-
-
-        //lib.showPrints();
+        lib.issuePrints(cl2, bk1);
+        lib.issuePrints(cl5, bk1);
 
         System.out.println();
-        lib.searchPrints("Inferno");
+        lib.showPrintsInOut();
 
         System.out.println();
-        lib.searchPrintsByYear(2009);
+        lib.showNeededPrints();
 
+        System.out.println();
+        lib.showAvailablePrints();
 
     }
 }

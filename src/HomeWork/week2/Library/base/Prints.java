@@ -9,8 +9,7 @@ public class Prints {
     private Author author;
     private int year;
     private int numOfPage;
-//    todo make private
-    int amount = 0;
+    private int amount = 0;
 
     public Prints(String title, Author author, int year, int numOfPage) {
         this.title = title;
@@ -37,9 +36,20 @@ public class Prints {
         return numOfPage;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+
+        if(amount == 1 || amount == -1) {
+            this.amount += amount;
+        }
+    }
+
     @Override
     public String toString() {
-        return String.format("Title - %s, Published year - %d, Number of page - %d", title, year, numOfPage);
+        return String.format("Title - %s, Published year - %d, Number of page - %d, ", title, year, numOfPage);
     }
 
     @Override

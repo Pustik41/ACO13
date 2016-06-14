@@ -11,7 +11,6 @@ public class Book extends Prints {
 
     @Override
     public String toString() {
-        String info = super.toString();
-        return String.format("Author - %s, ", getAuthor().toString()) + info;
+       return super.toString() + String.format("Author - %s", getAuthor().toString());
     }
 }

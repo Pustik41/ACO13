@@ -60,14 +60,9 @@ public class Client {
 
     public boolean addPrint(Prints print){
 
-        if(clientPrints.size() < MAX_COUNT_PRINTS) {
-
             if (!clientPrints.contains(print)) {
                 return clientPrints.add(print);
             }
-        }
-
-        System.out.println("Client have 3 prints!!!");
 
         return false;
     }
