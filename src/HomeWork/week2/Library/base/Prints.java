@@ -9,7 +9,8 @@ public class Prints {
     private Author author;
     private int year;
     private int numOfPage;
-    int amountPrints = 0;
+//    todo make private
+    int amount = 0;
 
     public Prints(String title, Author author, int year, int numOfPage) {
         this.title = title;

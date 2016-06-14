@@ -30,17 +30,17 @@ public class Library {
         if(print != null){
 
             if(!prints.contains(print)) {
-
+// todo it think it would be better only change amount, and so you don't need to add new print
                 prints.add(print);
-                print.amountPrints++;
+                print.amount++;
 
                 return true;
             }
 
-            print.amountPrints++;
+            print.amount++;
             return true;
         }
-
+// todo it will be never return false
         System.out.println("Prints can`t be added!!!");
         return false;
     }
@@ -57,8 +57,8 @@ public class Library {
 
     public boolean addToBlackList(Client client){
 
-        if(client != null && client.getInBlackList() == false) {
-
+        if(client != null && !client.getInBlackList()) {
+//todo before add to black list, you must find client in your data base (ArrayList).
             client.setInBlackList(true);
 
             return true;
@@ -68,16 +68,17 @@ public class Library {
     }
 
     public boolean delPrints(Prints print){
+//todo before del print, you must find it in your data base (ArrayList).
 
         if(print != null && prints.contains(print)){
 
-            if(print.amountPrints - 1 > 0){
+            if(print.amount - 1 > 0){
 
-                print.amountPrints--;
+                print.amount--;
                 return true;
             }
 
-            print.amountPrints--;
+            print.amount--;
             return prints.remove(print);
         }
 
@@ -85,8 +86,9 @@ public class Library {
     }
 
     public boolean delBlackList(Client client){
+//todo before del from black list, you must find client in your data base (ArrayList).
 
-        if(client != null && client.getInBlackList() == true) {
+        if(client != null && client.getInBlackList()) {
 
             client.setInBlackList(false);
 
@@ -97,8 +99,8 @@ public class Library {
     }
 
     public boolean issuePrints(Client client, Prints print){
-
-        if(client != null && client.getInBlackList() == false && delPrints(print)){
+// todo work with inner clients
+        if(client != null && !client.getInBlackList() && delPrints(print)){
 
             return client.addPrint(print);
          }
@@ -107,6 +109,7 @@ public class Library {
     }
 
     public boolean returnPrints(Client client, Prints print){
+// todo work with inner clients
 
         if(client != null && client.getClientPrints().contains(print) && addPrints(print)){
             client.delPrint(print);
@@ -146,7 +149,7 @@ public class Library {
 
         prints.sort(new ComparatorByTitle());
 
-        for (Prints pr: prints) { System.out.println(pr + ", Amount - " + pr.amountPrints + ";");}
+        for (Prints pr: prints) { System.out.println(pr + ", Amount - " + pr.amount + ";");}
 
     }
 
@@ -226,7 +229,7 @@ public class Library {
             tmp.sort(new ComparatorByTitle());
 
             for (Prints pr : tmp) {
-                System.out.println(pr + ", Amount - " + pr.amountPrints + ";");
+                System.out.println(pr + ", Amount - " + pr.amount + ";");
             }
 
             return;
@@ -251,7 +254,7 @@ public class Library {
             tmp.sort(new ComparatorByTitle());
 
             for (Prints pr : tmp) {
-                System.out.println(pr + ", Amount - " + pr.amountPrints + ";");
+                System.out.println(pr + ", Amount - " + pr.amount + ";");
             }
 
             return;
@@ -271,7 +274,7 @@ public class Library {
             for (Prints pr: prints) {
                 if(pr.getTitle().equals(title)) {
 
-                    System.out.println(pr + ", Amount - " + pr.amountPrints + ";");
+                    System.out.println(pr + ", Amount - " + pr.amount + ";");
                     sameTitles.add(pr);
                 }
             }
