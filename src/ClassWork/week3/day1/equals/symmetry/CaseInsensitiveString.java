@@ -1,4 +1,4 @@
-package week3.day1.equals.symmetry;
+package ClassWork.week3.day1.equals.symmetry;
 
        // Broken - violates symmetry!
 public final class CaseInsensitiveString {

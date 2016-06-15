@@ -1,4 +1,4 @@
-package week3.day1.enum_example;
+package ClassWork.week3.day1.enum_example;
 
 public enum Planet {
     MERCURY (3.303e+23, 2.4397e6),

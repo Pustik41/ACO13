@@ -1,4 +1,4 @@
-package design_patterns.singleton;
+package ClassWork.week3.desing_patterns.singleton;
 
 /**
  * Created by gorobec on 05.06.16.

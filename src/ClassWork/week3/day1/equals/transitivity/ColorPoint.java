@@ -1,4 +1,4 @@
-package week3.day1.equals.transitivity;
+package ClassWork.week3.day1.equals.transitivity;
 
 
 import java.awt.*;

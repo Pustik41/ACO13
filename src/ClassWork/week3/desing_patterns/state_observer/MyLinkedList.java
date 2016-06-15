@@ -1,6 +1,6 @@
-package week3.day2;
+package ClassWork.week3.desing_patterns.state_observer;
 
-import design_patterns.state_observer.Node;
+
 
 import java.util.Collection;
 import java.util.Iterator;

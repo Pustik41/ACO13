@@ -1,4 +1,4 @@
-package design_patterns.state_observer;
+package ClassWork.week3.desing_patterns.state_observer;
 
 /**
  * Created by gorobec on 05.06.16.
