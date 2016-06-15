@@ -33,7 +33,7 @@ public class Library {
             return false;
         }
 
-        print = equalsPrints(print);
+        print = findPrint(print);
 
         if(!prints.contains(print)) {
 
@@ -58,9 +58,11 @@ public class Library {
 
         if(client != null && clients.contains(client)) {
 
-            Client tmp = equalsClient(client);
+            Client tmp = findClient(client);
 
-            if(tmp.getInBlackList() != true) {
+//            if(tmp.getInBlackList() != true) {
+//            keep it simple
+            if(!tmp.getInBlackList()) {
 
                 clients.get(clients.indexOf(client)).setInBlackList(true);
 
@@ -70,39 +72,29 @@ public class Library {
 
         return false;
     }
-
+//   do you delete all prints?
     public boolean delPrints(Prints print){
 
-        if(print != null && prints.contains(print)){
+        if (print == null || !prints.contains(print)) return false;
 
-            print = equalsPrints(print);
+        print = findPrint(print);
 
-            if(print.getAmount() == 0){
+        if (print.getAmount() == 0) return false;
 
-                return false;
-            }
-
-            print.setAmount(-1);
-            return true;
-        }
-
-        return false;
+        print.setAmount(-1);
+        return true;
     }
 
     public boolean delBlackList(Client client){
 
-        if(client != null && clients.contains(client)){
+        if(client == null || !clients.contains(client)) return false;
 
-            Client tmp = equalsClient(client);
-
-            if(tmp.getInBlackList() == true) {
-
-                tmp.setInBlackList(false);
-
-                return true;
-            }
+        client = findClient(client);
+//          KISS
+        if(client.getInBlackList()) {
+            client.setInBlackList(false);
+            return true;
         }
-
         return false;
     }
 
@@ -110,10 +102,10 @@ public class Library {
 
         if(client != null && clients.contains(client)){
 
-            Client tmp = equalsClient(client);
+            Client tmp = findClient(client);
 
-            if (tmp.getInBlackList() == false
-                    && tmp.getClientPrints().size() + 1 <= tmp.getMAX_COUNT_PRINTS() && delPrints(print)) {
+            if (!tmp.getInBlackList()
+                    && tmp.getClientPrints().size() < tmp.getMAX_COUNT_PRINTS() && delPrints(print)) {
 
                 return tmp.addPrint(print);
             }
@@ -126,16 +118,13 @@ public class Library {
 
         if(client != null && print != null &&  clients.contains(client) && prints.contains(print)){
 
-            client = equalsClient(client);
-            print = equalsPrints(print);
+            client = findClient(client);
+            print = findPrint(print);
 
             if(client.getClientPrints().contains(print) && addPrints(print)){
-                client.delPrint(print);
-                return true;
+                return client.delPrint(print);
             }
-
         }
-
         return false;
     }
 
@@ -147,7 +136,7 @@ public class Library {
 
         for (Client cl: clients) {
 
-            if(cl.getInBlackList() == true) System.out.println(cl);
+            if(cl.getInBlackList()) System.out.println(cl);
         }
     }
 
@@ -260,7 +249,7 @@ public class Library {
                 tmp.add(pr);
             }
         }
-
+//          DRY
         if(tmp.size() > 0) {
 
             tmp.sort(new ComparatorByTitle());
@@ -285,7 +274,7 @@ public class Library {
                 tmp.add(pr);
             }
         }
-
+//          DRY
         if(tmp.size() > 0) {
 
             tmp.sort(new ComparatorByTitle());
@@ -323,27 +312,29 @@ public class Library {
 
         return null;
     }
+// bad name
+//    private Prints findPrint(Prints print){
+    private Prints findPrint(Prints print){
 
-    private Prints equalsPrints(Prints print){
+//        int haveCopy = prints.indexOf(print);
+        int printIdx = prints.indexOf(print);
 
-        int haveCopy = prints.indexOf(print);
-
-        if( haveCopy >= 0){
-            return prints.get(haveCopy);
+        if(printIdx >= 0){
+            return prints.get(printIdx);
         }
-
+// mayby better return null?
         return print;
     }
+//bad name
+    private Client findClient(Client client){
 
-    private Client equalsClient(Client client){
+        int clientIdx = clients.indexOf(client);
 
-        int haveCopy = clients.indexOf(client);
+        if( clientIdx >= 0){
 
-        if( haveCopy >= 0){
-
-            return clients.get(haveCopy);
+            return clients.get(clientIdx);
         }
-
+//      better return null
         return client;
     }
 }
