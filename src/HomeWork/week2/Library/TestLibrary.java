@@ -53,8 +53,6 @@ public class TestLibrary {
         lib.addPrints(mag3);
 
 
-        //lib.addPrints(bk6); // null
-
         lib.addClient(cl1);
         lib.addClient(cl2);
         lib.addClient(cl3);
@@ -62,53 +60,32 @@ public class TestLibrary {
         lib.addClient(cl5);
         lib.addClient(cl6);
 
-       /* lib.showClients();
 
-        lib.addToBlackList(cl5);
-
-        System.out.println();
-        lib.showAvailablePrints();
-
-        lib.delBlackList(cl5);
-
-
-
-        lib.issuePrints(cl1, bk1);
-        lib.issuePrints(cl1, bk2);
-        lib.issuePrints(cl1, mag2);
-        lib.issuePrints(cl2, bk3);
-        lib.issuePrints(cl3, bk1);
-        lib.issuePrints(cl4, bk1);
-        lib.issuePrints(cl2, bk1);
-        lib.issuePrints(cl5, bk1);
-
-        System.out.println();
-        lib.showPrintsInOut();
-
-        System.out.println();
-        lib.showNeededPrints();
-
-        System.out.println();
-        lib.showAvailablePrints();*/
-//todo test failed
+// test passed
         lib.showBlackList();
         Client cl7 = new Client("Stiv", "Gardner", "044_295_48_25");
         System.out.println("Does client add to BL - " + lib.addToBlackList(cl7));
         lib.showBlackList();
-//todo test failed
+// test passed
         lib.showPrintsInOut();
         Client cl8 = new Client("Stiv", "Gardner", "044_295_48_25");
         System.out.println("Does client take bookL - " + lib.issuePrints(cl8, bk1));
         lib.showPrintsInOut();
-//todo test failed
+// test passed
         lib.showPrintsInOut();
         System.out.println("Does client take bookL - " + lib.issuePrints(cl2, bk6));
         lib.showPrintsInOut();
-//todo test failed
+// test passed
         lib.showBlackList();
         System.out.println("Does client add to BL - " + lib.addToBlackList(cl1));
         lib.showBlackList();
         System.out.println("Does client remove from BL - " + lib.delBlackList(cl7));
         lib.showBlackList();
+// test return passed
+        lib.showPrintsInOut();
+        Client cl9 = new Client("Frenk", "Lourens", "044_245_28_65");
+        Prints bk7 = new Book("Inferno", ar1, 2009, 654);
+        System.out.println("Does return  bookL - " + lib.returnPrints(cl9,bk7));
+        lib.showPrintsInOut();
     }
 }

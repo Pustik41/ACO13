@@ -56,10 +56,16 @@ public class Library {
 
     public boolean addToBlackList(Client client){
 
-        if(client != null && clients.contains(client) && !client.getInBlackList()) {
-            client.setInBlackList(true);
+        if(client != null && clients.contains(client)) {
 
-            return true;
+            Client tmp = equalsClient(client);
+
+            if(tmp.getInBlackList() != true) {
+
+                clients.get(clients.indexOf(client)).setInBlackList(true);
+
+                return true;
+            }
         }
 
         return false;
@@ -68,6 +74,8 @@ public class Library {
     public boolean delPrints(Prints print){
 
         if(print != null && prints.contains(print)){
+
+            print = equalsPrints(print);
 
             if(print.getAmount() == 0){
 
@@ -83,11 +91,16 @@ public class Library {
 
     public boolean delBlackList(Client client){
 
-        if(client != null && clients.contains(client) && client.getInBlackList() == true) {
+        if(client != null && clients.contains(client)){
 
-            client.setInBlackList(false);
+            Client tmp = equalsClient(client);
 
-            return true;
+            if(tmp.getInBlackList() == true) {
+
+                tmp.setInBlackList(false);
+
+                return true;
+            }
         }
 
         return false;
@@ -95,20 +108,32 @@ public class Library {
 
     public boolean issuePrints(Client client, Prints print){
 
-        if(client != null && client.getInBlackList() == false
-                && client.getClientPrints().size() + 1 <= client.getMAX_COUNT_PRINTS() && delPrints(print)){
+        if(client != null && clients.contains(client)){
 
-            return client.addPrint(print);
-         }
+            Client tmp = equalsClient(client);
+
+            if (tmp.getInBlackList() == false
+                    && tmp.getClientPrints().size() + 1 <= tmp.getMAX_COUNT_PRINTS() && delPrints(print)) {
+
+                return tmp.addPrint(print);
+            }
+        }
 
         return false;
     }
 
     public boolean returnPrints(Client client, Prints print){
 
-        if(client != null && client.getClientPrints().contains(print) && addPrints(print)){
-            client.delPrint(print);
-            return true;
+        if(client != null && print != null &&  clients.contains(client) && prints.contains(print)){
+
+            client = equalsClient(client);
+            print = equalsPrints(print);
+
+            if(client.getClientPrints().contains(print) && addPrints(print)){
+                client.delPrint(print);
+                return true;
+            }
+
         }
 
         return false;
@@ -222,7 +247,7 @@ public class Library {
             return;
         }
 
-        System.out.println("Was mot issued any prints");
+        System.out.println("Was not issued any prints");
     }
 
     public void searchPrintsByAuthor(Author author){
@@ -308,5 +333,17 @@ public class Library {
         }
 
         return print;
+    }
+
+    private Client equalsClient(Client client){
+
+        int haveCopy = clients.indexOf(client);
+
+        if( haveCopy >= 0){
+
+            return clients.get(haveCopy);
+        }
+
+        return client;
     }
 }
