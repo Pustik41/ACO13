@@ -45,6 +45,7 @@ public class Prints {
         if(amount == 1 || amount == -1) {
             this.amount += amount;
         }
+        else{ this.amount = amount;}
     }
 
     @Override

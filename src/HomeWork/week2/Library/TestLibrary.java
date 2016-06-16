@@ -37,20 +37,20 @@ public class TestLibrary {
         Client cl5 = new Client("Bob", "Lee", "044_983_63_19");
         Client cl6 = new Client("Bob", "Lee", "044_983_63_12");
 
-        lib.addPrints(bk1);
-        lib.addPrints(bk2);
-        lib.addPrints(bk3);
-        lib.addPrints(bk4);
-        lib.addPrints(mag1);
-        lib.addPrints(mag2);
-        lib.addPrints(bk1);
-        lib.addPrints(bk1);
-        lib.addPrints(bk5);
-        lib.addPrints(bk6);
-        lib.addPrints(bk6);
-        lib.addPrints(mag3);
-        lib.addPrints(mag2);
-        lib.addPrints(mag3);
+        lib.addPrint(bk1);
+        lib.addPrint(bk2);
+        lib.addPrint(bk3);
+        lib.addPrint(bk4);
+        lib.addPrint(mag1);
+        lib.addPrint(mag2);
+        lib.addPrint(bk1);
+        lib.addPrint(bk1);
+        lib.addPrint(bk5);
+        lib.addPrint(bk6);
+        lib.addPrint(bk6);
+        lib.addPrint(mag3);
+        lib.addPrint(mag2);
+        lib.addPrint(mag3);
 
 
         lib.addClient(cl1);
@@ -87,5 +87,23 @@ public class TestLibrary {
         Prints bk7 = new Book("Inferno", ar1, 2009, 654);
         System.out.println("Does return  bookL - " + lib.returnPrints(cl9,bk7));
         lib.showPrintsInOut();
+
+// test delPrint passed
+        Prints bk10 = new Book("Inferno", ar1, 2009, 654);
+        lib.delPrint(bk10);
+        System.out.println("Does client take bookL - " + lib.issuePrints(cl3,bk1));
+        lib.addPrint(bk1);
+        lib.searchPrints(bk1.getTitle());
+// test clearLibraryOfPrints passed
+        lib.clearLibraryOfPrints();
+        lib.showAvailablePrints();
+        System.out.println("Does client take bookL - " + lib.issuePrints(cl4,bk1));
+        lib.addPrint(bk1);
+        lib.showAvailablePrints();
+// test clearLibraryOfClients passed
+        lib.clearLibraryOfClients();
+        lib.showClients();
+        System.out.println("Does client take bookL - " + lib.issuePrints(cl4,bk1));
+
     }
 }
