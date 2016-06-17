@@ -2,7 +2,6 @@ package HomeWork.week2.Library.base;
 
 import HomeWork.week2.Library.base.comp.ComparatorByNameClient;
 import HomeWork.week2.Library.base.comp.ComparatorByTitle;
-import HomeWork.week2.Library.base.comp.ComparatorByYear;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,35 +27,32 @@ public class Library {
 
     public boolean addPrint(Prints print){
 
-        if(print == null){
-            System.out.println("Prints not valid!!!");
-            return false;
-        }
+        if(print == null) {return false;}
 
-        print = findPrint(print);
+        Prints copyPrint = findPrint(print);
 
-        if(!prints.contains(print)) {
+        if(copyPrint == null) {
 
             prints.add(print);
+            print.setAmount(1);
+            return true;
         }
 
-        print.setAmount(1);
+        copyPrint.setAmount(1);
+
         return true;
     }
 
     public boolean addClient(Client client) {
 
-//        return client != null && clients.indexOf(client) < 0 && clients.add(client);
-//        if you don't have nulls in clients list you can don't check on null (see indexOf)
         return clients.indexOf(client) < 0 && clients.add(client);
-
     }
 
     public boolean addToBlackList(Client client){
 
         Client findClient = findClient(client);
 
-        if(findClient != null && findClient.getInBlackList()) {
+        if(findClient != null && !findClient.getInBlackList()) {
             findClient.setInBlackList(true);
             return true;
         }
@@ -66,34 +62,34 @@ public class Library {
 
     public boolean removePrint(Prints print){
 
-        if (print == null || !prints.contains(print)) return false;
-
         print = findPrint(print);
 
-        if (print.getAmount() == 0) return false;
+        if (print != null ) {
 
-        print.setAmount(-1);
-        return true;
+            if (print.getAmount() != 0) {
+                print.setAmount(-1);
+                return true;
+            }
+        }
+
+        return false;
     }
 
-//        bad name
-public Prints removeAllPrintAmount(Prints print){
 
-        if (print == null || !prints.contains(print)) return null;
+public boolean removeAllPrintCopies(Prints print){
 
         print = findPrint(print);
+        if (print == null ) return false;
 
         print.setAmount(0);
         prints.remove(print);
 
-//        don't return print cause its the same print that you give in method arguments
-        return print;
+        return true;
     }
 
     public void clearLibrariesPrints(){
 
         prints.clear();
-
     }
 
     public void clearLibraryOfClients(){
@@ -102,8 +98,6 @@ public Prints removeAllPrintAmount(Prints print){
     }
 
     public boolean removeFromBlacklist(Client client){
-//      find and contains do same job
-//        if(client == null) return false;
 
         Client clientFromList = findClient(client);
 
@@ -116,14 +110,14 @@ public Prints removeAllPrintAmount(Prints print){
 
     public boolean issuePrints(Client client, Prints print){
 
-        if(client != null && clients.contains(client)){
+        client = findClient(client);
 
-            Client tmp = findClient(client);
-//        can be nullPointerEx
-            if (!tmp.getInBlackList()
-                    && tmp.getClientPrints().size() < tmp.getMAX_COUNT_PRINTS() && removePrint(print)) {
+        if(client != null){
 
-                return tmp.addPrint(print);
+            if (!client.getInBlackList()
+                    && client.getClientPrints().size() < client.getMAX_COUNT_PRINTS() && removePrint(print)) {
+
+                return client.addPrint(print);
             }
         }
 
@@ -131,12 +125,11 @@ public Prints removeAllPrintAmount(Prints print){
     }
 
     public boolean returnPrints(Client client, Prints print){
-//      find and contains do same job
-        if(client != null && print != null &&  clients.contains(client) && prints.contains(print)){
 
-            client = findClient(client);
-            print = findPrint(print);
-//        can be nullPointerEx
+        client = findClient(client);
+        print = findPrint(print);
+
+        if(client != null && print != null){
 
             if(client.getClientPrints().contains(print) && addPrint(print)){
                 return client.delPrint(print);
@@ -147,18 +140,14 @@ public Prints removeAllPrintAmount(Prints print){
 
     public List<Client> showBlackList(){
 
-//  print logic must be in another class
-//        System.out.println("Black List:");
         List<Client> blackList = new ArrayList<>();
 
-        clients.sort(new ComparatorByNameClient());
+        clients.sort(ComparatorByNameClient.getSort());
 
         for (Client cl: clients) {
 
             if(cl.getInBlackList()){
-
                 blackList.add(cl);
-                System.out.println(cl);
             }
         }
 
@@ -166,55 +155,38 @@ public Prints removeAllPrintAmount(Prints print){
     }
 
     public List<Client> showClients(){
-//  print logic must be in another class
-//        System.out.println("Clients List:");
 
-        clients.sort(new ComparatorByNameClient());
-
-        for (Client cl: clients) {
-
-            System.out.println(cl);
-        }
+        clients.sort(ComparatorByNameClient.getSort());
 
         return clients;
     }
 
     public List<Prints> showAvailablePrints(){
-//  print logic must be in another class
-//        System.out.println("Available Prints List:");
 
         List<Prints> available = new ArrayList<>();
-
-//        prints.sort(new ComparatorByTitle());
 
         for (Prints pr: prints) {
 
             if(pr.getAmount() > 0) {
                 available.add(pr);
-//                System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
             }
         }
-//        todo make comparators singleton
-        available.sort(new ComparatorByTitle());
+
+        available.sort(ComparatorByTitle.getSort());
         return available;
     }
 
     public List<Prints> showNeededPrints(){
 
-//        System.out.println("Needed Prints List:");
-
         List<Prints> needed = new ArrayList<>();
-
-//        prints.sort(new ComparatorByTitle());
 
         for (Prints pr: prints) {
 
             if(pr.getAmount() == 0) {
                 needed.add(pr);
-//                System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
             }
         }
-        needed.sort(new ComparatorByTitle());
+        needed.sort(ComparatorByTitle.getSort());
         return needed;
     }
 
@@ -224,33 +196,11 @@ public Prints removeAllPrintAmount(Prints print){
         if(findClient == null || findClient.getClientPrints().size() == 0) return null;
         return  findClient.getClientPrints();
     }
-    /*public List<Prints> showClientPrints(Client client){
 
-        if(client != null  && clients.contains(client)) {
-
-            if (client.getCountClientPtints() > 0) {
-
-                System.out.println(client + "\nHave " + client.getClientPrints().size() + " prints:");
-
-                for (Prints pr : client.getClientPrints()) {
-
-                    System.out.println(pr);
-                }
-
-                return client.getClientPrints();
-            }
-
-            System.out.println(client.toString() + "\nDon`t have any prints");
-        }
-
-        return null;
-    }*/
 //  todo refactoring
     public List<Prints> showPrintsInOut(){
 
         List<Prints> out = new ArrayList<>();
-
-        System.out.println("Issued books:");
 
         for (Client cl: clients) {
 
@@ -259,7 +209,7 @@ public Prints removeAllPrintAmount(Prints print){
 
         if(out.size() > 0){
 
-            out.sort(new ComparatorByTitle());
+            out.sort(ComparatorByTitle.getSort());
 
             for (int i = 0; i < out.size() ; i++) {
 
@@ -272,15 +222,12 @@ public Prints removeAllPrintAmount(Prints print){
                     }
                 }
 
-                System.out.println(out.get(i) + ", Amount - " + counterSame + ";");
-
                 i = i + counterSame - 1;
+
             }
 
             return out;
         }
-
-        System.out.println("Was not issued any prints");
 
         return null;
     }
@@ -294,32 +241,10 @@ public Prints removeAllPrintAmount(Prints print){
                 authorPrints.add(pr);
             }
         }
-        authorPrints.sort(new ComparatorByTitle());
+        authorPrints.sort(ComparatorByTitle.getSort());
 
         return authorPrints.size() > 0 ? authorPrints : null;
-    }/*
-    public List<Prints> searchPrintsByAuthor(Author author){
-
-        List<Prints> tmp = new ArrayList<>();
-
-        for (Prints pr : prints) {
-
-            if (author.equals(pr.getAuthor())) {
-                tmp.add(pr);
-            }
-        }
-
-        if(tmp.size() > 0) {
-
-            sortByTitleAndShow(tmp);
-
-            return tmp;
-        }
-
-        System.out.println(author + " writer's book was not found");
-
-        return null;
-    }*/
+    }
 
     public List<Prints> searchPrintsByYear(int year){
 
@@ -330,31 +255,9 @@ public Prints removeAllPrintAmount(Prints print){
                 printsByYear.add(pr);
             }
         }
-        printsByYear.sort(new ComparatorByTitle());
+        printsByYear.sort(ComparatorByTitle.getSort());
         return printsByYear.size() > 0 ? printsByYear : null;
-    }/*
-    public List<Prints> searchPrintsByYear(int year){
-
-        List<Prints> tmp = new ArrayList<>();
-
-        for (Prints pr : prints) {
-
-            if (year == pr.getYear()) {
-                tmp.add(pr);
-            }
-        }
-
-        if(tmp.size() > 0) {
-
-            sortByTitleAndShow(tmp);
-
-            return tmp;
-        }
-
-        System.out.println("Prints of " + year + " was not found");
-
-        return null;
-    }*/
+    }
 
     public List<Prints> searchPrints(String title){
 
@@ -363,48 +266,21 @@ public Prints removeAllPrintAmount(Prints print){
         List<Prints> sameTitles = new ArrayList<>();
 
         for (Prints pr: prints) {
-//            i think better use contains
+
             if(pr.getTitle().contains(title)) {
                 sameTitles.add(pr);
             }
         }
-        sameTitles.sort(new ComparatorByYear());
+        sameTitles.sort(ComparatorByTitle.getSort());
 
         return sameTitles.size() > 0 ? sameTitles : null;
-    }/*  public List<Prints> searchPrints(String title){
-
-        if(title != null){
-
-            List<Prints> sameTitles = new ArrayList<>();
-
-            prints.sort(new ComparatorByYear());
-
-            for (Prints pr: prints) {
-                if(pr.getTitle().equals(title)) {
-
-                    System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
-                    sameTitles.add(pr);
-                }
-            }
-
-            return sameTitles;
-        }
-
-        System.out.println("Prints not found!!!");
-
-        return null;
-    }*/
+    }
 
     private Prints findPrint(Prints print){
 
         int printIdx = prints.indexOf(print);
 
-        if(printIdx >= 0){
-            return prints.get(printIdx);
-        }
-// needed return print for addPrints
-//        todo make another logic in addPrint
-        return print;
+        return printIdx >= 0 ? prints.get(printIdx) : null;
     }
 
     private Client findClient(Client client){

@@ -16,7 +16,7 @@ public class Magazine extends Prints {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("Number - %d, Redactor - %s", numMagazine, getAuthor().toString());
+        return super.toString() + String.format("Number - %d, Redactor - %s, Amount - %d;\n", numMagazine, getAuthor().toString(), getAmount());
     }
 
     @Override

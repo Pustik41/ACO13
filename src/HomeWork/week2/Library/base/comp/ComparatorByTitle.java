@@ -9,6 +9,20 @@ import java.util.Comparator;
  */
 public class ComparatorByTitle implements Comparator<Prints> {
 
+    private static volatile Comparator<Prints> sort;
+
+    private ComparatorByTitle() {
+    }
+
+    public static Comparator<Prints> getSort(){
+        if(sort == null){
+            synchronized (ComparatorByTitle.class){
+                sort = new ComparatorByTitle();
+            }
+        }
+        return sort;
+    }
+
     @Override
     public int compare(Prints o1, Prints o2) {
         return o1.getTitle().compareTo(o2.getTitle());
