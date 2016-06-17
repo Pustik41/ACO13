@@ -79,7 +79,7 @@ public class TestLibrary {
         lib.showBlackList();
         System.out.println("Does client add to BL - " + lib.addToBlackList(cl1));
         lib.showBlackList();
-        System.out.println("Does client remove from BL - " + lib.delBlackList(cl7));
+        System.out.println("Does client remove from BL - " + lib.removeFromBlacklist(cl7));
         lib.showBlackList();
 // test return passed
         lib.showPrintsInOut();
@@ -88,14 +88,14 @@ public class TestLibrary {
         System.out.println("Does return  bookL - " + lib.returnPrints(cl9,bk7));
         lib.showPrintsInOut();
 
-// test delPrint passed
+// test removeAllPrintAmount passed
         Prints bk10 = new Book("Inferno", ar1, 2009, 654);
-        lib.delPrint(bk10);
+        lib.removeAllPrintAmount(bk10);
         System.out.println("Does client take bookL - " + lib.issuePrints(cl3,bk1));
         lib.addPrint(bk1);
         lib.searchPrints(bk1.getTitle());
-// test clearLibraryOfPrints passed
-        lib.clearLibraryOfPrints();
+// test clearLibrariesPrints passed
+        lib.clearLibrariesPrints();
         lib.showAvailablePrints();
         System.out.println("Does client take bookL - " + lib.issuePrints(cl4,bk1));
         lib.addPrint(bk1);

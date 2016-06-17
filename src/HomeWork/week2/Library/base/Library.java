@@ -44,34 +44,27 @@ public class Library {
         return true;
     }
 
-    public boolean addClient(Client client){
+    public boolean addClient(Client client) {
 
-        if(client != null && clients.indexOf(client) < 0) {
+//        return client != null && clients.indexOf(client) < 0 && clients.add(client);
+//        if you don't have nulls in clients list you can don't check on null (see indexOf)
+        return clients.indexOf(client) < 0 && clients.add(client);
 
-            return clients.add(client);
-        }
-
-        return false;
     }
 
     public boolean addToBlackList(Client client){
 
-        if(client != null && clients.contains(client)) {
+        Client findClient = findClient(client);
 
-            Client tmp = findClient(client);
-
-            if(!tmp.getInBlackList()) {
-
-                clients.get(clients.indexOf(client)).setInBlackList(true);
-
-                return true;
-            }
+        if(findClient != null && findClient.getInBlackList()) {
+            findClient.setInBlackList(true);
+            return true;
         }
 
         return false;
     }
 
-    public boolean delExamplePrint(Prints print){
+    public boolean removePrint(Prints print){
 
         if (print == null || !prints.contains(print)) return false;
 
@@ -83,7 +76,8 @@ public class Library {
         return true;
     }
 
-    public Prints delPrint(Prints print){
+//        bad name
+public Prints removeAllPrintAmount(Prints print){
 
         if (print == null || !prints.contains(print)) return null;
 
@@ -92,42 +86,30 @@ public class Library {
         print.setAmount(0);
         prints.remove(print);
 
-        System.out.println(print + " was deleted");
+//        don't return print cause its the same print that you give in method arguments
         return print;
     }
 
-    public List<Prints> clearLibraryOfPrints(){
-
-        List<Prints> tmp = new ArrayList<>();
-
-        tmp.addAll(prints);
-
-        for (Prints pr: prints) {
-
-            pr.setAmount(0);
-        }
+    public void clearLibrariesPrints(){
 
         prints.clear();
 
-        return tmp;
     }
 
-    public List<Client> clearLibraryOfClients(){
+    public void clearLibraryOfClients(){
 
-        List<Client> tmp = new ArrayList<>();
-
-        tmp.addAll(clients);
         clients.clear();
-
-        return tmp;
     }
 
-    public boolean delBlackList(Client client){
+    public boolean removeFromBlacklist(Client client){
+//      find and contains do same job
+//        if(client == null) return false;
 
-        if(client == null && !clients.contains(client)) return false;
+        Client clientFromList = findClient(client);
 
-        client = findClient(client);
-        client.setInBlackList(false);
+        if(clientFromList == null || !clientFromList.getInBlackList()) return false;
+
+        clientFromList.setInBlackList(false);
 
         return true;
     }
@@ -137,9 +119,9 @@ public class Library {
         if(client != null && clients.contains(client)){
 
             Client tmp = findClient(client);
-
+//        can be nullPointerEx
             if (!tmp.getInBlackList()
-                    && tmp.getClientPrints().size() < tmp.getMAX_COUNT_PRINTS() && delExamplePrint(print)) {
+                    && tmp.getClientPrints().size() < tmp.getMAX_COUNT_PRINTS() && removePrint(print)) {
 
                 return tmp.addPrint(print);
             }
@@ -149,11 +131,12 @@ public class Library {
     }
 
     public boolean returnPrints(Client client, Prints print){
-
+//      find and contains do same job
         if(client != null && print != null &&  clients.contains(client) && prints.contains(print)){
 
             client = findClient(client);
             print = findPrint(print);
+//        can be nullPointerEx
 
             if(client.getClientPrints().contains(print) && addPrint(print)){
                 return client.delPrint(print);
@@ -164,8 +147,8 @@ public class Library {
 
     public List<Client> showBlackList(){
 
-        System.out.println("Black List:");
-
+//  print logic must be in another class
+//        System.out.println("Black List:");
         List<Client> blackList = new ArrayList<>();
 
         clients.sort(new ComparatorByNameClient());
@@ -183,8 +166,8 @@ public class Library {
     }
 
     public List<Client> showClients(){
-
-        System.out.println("Clients List:");
+//  print logic must be in another class
+//        System.out.println("Clients List:");
 
         clients.sort(new ComparatorByNameClient());
 
@@ -197,44 +180,51 @@ public class Library {
     }
 
     public List<Prints> showAvailablePrints(){
+//  print logic must be in another class
+//        System.out.println("Available Prints List:");
 
-        System.out.println("Available Prints List:");
+        List<Prints> available = new ArrayList<>();
 
-        List<Prints> avaible = new ArrayList<>();
-
-        prints.sort(new ComparatorByTitle());
+//        prints.sort(new ComparatorByTitle());
 
         for (Prints pr: prints) {
 
             if(pr.getAmount() > 0) {
-                avaible.add(pr);
-                System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
+                available.add(pr);
+//                System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
             }
         }
-
-        return avaible;
+//        todo make comparators singleton
+        available.sort(new ComparatorByTitle());
+        return available;
     }
 
     public List<Prints> showNeededPrints(){
 
-        System.out.println("Needed Prints List:");
+//        System.out.println("Needed Prints List:");
 
         List<Prints> needed = new ArrayList<>();
 
-        prints.sort(new ComparatorByTitle());
+//        prints.sort(new ComparatorByTitle());
 
         for (Prints pr: prints) {
 
             if(pr.getAmount() == 0) {
                 needed.add(pr);
-                System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
+//                System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
             }
         }
-
+        needed.sort(new ComparatorByTitle());
         return needed;
     }
 
     public List<Prints> showClientPrints(Client client){
+
+        Client findClient = findClient(client);
+        if(findClient == null || findClient.getClientPrints().size() == 0) return null;
+        return  findClient.getClientPrints();
+    }
+    /*public List<Prints> showClientPrints(Client client){
 
         if(client != null  && clients.contains(client)) {
 
@@ -254,8 +244,8 @@ public class Library {
         }
 
         return null;
-    }
-
+    }*/
+//  todo refactoring
     public List<Prints> showPrintsInOut(){
 
         List<Prints> out = new ArrayList<>();
@@ -297,6 +287,19 @@ public class Library {
 
     public List<Prints> searchPrintsByAuthor(Author author){
 
+        List<Prints> authorPrints = new ArrayList<>();
+
+        for (Prints pr : prints) {
+            if (author.equals(pr.getAuthor())) {
+                authorPrints.add(pr);
+            }
+        }
+        authorPrints.sort(new ComparatorByTitle());
+
+        return authorPrints.size() > 0 ? authorPrints : null;
+    }/*
+    public List<Prints> searchPrintsByAuthor(Author author){
+
         List<Prints> tmp = new ArrayList<>();
 
         for (Prints pr : prints) {
@@ -316,8 +319,20 @@ public class Library {
         System.out.println(author + " writer's book was not found");
 
         return null;
-    }
+    }*/
 
+    public List<Prints> searchPrintsByYear(int year){
+
+        List<Prints> printsByYear = new ArrayList<>();
+
+        for (Prints pr : prints) {
+            if (year == pr.getYear()) {
+                printsByYear.add(pr);
+            }
+        }
+        printsByYear.sort(new ComparatorByTitle());
+        return printsByYear.size() > 0 ? printsByYear : null;
+    }/*
     public List<Prints> searchPrintsByYear(int year){
 
         List<Prints> tmp = new ArrayList<>();
@@ -339,9 +354,24 @@ public class Library {
         System.out.println("Prints of " + year + " was not found");
 
         return null;
-    }
+    }*/
 
     public List<Prints> searchPrints(String title){
+
+        if(title == null) return null;
+
+        List<Prints> sameTitles = new ArrayList<>();
+
+        for (Prints pr: prints) {
+//            i think better use contains
+            if(pr.getTitle().contains(title)) {
+                sameTitles.add(pr);
+            }
+        }
+        sameTitles.sort(new ComparatorByYear());
+
+        return sameTitles.size() > 0 ? sameTitles : null;
+    }/*  public List<Prints> searchPrints(String title){
 
         if(title != null){
 
@@ -363,7 +393,7 @@ public class Library {
         System.out.println("Prints not found!!!");
 
         return null;
-    }
+    }*/
 
     private Prints findPrint(Prints print){
 
@@ -373,6 +403,7 @@ public class Library {
             return prints.get(printIdx);
         }
 // needed return print for addPrints
+//        todo make another logic in addPrint
         return print;
     }
 
@@ -380,20 +411,7 @@ public class Library {
 
         int clientIdx = clients.indexOf(client);
 
-        if( clientIdx >= 0){
-
-            return clients.get(clientIdx);
-        }
-
-        return null;
+        return clientIdx >= 0 ? clients.get(clientIdx) : null;
     }
 
-    public void sortByTitleAndShow(List<Prints> tmp){
-
-        tmp.sort(new ComparatorByTitle());
-
-        for (Prints pr : tmp) {
-            System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
-        }
-    }
 }
