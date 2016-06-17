@@ -42,7 +42,7 @@ public class Client {
 
     public ArrayList<Prints> getClientPrints() {
 
-        clientPrints.sort(new ComparatorByTitle());
+        clientPrints.sort(ComparatorByTitle.getSort());
         return clientPrints;
     }
 
