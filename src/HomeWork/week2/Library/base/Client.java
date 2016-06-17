@@ -42,7 +42,7 @@ public class Client {
 
     public ArrayList<Prints> getClientPrints() {
 
-        clientPrints.sort(ComparatorByTitle.getSort());
+        clientPrints.sort(new ComparatorByTitle());
         return clientPrints;
     }
 
@@ -75,7 +75,7 @@ public class Client {
     @Override
     public String toString() {
 
-        return String.format("Client - %s %s, Tel: %s;\n", nameClient, surNameClient, numTelClient);
+        return String.format("Client - %s %s, Tel: %s;", nameClient, surNameClient, numTelClient);
     }
 
     @Override

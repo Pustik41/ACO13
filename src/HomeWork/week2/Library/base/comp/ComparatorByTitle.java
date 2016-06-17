@@ -8,6 +8,19 @@ import java.util.Comparator;
  * Created by dfsdfsddfsdf on 13.06.16.
  */
 public class ComparatorByTitle implements Comparator<Prints> {
+    private static volatile Comparator<Prints> instance;
+
+    private ComparatorByTitle() {
+    }
+
+    public static Comparator<Prints> getInstance(){
+        if(instance == null){
+            synchronized (ComparatorByTitle.class){
+                instance = new ComparatorByTitle();
+            }
+        }
+        return instance;
+    }
 
     private static volatile Comparator<Prints> sort;
 
