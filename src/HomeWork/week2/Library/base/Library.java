@@ -195,7 +195,7 @@ public Prints removeAllPrintAmount(Prints print){
             }
         }
 //        todo make comparators singleton
-        available.sort(new ComparatorByTitle());
+        available.sort(ComparatorByTitle.getInstance());
         return available;
     }
 
@@ -214,7 +214,7 @@ public Prints removeAllPrintAmount(Prints print){
 //                System.out.println(pr + ", Amount - " + pr.getAmount() + ";");
             }
         }
-        needed.sort(new ComparatorByTitle());
+        needed.sort(ComparatorByTitle.getInstance());
         return needed;
     }
 
@@ -259,7 +259,7 @@ public Prints removeAllPrintAmount(Prints print){
 
         if(out.size() > 0){
 
-            out.sort(new ComparatorByTitle());
+            out.sort(ComparatorByTitle.getInstance());
 
             for (int i = 0; i < out.size() ; i++) {
 
@@ -294,7 +294,7 @@ public Prints removeAllPrintAmount(Prints print){
                 authorPrints.add(pr);
             }
         }
-        authorPrints.sort(new ComparatorByTitle());
+        authorPrints.sort(ComparatorByTitle.getInstance());
 
         return authorPrints.size() > 0 ? authorPrints : null;
     }/*
@@ -330,7 +330,7 @@ public Prints removeAllPrintAmount(Prints print){
                 printsByYear.add(pr);
             }
         }
-        printsByYear.sort(new ComparatorByTitle());
+        printsByYear.sort(ComparatorByTitle.getInstance());
         return printsByYear.size() > 0 ? printsByYear : null;
     }/*
     public List<Prints> searchPrintsByYear(int year){
