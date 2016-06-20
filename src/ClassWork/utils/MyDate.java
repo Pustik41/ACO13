@@ -42,7 +42,8 @@ public class MyDate implements Comparable<MyDate> {
         return result;
     }
 
-    public String asString(){
+    @Override
+    public String toString(){
         return String.format("%d.%d.%d", birthDay, monthBirth, yearBirth);
     }
 

@@ -11,7 +11,7 @@ public class ComparatorByTitle implements Comparator<Prints> {
 
     private static volatile Comparator<Prints> sort;
 
-    private ComparatorByTitle() {
+    public ComparatorByTitle() {
     }
 
     public static Comparator<Prints> getSort(){

@@ -197,7 +197,7 @@ public class Library {
         return  findClient.getClientPrints();
     }
 
-    //  todo refactoring
+
     public List<Prints> showPrintsInOut(){
 
         List<Prints> out = new ArrayList<>();
@@ -207,29 +207,7 @@ public class Library {
             out.addAll(cl.getClientPrints());
         }
 
-        if(out.size() > 0){
-
-            out.sort(ComparatorByTitle.getSort());
-
-            for (int i = 0; i < out.size() ; i++) {
-
-                int counterSame = 0;
-
-                for (int j = i; j < out.size() ; j++) {
-
-                    if(out.get(i).equals(out.get(j))){
-                        counterSame++;
-                    }
-                }
-
-                i = i + counterSame - 1;
-
-            }
-
-            return out;
-        }
-
-        return null;
+        return out;
     }
 
     public List<Prints> searchPrintsByAuthor(Author author){

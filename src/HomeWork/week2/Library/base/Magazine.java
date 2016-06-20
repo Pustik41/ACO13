@@ -16,16 +16,14 @@ public class Magazine extends Prints {
 
     @Override
     public String toString() {
-        return super.toString() + String.format("Number - %d, Redactor - %s, Amount - %d;\n", numMagazine, getAuthor().toString(), getAmount());
+        return super.toString() + String.format("Number - %d, Redactor - %s\n", numMagazine, getAuthor().toString());
     }
 
     @Override
     public boolean equals(Object obj) {
 
         if(super.equals(obj)){
-
            Magazine tmp = (Magazine) obj;
-
            return this.numMagazine == tmp.numMagazine;
        }
 

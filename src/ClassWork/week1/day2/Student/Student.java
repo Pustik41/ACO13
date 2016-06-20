@@ -2,8 +2,6 @@ package ClassWork.week1.day2.Student;
 
 import ClassWork.utils.MyDate;
 
-import java.util.Calendar;
-
 /**
  * Created by Pustik41 on 22.05.16.
  */
@@ -60,7 +58,7 @@ public class Student implements Comparable {
 
     @Override
     public String toString(){
-        return String.format("%s, %s, BD - %s, averageMark - %.1f", name, surName, birthDay.asString(), averageMark);
+        return String.format("%s, %s, BD - %s, averageMark - %.1f", name, surName, birthDay.toString(), averageMark);
     }
 
     @Override
