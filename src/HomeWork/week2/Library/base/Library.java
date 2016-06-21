@@ -17,6 +17,12 @@ public class Library {
     private List<Prints> prints;
     private List<Client> clients;
 
+    public Library() {
+        this.nameLibrary = "";
+        this.numTelLib = "";
+        this.prints = new ArrayList<>();
+        this.clients = new ArrayList<>();
+    }
 
     public Library(String nameLibrary, String numTelLib) {
         this.nameLibrary = nameLibrary;
