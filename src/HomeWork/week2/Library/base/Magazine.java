@@ -29,4 +29,12 @@ public class Magazine extends Prints {
 
         return false;
     }
+
+    @Override
+    public int compareTo(Object o) {
+        if( super.compareTo(o) == 0){
+            return this.numMagazine - ((Magazine) o).numMagazine;
+        }
+        return super.compareTo(o);
+    }
 }

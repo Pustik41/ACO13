@@ -5,6 +5,7 @@ import HomeWork.week2.Library.base.comp.ComparatorByTitle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.*;
 
 /**
  * Created by dfsdfsddfsdf on 13.06.16.
@@ -192,6 +193,7 @@ public class Library {
                 needed.add(pr);
             }
         }
+
         needed.sort(ComparatorByTitle.getSort());
         return needed;
     }
@@ -209,7 +211,6 @@ public class Library {
         List<Prints> out = new ArrayList<>();
 
         for (Client cl: clients) {
-
             out.addAll(cl.getClientPrints());
         }
 
@@ -225,6 +226,7 @@ public class Library {
                 authorPrints.add(pr);
             }
         }
+
         authorPrints.sort(ComparatorByTitle.getSort());
 
         return authorPrints.size() > 0 ? authorPrints : null;
@@ -239,11 +241,13 @@ public class Library {
                 printsByYear.add(pr);
             }
         }
+
         printsByYear.sort(ComparatorByTitle.getSort());
+
         return printsByYear.size() > 0 ? printsByYear : null;
     }
 
-    public List<Prints> searchPrints(String title){
+    public List<Prints> searchPrintsByTitle(String title){
 
         if(title == null) return null;
 
@@ -255,9 +259,17 @@ public class Library {
                 sameTitles.add(pr);
             }
         }
+
         sameTitles.sort(ComparatorByTitle.getSort());
 
         return sameTitles.size() > 0 ? sameTitles : null;
+    }
+
+    public Prints searchPrint(Prints print){
+
+        if(print != null) return binarySearch(prints, print);
+
+        return null;
     }
 
     private Prints findPrint(Prints print){
@@ -272,6 +284,31 @@ public class Library {
         int clientIdx = clients.indexOf(client);
 
         return clientIdx >= 0 ? clients.get(clientIdx) : null;
+    }
+
+    private static<T extends Comparable<T>> T binarySearch(List<T> list, T object) {
+
+        int start = 0;
+        int end = list.size() - 1;
+
+        if(object.equals(list.get(start))) return list.get(start);
+        if(object.equals(list.get(end))) return list.get(end);
+
+        while (start != end){
+
+            int middle = start + (end - start) / 2;
+
+            if (list.get(middle).compareTo(object) < 0){
+                start = middle + 1;
+            }
+            else if (list.get(middle).compareTo(object) > 0){
+                end = middle - 1;
+            } else {
+                return list.get(middle);
+            }
+        }
+
+        return null;
     }
 
 }

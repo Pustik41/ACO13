@@ -28,11 +28,13 @@ public class LibraryTest {
     Prints mag2 = new Magazine("Rolling Stone", ar2, 2009, 38, 1);
     Prints mag3 = new Magazine("Rolling Stone", ar2, 2016, 35, 2);
 
+
     Client cl1 = new Client("Stiv", "Gardner", "044_295_48_25");
     Client cl2 = new Client("Frenk", "Lourens", "044_245_28_65");
     Client cl3 = new Client("Bob", "Riger", "044_385_75_84");
     Client cl4 = new Client("John", "Min", "044_876_42_94");
     Client cl5 = new Client("Bob", "Lee", "044_983_63_19");
+
 
 
     @Before
@@ -58,7 +60,7 @@ public class LibraryTest {
 
     @Test
     public void testAddPrint() throws Exception {
-        //Prints bk6 = new Book("Inferno", ar1, 2009, 654);
+        //(result = true) Prints bk6 = new Book("Inferno", ar1, 2009, 654);
         Prints bk7 = null;
         assertEquals(false, lib.addPrint(bk7));
     }
@@ -118,6 +120,18 @@ public class LibraryTest {
     public void testRemoveAllPrintCopies() throws Exception {
         Prints bk6 = new Book("Inferno", ar1, 2009, 654);
         assertEquals(true, lib.removeAllPrintCopies(bk6));
+    }
+
+    @Test
+    public void testSearchPrintForMagazine() throws Exception {
+        Prints mag4 = new Magazine("Rolling Stone", ar2, 2016, 35, 2);
+        assertEquals(mag3, lib.searchPrint(mag4));
+    }
+
+    @Test
+    public void testSearchPrintForBook() throws Exception {
+        Prints bk6 = new Book("Inferno", ar1, 2009, 654);
+        assertEquals(bk1, lib.searchPrint(bk6));
     }
 
 }

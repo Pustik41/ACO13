@@ -3,7 +3,7 @@ package HomeWork.week2.Library.base;
 /**
  * Created by dfsdfsddfsdf on 10.06.16.
  */
-public class Prints {
+public class Prints<T> implements Comparable<T> {
 
     private String title;
     private Author author;
@@ -69,5 +69,25 @@ public class Prints {
         }
 
         return false;
+    }
+
+    @Override
+    public int compareTo(T o) {
+        if(this == o) return 0;
+
+        if(o != null){
+
+            Prints print = (Prints) o;
+
+            if (this.title.compareTo(print.getTitle()) != 0){
+                return this.title.compareTo(print.getTitle());
+            } else if(this.year - print.year != 0){
+                return this.year - print.year;
+            } else {
+                return this.numOfPage - print.numOfPage;
+            }
+
+        }
+        return -1;
     }
 }
