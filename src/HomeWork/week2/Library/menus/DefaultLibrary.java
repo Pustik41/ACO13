@@ -7,7 +7,7 @@ import HomeWork.week2.Library.base.*;
  */
   class DefaultLibrary {
 
-      Library createLibrary(){
+    static Library createLibrary(){
 
         Library defaultLib = new Library("TestLibrary", "044_345_28_35");
 

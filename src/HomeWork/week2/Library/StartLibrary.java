@@ -1,6 +1,6 @@
 package HomeWork.week2.Library;
 
-import HomeWork.week2.Library.menus.MainMenu;
+import HomeWork.week2.Library.menus.StartMenu;
 
 /**
  * Created by dfsdfsddfsdf on 22.06.16.
@@ -9,7 +9,8 @@ public class StartLibrary {
 
     public static void main(String[] args) {
 
-        MainMenu menu = new MainMenu();
+        StartMenu menu = new StartMenu();
         menu.startLibrary();
+
     }
 }
