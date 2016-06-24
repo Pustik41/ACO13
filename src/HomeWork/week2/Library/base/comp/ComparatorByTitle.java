@@ -25,6 +25,11 @@ public class ComparatorByTitle implements Comparator<Prints> {
 
     @Override
     public int compare(Prints o1, Prints o2) {
+
+        if(o1.getTitle().compareTo(o2.getTitle()) == 0){
+            return o1.getYear() - o2.getYear();
+        }
+
         return o1.getTitle().compareTo(o2.getTitle());
     }
 }

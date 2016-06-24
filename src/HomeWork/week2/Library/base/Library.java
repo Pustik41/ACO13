@@ -2,6 +2,7 @@ package HomeWork.week2.Library.base;
 
 import HomeWork.week2.Library.base.comp.ComparatorByNameClient;
 import HomeWork.week2.Library.base.comp.ComparatorByTitle;
+import HomeWork.week2.Library.base.comp.ComparatorByYear;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -213,6 +214,8 @@ public class Library {
         for (Client cl: clients) {
             out.addAll(cl.getClientPrints());
         }
+
+        out.sort(ComparatorByTitle.getSort());
 
         return out;
     }

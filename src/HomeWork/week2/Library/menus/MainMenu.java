@@ -36,7 +36,7 @@ public class MainMenu {
                 break;
 
             case "2":
-                System.out.println("Book menu");
+                new BookMenu().bookMenu(lib);
                 break;
 
             case "exit":

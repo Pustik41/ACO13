@@ -138,14 +138,19 @@ import java.util.List;
                 break;
 
             case "4":
-                if(showAvaiblePrints(lib) != null){
-                    lib.issuePrints(client, showAvaiblePrints(lib));
+                Prints print = showAvailablePrints(lib);
+                if(print != null){
+                    lib.issuePrints(client, print);
+                    clientFunctions(client, lib);
                 }
-                clientFunctions(client, lib);
                 break;
 
             case "5":
-                System.out.println("Do remove book");
+                print = showClientPrints(client);
+                if(print != null){
+                    lib.returnPrints(client, print);
+                }
+                clientFunctions(client, lib);
                 break;
 
             case "back":
@@ -168,13 +173,15 @@ import java.util.List;
         }
     }
 
-    private Prints showAvaiblePrints(Library lib){
+    private Prints showAvailablePrints(Library lib){
 
         List<Prints> prints = lib.showAvailablePrints();
 
         for (int i = 1; i <= prints.size() ; i++) {
             System.out.println(i + " - " + prints.get(i - 1));
         }
+
+        System.out.println("return - return to the main menu" + "\nexit - exit from program");
 
         try {
             choice = reader.readLine();
@@ -194,10 +201,6 @@ import java.util.List;
 
         switch (choice){
 
-            case "back":
-                //clientFunctions();
-                break;
-
             case "return":
                 new MainMenu().mainMenu(lib);
                 break;
@@ -205,13 +208,46 @@ import java.util.List;
             case "exit":
                 System.out.println("Exit from programm");
                 break;
-
+// todo Displays oops choose the right and is activated break;
             default:
                 System.out.println("ooops");
-                showAvaiblePrints(lib);
+                showAvailablePrints(lib);
                 break;
         }
 
         return null;
     }
+
+    private Prints showClientPrints(Client client){
+
+        Prints print = null;
+        List<Prints> prints = client.getClientPrints();
+
+        if(prints.size() != 0) {
+
+            for (int i = 1; i <= prints.size(); i++) {
+
+                System.out.println(i + " - " + prints.get(i - 1));
+            }
+
+            try {
+                choice = reader.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+
+                int num = Integer.parseInt(choice);
+
+                if (num > 0 && num <= prints.size()) {
+                    return prints.get(num - 1);
+                }
+            }catch (NumberFormatException ex){}
+        }
+
+        System.out.println("Client don't have any print");
+        return null;
+    }
+
 }
