@@ -1,4 +1,6 @@
-package ClassWork.week4.day1;
+package ClassWork.week4.day1.myLinkedList;
+
+import ClassWork.week4.day1.myLinkedList.MyLinkedList;
 
 import java.util.List;
 

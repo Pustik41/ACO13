@@ -208,11 +208,10 @@ import java.util.List;
             case "exit":
                 System.out.println("Exit from programm");
                 break;
-// todo Displays oops choose the right and is activated break;
+
             default:
                 System.out.println("ooops");
-                showAvailablePrints(lib);
-                break;
+                return showAvailablePrints(lib);
         }
 
         return null;

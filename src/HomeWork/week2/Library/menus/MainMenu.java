@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 /**
  * Created by dfsdfsddfsdf on 23.06.16.
  */
-public class MainMenu {
+class MainMenu {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

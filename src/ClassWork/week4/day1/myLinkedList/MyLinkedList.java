@@ -1,4 +1,4 @@
-package ClassWork.week4.day1;
+package ClassWork.week4.day1.myLinkedList;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -75,7 +75,7 @@ public class MyLinkedList implements List {
     public void clear() {
 
     }
-//todo Exeption
+
     @Override
     public Object get(int index) {
 
@@ -87,7 +87,7 @@ public class MyLinkedList implements List {
     private Node findNode(int index) {
 
         if(index > size || index < 0){
-            System.exit(1);
+            throw new MyIndexOutBoundExeption(String.valueOf(index));
         }
 
         Node iter = head;

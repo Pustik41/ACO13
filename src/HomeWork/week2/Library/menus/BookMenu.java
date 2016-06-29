@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by dfsdfsddfsdf on 24.06.16.
  */
-public class BookMenu {
+class BookMenu {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
