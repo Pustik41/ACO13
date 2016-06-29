@@ -263,7 +263,7 @@ public class Library {
             }
         }
 
-        sameTitles.sort(ComparatorByTitle.getSort());
+        sameTitles.sort(ComparatorByYear.getSort());
 
         return sameTitles.size() > 0 ? sameTitles : null;
     }

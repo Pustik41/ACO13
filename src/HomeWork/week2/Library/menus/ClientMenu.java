@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by dfsdfsddfsdf on 22.06.16.
  */
- class ClientMenu  {
+ public class ClientMenu  {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -24,7 +24,7 @@ import java.util.List;
 
     public void clientMenu(Library lib) {
 
-        System.out.println("Client menu:\n" + "Make your choice:\n");
+        System.out.println("\nClient menu:\n" + "Make your choice:\n");
 
         this.lib = lib;
         List<Client> clients = lib.showClients();
@@ -100,7 +100,7 @@ import java.util.List;
 
     private void clientFunctions(Client client, Library lib){
 
-        System.out.println("Make your choice");
+        System.out.println("\nMake your choice");
         System.out.println("1 - get status client." + "\n2 - add to black list" + "\n3 - deleted from black list");
         System.out.println("4 - issue book" + "\n5 - return book" + "\nback - return previous menu");
         System.out.println("return - return to the main menu" + "\nexit - exit from program");
@@ -174,6 +174,10 @@ import java.util.List;
     }
 
     private Prints showAvailablePrints(Library lib){
+
+        System.out.println("\nAvailable Prints Menu\n" +
+                            "Select a print to open the menu\n" +
+                                "Make your choice:");
 
         List<Prints> prints = lib.showAvailablePrints();
 

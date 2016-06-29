@@ -9,13 +9,13 @@ import java.io.InputStreamReader;
 /**
  * Created by dfsdfsddfsdf on 23.06.16.
  */
-class MainMenu {
+public class MainMenu {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     String choice;
 
-    void mainMenu(Library lib){
+    public void mainMenu(Library lib){
 
         System.out.println("Welcome to Menu Library");
         System.out.println("Make your choice:\n");
@@ -36,7 +36,7 @@ class MainMenu {
                 break;
 
             case "2":
-                new BookMenu().bookMenu(lib);
+                new PrintsMenu().printsMenu(lib);
                 break;
 
             case "exit":

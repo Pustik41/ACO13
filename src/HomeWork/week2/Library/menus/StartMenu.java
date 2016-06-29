@@ -37,13 +37,13 @@ public class StartMenu {
         switch (choice) {
 
             case "1":
-                if (checkLogPass()) {
+                //if (checkLogPass()) {
                     new MainMenu().mainMenu((lib));
                     break;
-                }
-                System.out.println("Wrong Login/Password");
+                //}
+                /*System.out.println("Wrong Login/Password");
                 startLibrary();
-                break;
+                break;*/
 
             case "exit":
                 System.out.println("Goodbye!!!");
