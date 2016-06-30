@@ -12,14 +12,15 @@ public class BinarySearch {
 
     public static void main(String[] args) {
 
-        int[] arr = {5, 6, 9, 3, 2, 0, 4, 8, 9};
+        int[] arr = {5, 6, 7, 3, 2, 0, 4, 8, 9};
 
         boolean isContains =  contains(arr, 8);
 
         Arrays.sort(arr);
 
         int[] sortedArray = arr;
-        boolean isBContains =  binaryContains(sortedArray, 8);
+        boolean isBContains =  binaryContains(sortedArray, 0);
+        System.out.println(isBContains);
 
         List<String> list = new ArrayList<>();
 

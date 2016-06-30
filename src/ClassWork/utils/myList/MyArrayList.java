@@ -1,4 +1,4 @@
-package ClassWork.utils;
+package ClassWork.utils.myList;
 
 import java.util.Arrays;
 

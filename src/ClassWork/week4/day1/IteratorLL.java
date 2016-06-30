@@ -17,8 +17,6 @@ public class IteratorLL {
 
         Collections.addAll(num, 5,4,34,23,34,5,21);
 
-        Iterator iterator = num.iterator();
-
         for (Integer integer : num) {
 
             System.out.print(integer + " ");
