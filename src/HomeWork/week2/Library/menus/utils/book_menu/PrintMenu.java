@@ -68,104 +68,106 @@ public class PrintMenu {
                 break;
         }
     }
-}
 
-class IssuePrintForClient{
+    class IssuePrintForClient{
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-    String choice;
+        String choice;
 
-    public void issuePrint(Library lib, Prints print){
+        public void issuePrint(Library lib, Prints print){
 
-        System.out.println();
+            System.out.println();
 
-        Client client = listClients(lib);
+            Client client = listClients(lib);
 
-        if(client != null && client.getInBlackList()){
-            System.out.println("This client in black list." + "\nDo you want remove him from black lis - yes/no?");
-            System.out.println("If yes - print will automatically give the client and you return to Main menu"
-                    + "\nIf no - you return to Main menu");
+            if(client != null && client.getInBlackList()){
+                System.out.println("This client in black list." + "\nDo you want remove him from black lis - yes/no?");
+                System.out.println("If yes - print will automatically give the client and you return to Main menu"
+                        + "\nIf no - you return to Main menu");
+
+                try {
+                    choice = reader.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                switch (choice){
+
+                    case "yes":
+                        lib.removeFromBlacklist(client);
+                        break;
+
+                    case "no":
+                        new PrintsMenu().printsMenu(lib);
+                        break;
+
+                    default:
+                        issuePrint(lib, print);
+                        break;
+                }
+
+            }
+
+            lib.issuePrints(client, print);
+            new PrintsMenu().printsMenu(lib);
+            return;
+
+        }
+
+        private Client listClients(Library lib){
+
+            System.out.println("List of Client");
+            System.out.println("If the client is not in the black, after the selection of " +
+                    "books will automatically give the client");
+
+            List<Client> clients = lib.showClients();
+
+            for (int i = 1; i <= clients.size() ; i++) {
+                System.out.println(i + " - " + clients.get(i -1));
+            }
+
+
+            System.out.println("\nreturn - return to main menu");
+            System.out.println("exit - exit from program");
+
 
             try {
+
                 choice = reader.readLine();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
+            try {
+
+                int num = Integer.parseInt(choice);
+
+                if(num > 0 &&  num <= clients.size()){
+                    return clients.get(num - 1);
+                }
+
+            }catch (NumberFormatException ex){}
+
             switch (choice){
 
-                case "yes":
-                    lib.removeFromBlacklist(client);
+                case "return":
+                    new MainMenu().mainMenu(lib);
                     break;
 
-                case "no":
-                    new PrintsMenu().printsMenu(lib);
+                case "exit":
+                    System.out.println("Exit");
                     break;
-
                 default:
-                    issuePrint(lib, print);
-                    break;
+                    System.out.println("oops");
+                    return listClients(lib);
+
             }
 
+            return null;
         }
-
-        lib.issuePrints(client, print);
-        new PrintsMenu().printsMenu(lib);
-        return;
-
     }
 
-    private Client listClients(Library lib){
-
-        System.out.println("List of Client");
-        System.out.println("If the client is not in the black, after the selection of " +
-                            "books will automatically give the client");
-
-        List<Client> clients = lib.showClients();
-
-        for (int i = 1; i <= clients.size() ; i++) {
-            System.out.println(i + " - " + clients.get(i -1));
-        }
-
-
-        System.out.println("\nreturn - return to main menu");
-        System.out.println("exit - exit from program");
-
-
-        try {
-
-            choice = reader.readLine();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-
-            int num = Integer.parseInt(choice);
-
-            if(num > 0 &&  num <= clients.size()){
-                return clients.get(num - 1);
-            }
-
-        }catch (NumberFormatException ex){}
-
-        switch (choice){
-
-            case "return":
-                new MainMenu().mainMenu(lib);
-                break;
-
-            case "exit":
-                System.out.println("Exit");
-                break;
-            default:
-                System.out.println("oops");
-                return listClients(lib);
-
-        }
-
-        return null;
-    }
 }
+
