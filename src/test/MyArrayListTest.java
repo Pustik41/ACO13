@@ -1,6 +1,6 @@
 package test;
 
-import ClassWork.utils.MyArrayList;
+import ClassWork.utils.myList.MyArrayList;
 
 /**
  * Created by gorobec on 26.05.16.

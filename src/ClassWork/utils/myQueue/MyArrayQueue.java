@@ -9,12 +9,12 @@ import java.util.Queue;
  * Created by dfsdfsddfsdf on 30.06.16.
  */
 public class MyArrayQueue<E> implements Queue<E> {
-
-    private Object[] array;
+//      make generic array
+    private E[] array;
     private int last;
 
     public MyArrayQueue(int size) {
-        array = new Object[size];
+        array = (E[])new Object[size];
     }
 
 
@@ -57,9 +57,9 @@ public class MyArrayQueue<E> implements Queue<E> {
     }
 
     @Override
-    public Object[] toArray() {
+    public E[] toArray() {
         // NOP
-        return new Object[0];
+        return (E[])new Object[0];
     }
 
     @Override
@@ -124,7 +124,7 @@ public class MyArrayQueue<E> implements Queue<E> {
 
         last = 0;
     }
-
+// todo use offer
     @Override
     public boolean add(E e) {
 
@@ -151,7 +151,7 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E remove() {
 
         if(!isEmpty()) {
-            E element = (E) array[0];
+            E element = array[0];
             System.arraycopy(array, 1, array, 0, --last);
             return element;
         }
@@ -175,7 +175,7 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E element() {
 
         if(!isEmpty()) {
-            return (E) array[0];
+            return array[0];
         }
 
         throw new NoSuchElementException();
@@ -185,7 +185,7 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E peek() {
 
         if(!isEmpty()) {
-            return (E) array[0];
+            return array[0];
         }
 
         return null;

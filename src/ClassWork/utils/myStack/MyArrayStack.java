@@ -7,11 +7,16 @@ import java.util.Stack;
  */
 public class MyArrayStack<E> implements MyStack<E> {
 
-    private Object[] array;
+// use generic
+    public E[] getArray() {
+        return array;
+    }
+
+    private E[] array;
     private int top;
 
     public MyArrayStack(int size) {
-        array = new Object[size];
+        array = (E[])new Object[size];
     }
 
     @Override
@@ -27,12 +32,12 @@ public class MyArrayStack<E> implements MyStack<E> {
 
     @Override
     public E pop() {
-        return !empty() ? (E) array[--top] : null;
+        return !empty() ? array[--top] : null;
     }
 
     @Override
     public E peek() {
-        return !empty() ? (E) array[top - 1] : null;
+        return !empty() ? array[top - 1] : null;
     }
 
     @Override

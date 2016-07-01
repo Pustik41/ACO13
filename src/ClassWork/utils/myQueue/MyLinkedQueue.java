@@ -82,6 +82,7 @@ public class MyLinkedQueue<E> implements Queue<E> {
         return false;
     }
 
+//    todo run through all structure and clear each node
     @Override
     public void clear() {
         first = null;
@@ -96,6 +97,7 @@ public class MyLinkedQueue<E> implements Queue<E> {
             size++;
             return true;
         } else {
+//            todo forgot about generics!
             Node newNode = new Node(last, e);
             last.setNext(newNode);
             last = newNode;

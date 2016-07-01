@@ -51,7 +51,7 @@ public class MyLinkedStack<E> implements MyStack<E> {
 
         if(o == null){
 
-            while (true){
+            while (tmp != null){
 
                 if(tmp.getValue() == null){
                     return count;
@@ -59,12 +59,12 @@ public class MyLinkedStack<E> implements MyStack<E> {
 
                 count++;
                 tmp = tmp.getNext();
-                if(tmp == null) break;
+//                if(tmp == null) break;
             }
 
         } else {
 
-            while (true) {
+            while (tmp != null) {
 
                 if (tmp.getValue().equals(o)) {
                     return count;
@@ -72,7 +72,7 @@ public class MyLinkedStack<E> implements MyStack<E> {
 
                 count++;
                 tmp = tmp.getNext();
-                if(tmp == null) break;
+//                if(tmp == null) break;
             }
         }
 
