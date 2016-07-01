@@ -42,8 +42,8 @@ public class MyLinkedQueueTest {
 
     @Test
     public void testRemove() throws Exception {
-        assertEquals("A", queue.remove());
-        assertEquals(2, queue.size());
+        queue.remove();
+        assertEquals("B", queue.remove());
     }
 
     @Test

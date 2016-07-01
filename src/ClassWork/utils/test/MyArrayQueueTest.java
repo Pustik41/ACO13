@@ -76,7 +76,8 @@ public class MyArrayQueueTest {
 
     @Test
     public void testRemove() throws Exception {
-        assertEquals("A", queue.remove());
+        queue.remove();
+        assertEquals("B", queue.remove());
     }
 
     @Test(expected = NoSuchElementException.class)

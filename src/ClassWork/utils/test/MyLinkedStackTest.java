@@ -25,7 +25,8 @@ public class MyLinkedStackTest {
         stack.push("A");
         stack.push("B");
         stack.push("C");
-        assertEquals("C", stack.pop());
+        stack.pop();
+        assertEquals("B", stack.pop());
     }
 
     @Test

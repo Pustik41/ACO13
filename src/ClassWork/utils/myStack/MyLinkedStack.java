@@ -27,7 +27,10 @@ public class MyLinkedStack<E> implements MyStack<E> {
 
         if(top == null) return null;
 
-        return (E) top.getValue();
+        Node<E> retTop = top;
+        top = top.getNext();
+
+        return (E) retTop.getValue();
     }
 
     @Override

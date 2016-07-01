@@ -27,7 +27,9 @@ public class MyArrayStackTest {
         stack.push("A");
         stack.push("B");
         stack.push("C");
-        assertEquals("C", stack.pop());
+        stack.pop();
+        stack.pop();
+        assertEquals("A", stack.pop());
     }
 
     @Test
