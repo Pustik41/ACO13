@@ -1,7 +1,5 @@
-package data_structures;
+package data_structures.my_stack;
 
-import data_structures.myStack.MyLinkedStack;
-import data_structures.myStack.MyStack;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

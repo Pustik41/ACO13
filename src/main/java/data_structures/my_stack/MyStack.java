@@ -1,4 +1,4 @@
-package data_structures.myStack;
+package data_structures.my_stack;
 
 /**
  * Created by dfsdfsddfsdf on 30.06.16.

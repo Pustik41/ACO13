@@ -1,4 +1,4 @@
-package data_structures.myStack;
+package data_structures.my_stack;
 
 import data_structures.node.Node;
 
@@ -18,7 +18,7 @@ public class MyLinkedStack<E> implements MyStack<E> {
         if(top == null){
             top = new Node<>(null, item);
         } else {
-          top = new Node<>(top, item);
+            top = new Node<>(top, item);
         }
     }
 
@@ -59,7 +59,6 @@ public class MyLinkedStack<E> implements MyStack<E> {
 
                 count++;
                 tmp = tmp.getNext();
-//                if(tmp == null) break;
             }
 
         } else {
@@ -72,7 +71,6 @@ public class MyLinkedStack<E> implements MyStack<E> {
 
                 count++;
                 tmp = tmp.getNext();
-//                if(tmp == null) break;
             }
         }
 

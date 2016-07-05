@@ -1,4 +1,4 @@
-package data_structures.myQueue;
+package data_structures.my_queue;
 
 import data_structures.node.Node;
 
@@ -82,7 +82,7 @@ public class MyLinkedQueue<E> implements Queue<E> {
         return false;
     }
 
-//    todo run through all structure and clear each node
+    //    todo run through all structure and clear each node
     @Override
     public void clear() {
         first = null;
@@ -97,8 +97,7 @@ public class MyLinkedQueue<E> implements Queue<E> {
             size++;
             return true;
         } else {
-//            todo forgot about generics!
-            Node newNode = new Node(last, e);
+            Node<E> newNode = new Node<>(last, e);
             last.setNext(newNode);
             last = newNode;
             size++;

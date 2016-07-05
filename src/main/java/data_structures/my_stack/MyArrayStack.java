@@ -1,20 +1,15 @@
-package data_structures.myStack;
+package data_structures.my_stack;
 
 /**
  * Created by dfsdfsddfsdf on 30.06.16.
  */
 public class MyArrayStack<E> implements MyStack<E> {
 
-// use generic
-    public E[] getArray() {
-        return array;
-    }
-
-    private E[] array;
+    private Object[] array;
     private int top;
 
     public MyArrayStack(int size) {
-        array = (E[])new Object[size];
+        array = new Object[size];
     }
 
     @Override
@@ -30,12 +25,21 @@ public class MyArrayStack<E> implements MyStack<E> {
 
     @Override
     public E pop() {
-        return !empty() ? array[--top] : null;
+
+        E delElement = null;
+
+        if(!empty()){
+            top--;
+            delElement = (E) array[top];
+            array[top] = null;
+        }
+
+        return delElement;
     }
 
     @Override
     public E peek() {
-        return !empty() ? array[top - 1] : null;
+        return !empty() ? (E) array[top - 1] : null;
     }
 
     @Override

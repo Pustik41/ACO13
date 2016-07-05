@@ -1,23 +1,23 @@
-package data_structures;
+package data_structures.my_queue;
 
-import data_structures.myQueue.MyArrayQueue;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by dfsdfsddfsdf on 30.06.16.
  */
 public class MyArrayQueueTest {
 
-    Queue<String> queue = new MyArrayQueue<>(5);
+    Queue<String> queue;
 
     @Before
     public void setUp(){
+
+        queue = new MyArrayQueue<>(5);
         queue.add("A");
         queue.add("B");
         queue.add("C");
@@ -31,32 +31,6 @@ public class MyArrayQueueTest {
     @Test
     public void testIsEmpty() {
         assertEquals(false, queue.isEmpty());
-    }
-
-    @Test
-    public void testContains(){
-        String s = "C";
-        assertEquals(true, queue.contains(s));
-    }
-
-    @Test
-    public void testContains2(){
-        String s = null;
-        queue.add(s);
-        assertEquals(true, queue.contains(s));
-    }
-
-    @Test
-    public void testRemoveObject(){
-        String s = "C";
-        assertEquals(true, queue.remove(s));
-    }
-
-    @Test
-    public void testRemoveObject2(){
-        String s = null;
-        queue.add(s);
-        assertEquals(true, queue.remove(s));
     }
 
     @Test(expected = IllegalStateException.class)
@@ -80,7 +54,7 @@ public class MyArrayQueueTest {
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void testRemove2() throws Exception {
+    public void testRemove2() {
         queue.clear();
         queue.remove();
     }
@@ -104,14 +78,14 @@ public class MyArrayQueueTest {
         assertEquals(3, queue.size());
     }
 
-    @Test(expected = NoSuchElementException.class)
-    public void testElement2() throws Exception {
+    @Test
+    public void testElement2() {
         queue.clear();
         queue.element();
     }
 
     @Test
-    public void testPeek()  {
+    public void testPeek() {
         assertEquals("A", queue.peek());
         assertEquals(3, queue.size());
     }

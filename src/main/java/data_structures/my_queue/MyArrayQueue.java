@@ -1,4 +1,4 @@
-package data_structures.myQueue;
+package data_structures.my_queue;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -9,45 +9,30 @@ import java.util.Queue;
  * Created by dfsdfsddfsdf on 30.06.16.
  */
 public class MyArrayQueue<E> implements Queue<E> {
-//      make generic array
-    private E[] array;
+
+    private Object[] array;
     private int last;
+    private int head;
+    private int size;
 
     public MyArrayQueue(int size) {
-        array = (E[])new Object[size];
+        array = new Object[size];
     }
 
 
     @Override
     public int size() {
-        return last;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return last == 0;
+        return size == 0;
     }
 
     @Override
     public boolean contains(Object o) {
-
-        if (o == null) {
-
-            for (int i = 0; i < last; i++) {
-                if (array[i] == null) {
-                    return true;
-                }
-            }
-
-        } else {
-
-            for (int i = 0; i < last; i++) {
-                if (o.equals(array[i])) {
-                    return true;
-                }
-            }
-        }
-
+        // NOP
         return false;
     }
 
@@ -70,28 +55,7 @@ public class MyArrayQueue<E> implements Queue<E> {
 
     @Override
     public boolean remove(Object o) {
-
-        if(o == null){
-
-            for (int i = 0; i < last ; i++) {
-                if(array[i] == null){
-                    System.arraycopy(array, i + 1, array, i, array.length - i - 1);
-                    last--;
-                    return  true;
-                }
-            }
-
-        } else {
-
-            for (int i = 0; i < last; i++) {
-                if (o.equals(array[i])) {
-                    System.arraycopy(array, i + 1, array, i, array.length - i - 1);
-                    last--;
-                    return true;
-                }
-            }
-        }
-
+        // NOP
         return false;
     }
 
@@ -124,12 +88,11 @@ public class MyArrayQueue<E> implements Queue<E> {
 
         last = 0;
     }
-// todo use offer
+
     @Override
     public boolean add(E e) {
 
-        if(last != array.length){
-            array[last++] = e;
+        if(offer(e)) {
             return true;
         }
 
@@ -139,8 +102,22 @@ public class MyArrayQueue<E> implements Queue<E> {
     @Override
     public boolean offer(E e) {
 
-        if(last != array.length){
-            array[last++] = e;
+        if(size != array.length - 1){
+
+            if(size == 0){
+                array[head] = e;
+                last++;
+            } else {
+                if(last == array.length - 1){
+                    array[last] = e;
+                    last = 0;
+                } else {
+                    array[last] = e;
+                    last++;
+                }
+            }
+
+            size++;
             return true;
         }
 
@@ -150,11 +127,9 @@ public class MyArrayQueue<E> implements Queue<E> {
     @Override
     public E remove() {
 
-        if(!isEmpty()) {
-            E element = array[0];
-            System.arraycopy(array, 1, array, 0, --last);
-            return element;
-        }
+        E delElement = (E) poll();
+
+        if(delElement != null) return (E) delElement;
 
         throw new NoSuchElementException();
     }
@@ -163,9 +138,17 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E poll() {
 
         if(!isEmpty()) {
-            E element = (E) array[0];
-            System.arraycopy(array, 1, array, 0, --last);
-            return element;
+            E delElement = (E) array[head];
+            array[head] = null;
+
+            if(head == array.length -1){
+                head = 0;
+            } else {
+                head++;
+            }
+
+            size--;
+            return delElement;
         }
 
         return null;
@@ -175,7 +158,7 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E element() {
 
         if(!isEmpty()) {
-            return array[0];
+            return (E) array[0];
         }
 
         throw new NoSuchElementException();
@@ -185,7 +168,7 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E peek() {
 
         if(!isEmpty()) {
-            return array[0];
+            return (E) array[0];
         }
 
         return null;
