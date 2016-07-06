@@ -13,12 +13,19 @@ import static org.junit.Assert.*;
  */
 public class BinarySearchTreeTest {
 
-    private Set<String> set;
+    private BinarySearchTree<String> set;
 
     @Before
     public void setUp() throws Exception {
-
         set = new BinarySearchTree<>();
+        set.add("B");
+        set.add("A");
+        set.add("D");
+        set.add("G");
+        set.add("C");
+        set.add("I");
+        set.add("E");
+        set.add("F");
     }
 
     @After
@@ -27,29 +34,43 @@ public class BinarySearchTreeTest {
     }
 
     @Test
-    public void testSize() throws Exception {
-        set.add("A");
-        assertEquals(1, set.size());
+    public void testSize() {
+        assertEquals(8, set.size());
     }
 
     @Test
-    public void testIsEmpty() throws Exception {
+    public void testIsEmpty_false() {
+        assertFalse(set.isEmpty());
+    }
+
+    @Test
+    public void testAdd() {
 
     }
 
     @Test
-    public void testAdd() throws Exception {
-
+    public void testContains_false() {
+        assertFalse(set.contains("W"));
     }
 
     @Test
-    public void testContains_false() throws Exception {
-        assertFalse(set.contains("A"));
-    }
-
-    @Test
-    public void testContains_true() throws Exception {
+    public void testContains_true() {
         set.add("A");
         assertTrue(set.contains("A"));
+    }
+
+    @Test
+    public void testLower_() {
+        assertEquals("F", set.lower("G"));
+    }
+
+    @Test
+    public void testFloor() {
+        assertEquals("D", set.floor("D"));
+    }
+
+    @Test
+    public void testFloor_null() {
+        assertEquals(null, set.floor("Z"));
     }
 }
