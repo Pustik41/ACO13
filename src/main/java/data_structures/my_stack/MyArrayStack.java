@@ -4,12 +4,12 @@ package data_structures.my_stack;
  * Created by dfsdfsddfsdf on 30.06.16.
  */
 public class MyArrayStack<E> implements MyStack<E> {
-
-    private Object[] array;
+// Object[] -> E[]
+    private E[] array;
     private int top;
 
     public MyArrayStack(int size) {
-        array = new Object[size];
+        array = (E[])new Object[size];
     }
 
     @Override
@@ -30,7 +30,7 @@ public class MyArrayStack<E> implements MyStack<E> {
 
         if(!empty()){
             top--;
-            delElement = (E) array[top];
+            delElement = array[top];
             array[top] = null;
         }
 
@@ -39,7 +39,7 @@ public class MyArrayStack<E> implements MyStack<E> {
 
     @Override
     public E peek() {
-        return !empty() ? (E) array[top - 1] : null;
+        return !empty() ? array[top - 1] : null;
     }
 
     @Override

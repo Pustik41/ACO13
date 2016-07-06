@@ -9,14 +9,14 @@ import java.util.Queue;
  * Created by dfsdfsddfsdf on 30.06.16.
  */
 public class MyArrayQueue<E> implements Queue<E> {
-
-    private Object[] array;
+// Object[] -> E[]
+    private E[] array;
     private int last;
     private int head;
     private int size;
 
     public MyArrayQueue(int size) {
-        array = new Object[size];
+        array = (E[])new Object[size];
     }
 
 
@@ -127,9 +127,9 @@ public class MyArrayQueue<E> implements Queue<E> {
     @Override
     public E remove() {
 
-        E delElement = (E) poll();
+        E delElement = poll();
 
-        if(delElement != null) return (E) delElement;
+        if(delElement != null) return delElement;
 
         throw new NoSuchElementException();
     }
@@ -138,7 +138,7 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E poll() {
 
         if(!isEmpty()) {
-            E delElement = (E) array[head];
+            E delElement = array[head];
             array[head] = null;
 
             if(head == array.length -1){
@@ -158,7 +158,7 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E element() {
 
         if(!isEmpty()) {
-            return (E) array[0];
+            return array[0];
         }
 
         throw new NoSuchElementException();
@@ -168,7 +168,7 @@ public class MyArrayQueue<E> implements Queue<E> {
     public E peek() {
 
         if(!isEmpty()) {
-            return (E) array[0];
+            return array[0];
         }
 
         return null;
