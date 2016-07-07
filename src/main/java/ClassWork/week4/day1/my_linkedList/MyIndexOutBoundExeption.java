@@ -1,4 +1,4 @@
-package ClassWork.week4.day1.myLinkedList;
+package ClassWork.week4.day1.my_linkedList;
 
 /**
  * Created by zhabenya on 25.06.16.

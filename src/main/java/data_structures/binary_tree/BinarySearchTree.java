@@ -21,6 +21,14 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
         this.comparator = comparator;
     }
 
+    public E getRoot() {
+        return root.value;
+    }
+
+    public E getRght() {
+        return root.rightChild.value;
+    }
+
     @Override
     public int size() {
         return size;
@@ -35,15 +43,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
     public boolean contains(Object o) {
 
         Node<E> search = null;
-
-        if(comparator != null){
-//            todo search with comparator
-//            search with Comparable
-        } else {
-
-            search = findNode(o);
-
-        }
+        search = findNode(o);
         return search != null;
     }
 
@@ -51,10 +51,8 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
         if(o == null) throw new NullPointerException();
         Node<E> iterator = root;
         int compare;
-        @SuppressWarnings("unchecked")
-        Comparable<? super E> comparable = (Comparable<? super E>) o;
         while (iterator != null){
-            compare = comparable.compareTo(iterator.value);
+            compare = canCompare((E) o, iterator.value);
             if(compare > 0) iterator = iterator.rightChild;
             else if(compare < 0) iterator = iterator.leftChild;
             else return iterator;
@@ -67,38 +65,23 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
         if(!isEmpty() && e != null) {
 
-            if(comparator != null){
-//            todo compare with comparator
-            } else {
+            Node<E> element = root;
+            Node<E> parent = null;
+            int compareResult;
 
-                Node<E> element = root;
-                Node<E> parent;
+            while (element != null){
 
+                compareResult = canCompare(e, element.value);
 
-                Comparable<? super E> eComparable = (Comparable<? super E>) e;
-                int compareResult;
-
-                do{
+                if(compareResult > 0){
                     parent = element;
-                    compareResult = eComparable.compareTo(element.value);
-
-                    if(compareResult > 0){
-                        element = element.rightChild;
-
-                    } else {
-                        element = element.leftChild;
-                    }
-
-                }while (element != null);
-
-                compareResult = eComparable.compareTo(parent.value);
-                if(compareResult < 0 ){
-                    if(eComparable.compareTo(parent.parent.value) > 0) return parent.parent.value;
-                    return null;
+                    element = element.rightChild;
+                } else {
+                    element = element.leftChild;
                 }
-
-                return parent.value;
             }
+
+            return parent != null ? parent.value : null;
         }
 
         return null;
@@ -109,38 +92,25 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
         if(!isEmpty() && e != null) {
 
-            if(comparator != null){
-//            todo compare with comparator
-            } else {
+            Node<E> element = root;
+            Node<E> parent = null;
+            int compareResult;
 
-                Node<E> element = root;
-                Node<E> parent;
-                Comparable<? super E> eComparable = (Comparable<? super E>) e;
-                int compareResult;
+            while (element != null) {
 
-                do{
+                compareResult = canCompare(e, element.value);
+
+                if (compareResult == 0) {
+                    return element.value;
+                } else if (compareResult > 0) {
                     parent = element;
-                    compareResult = eComparable.compareTo(element.value);
-
-                    if(compareResult == 0){
-                        return element.value;
-                    } else if(compareResult > 0) {
-                        element = element.rightChild;
-                    } else {
-                        element = element.leftChild;
-                    }
-
-
-                }while (element != null);
-
-                compareResult = eComparable.compareTo(parent.value);
-                if(compareResult < 0 ){
-                    if(eComparable.compareTo(parent.parent.value) > 0) return parent.parent.value;
-                    return null;
+                    element = element.rightChild;
+                } else {
+                    element = element.leftChild;
                 }
-
-                return parent.value;
             }
+
+            return parent != null ? parent.value : null;
         }
 
         return null;
@@ -148,25 +118,95 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
     @Override
     public E ceiling(E e) {
-        //        TODO
+
+        if(!isEmpty() && e != null) {
+
+            Node<E> element = root;
+            Node<E> parent = null;
+            int compareResult;
+
+            while (element != null){
+
+                compareResult = canCompare(e, element.value);
+
+                if(compareResult == 0) {
+                    return element.value;
+                } else if(compareResult > 0){
+                    element = element.rightChild;
+                } else {
+                    parent = element;
+                    element = element.leftChild;
+                }
+            }
+
+            return parent != null ? parent.value : null;
+        }
+
         return null;
     }
 
     @Override
     public E higher(E e) {
-        //        TODO
+
+        if(!isEmpty() && e != null) {
+
+            Node<E> element = root;
+            Node<E> parent = null;
+            int compareResult;
+
+            while (element != null){
+
+                compareResult = canCompare(e, element.value);
+
+                if(compareResult >= 0){
+                    element = element.rightChild;
+                } else {
+                    parent = element;
+                    element = element.leftChild;
+                }
+            }
+
+            return parent != null ? parent.value : null;
+        }
+
         return null;
     }
 
     @Override
     public E pollFirst() {
-        //        TODO
+
+        if(!isEmpty()) {
+
+            Node<E> delNode;
+            Node<E> iter  = root;
+
+            do{
+                delNode = iter;
+                iter = iter.leftChild;
+            }while (iter != null);
+
+            return remove(delNode.value) ? delNode.value : null;
+
+        }
         return null;
     }
 
     @Override
     public E pollLast() {
-        //        TODO
+
+        if(!isEmpty()) {
+
+            Node<E> delNode;
+            Node<E> iter  = root;
+
+            do{
+                delNode = iter;
+                iter = iter.rightChild;
+            }while (iter != null);
+
+            return remove(delNode.value) ? delNode.value : null;
+        }
+
         return null;
     }
 
@@ -207,8 +247,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
     @Override
     public Comparator<? super E> comparator() {
-        //        TODO
-        return null;
+        return comparator != null ? comparator : null;
     }
 
     @Override
@@ -269,11 +308,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
             root = new Node<>(e);
             size++;
             return true;
-        } else if(comparator != null){
-//            todo compare with comparator
-        } else {
-            @SuppressWarnings("unchecked")
-            Comparable<? super E> eComparable = (Comparable<? super E>) e;
+        }  else {
 
             Node<E> iterator = root;
             Node<E> parent;
@@ -281,7 +316,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
             do {
                 parent = iterator;
-                compareResult = eComparable.compareTo(iterator.value);
+                compareResult = canCompare(e, iterator.value);
                 if (compareResult > 0) {
                     iterator = iterator.rightChild;
                 } else if (compareResult < 0) {
@@ -300,7 +335,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
             return  true;
 
         }
-        return false;
+
     }
 
     @SuppressWarnings("unchecked")
@@ -357,6 +392,9 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
         } else {
             Node<E> successor = findSuccessor(current);
+
+            if(current == root) root = successor;
+
             successor.leftChild = current.leftChild;
             current.leftChild.parent = successor;
             current.leftChild = null;
@@ -373,8 +411,14 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
             successor = successor.leftChild;
         }
         if(successor.parent !=  current){
-            successor.parent.leftChild = successor.rightChild;
-            successor.rightChild.parent = successor.parent;
+
+            if(successor.rightChild != null) {
+                successor.parent.leftChild = successor.rightChild;
+                successor.rightChild.parent = successor.parent;
+            } else {
+                successor.parent.leftChild = null;
+            }
+
             successor.rightChild = current.rightChild;
             current.rightChild.parent = successor;
         }
@@ -406,8 +450,9 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
     @Override
     public void clear() {
-//        TODO
-
+        while (root != null){
+            remove(root.value);
+        }
     }
 
     private static class Node<E> {

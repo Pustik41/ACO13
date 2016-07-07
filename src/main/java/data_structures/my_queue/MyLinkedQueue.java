@@ -82,7 +82,6 @@ public class MyLinkedQueue<E> implements Queue<E> {
         return false;
     }
 
-    //    todo run through all structure and clear each node
     @Override
     public void clear() {
         first = null;
