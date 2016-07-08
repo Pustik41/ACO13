@@ -21,14 +21,6 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
         this.comparator = comparator;
     }
 
-    public E getRoot() {
-        return root.value;
-    }
-
-    public E getRght() {
-        return root.rightChild.value;
-    }
-
     @Override
     public int size() {
         return size;
@@ -212,7 +204,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
     @Override
     public Iterator<E> iterator() {
-        return new MyBinaryTreeIterator<>();
+        return new MyBinaryTreeIterator<>(root);
     }
 
     @Override
@@ -290,52 +282,75 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
     @Override
     public Object[] toArray() {
-        //        TODO
-        return new Object[0];
+
+        Object[] array = new Object[size];
+        int count = 0;
+
+        Iterator iterator = iterator();
+
+        while (iterator.hasNext()){
+            array[count++] = iterator.next();
+        }
+
+        return array;
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        //        TODO
-        return null;
+
+        int count = 0;
+        Iterator iterator = iterator();
+
+        if(a.length < size){
+             a = (T[]) new Object[size];
+        }
+
+        while (iterator.hasNext()){
+            try {
+            a[count++] = (T) iterator.next();
+            }catch (ArrayStoreException ex){
+            throw new ArrayStoreException();
+            }
+        }
+
+        return a;
     }
 
     @Override
     public boolean add(E e) {
 
-        if(root == null){
-            canCompare(e, e);
-            root = new Node<>(e);
-            size++;
-            return true;
-        }  else {
-
-            Node<E> iterator = root;
-            Node<E> parent;
-            int compareResult;
-
-            do {
-                parent = iterator;
-                compareResult = canCompare(e, iterator.value);
-                if (compareResult > 0) {
-                    iterator = iterator.rightChild;
-                } else if (compareResult < 0) {
-                    iterator = iterator.leftChild;
-                } else {
-                    return false;
-                }
-            } while (iterator != null);
-
-            if(compareResult > 0){
-                parent.rightChild = new Node<>(e, parent);
+            if (root == null) {
+                canCompare(e, e);
+                root = new Node<>(e);
+                size++;
+                return true;
             } else {
-                parent.leftChild = new Node<E>(e, parent);
+
+                Node<E> iterator = root;
+                Node<E> parent;
+                int compareResult;
+
+                do {
+                    parent = iterator;
+                    compareResult = canCompare(e, iterator.value);
+                    if (compareResult > 0) {
+                        iterator = iterator.rightChild;
+                    } else if (compareResult < 0) {
+                        iterator = iterator.leftChild;
+                    } else {
+                        return false;
+                    }
+                } while (iterator != null);
+
+                if (compareResult > 0) {
+                    parent.rightChild = new Node<>(e, parent);
+                } else {
+                    parent.leftChild = new Node<E>(e, parent);
+                }
+                size++;
+                return true;
+
             }
-            size++;
-            return  true;
-
-        }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -427,13 +442,35 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        //        TODO
+
+        Collection<E> delAll = null;
+
+        try {
+            delAll = (Collection<E>) c;
+        }catch (ClassCastException ex){
+           throw new ClassCastException();
+        }
+
+        if(delAll != null && !isEmpty()) {
+            for (E e : delAll) {
+                if(findNode(e) == null) return false;
+            }
+            return true;
+        }
+
         return false;
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        //        TODO
+
+        if(c != null) {
+            for (E e : c) {
+                add(e);
+            }
+            return true;
+        }
+
         return false;
     }
 
@@ -445,6 +482,22 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
     @Override
     public boolean removeAll(Collection<?> c) {
+
+        Collection<E> delAll = null;
+
+        try {
+            delAll = (Collection<E>) c;
+        }catch (ClassCastException ex){
+            throw new ClassCastException();
+        }
+
+        if(delAll != null && !isEmpty()) {
+            for (E e : delAll) {
+                remove(e);
+            }
+            return true;
+        }
+
         return false;
     }
 
@@ -455,7 +508,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
         }
     }
 
-    private static class Node<E> {
+    static class Node<E> {
 
         E value;
         Node<E> parent;
@@ -473,16 +526,46 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
     }
 
     private class MyBinaryTreeIterator<E> implements Iterator<E> {
-        //        TODO
+
+        private Node<E> next;
+
+        public MyBinaryTreeIterator(Node<E> root){
+            next = root;
+            if(next == null)
+                return;
+            while (next.leftChild != null)
+                next = next.leftChild;
+        }
 
         @Override
         public boolean hasNext() {
-            return false;
+            return next != null;
         }
 
         @Override
         public E next() {
-            return null;
+
+            if(!hasNext()) throw new NoSuchElementException();
+
+            Node retNode = next;
+
+            if(next.rightChild != null){
+                next = next.rightChild;
+                while (next.leftChild != null)
+                    next = next.leftChild;
+                return (E) retNode.value;
+
+            }else while(true){
+                if(next.parent == null){
+                    next = null;
+                    return (E) retNode.value;
+                }
+                if(next.parent.leftChild == next){
+                    next = next.parent;
+                    return (E) retNode.value;
+                }
+                next = next.parent;
+            }
         }
     }
 }
