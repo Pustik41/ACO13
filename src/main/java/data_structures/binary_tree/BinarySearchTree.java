@@ -204,7 +204,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
     @Override
     public Iterator<E> iterator() {
-        return new MyBinaryTreeIterator<>(root);
+        return new MyBinaryTreeIterator();
     }
 
     @Override
@@ -299,7 +299,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
     public <T> T[] toArray(T[] a) {
 
         int count = 0;
-        Iterator iterator = iterator();
+        Iterator<E> iterator = new MyBinaryTreeIterator();
 
         if(a.length < size){
              a = (T[]) new Object[size];
@@ -525,11 +525,11 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
         }
     }
 
-    private class MyBinaryTreeIterator<E> implements Iterator<E> {
+    private class MyBinaryTreeIterator implements Iterator<E> {
 
         private Node<E> next;
 
-        public MyBinaryTreeIterator(Node<E> root){
+        public MyBinaryTreeIterator(){
             next = root;
             if(next == null)
                 return;
@@ -547,22 +547,22 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
 
             if(!hasNext()) throw new NoSuchElementException();
 
-            Node retNode = next;
+            Node<E> retNode = next;
 
             if(next.rightChild != null){
                 next = next.rightChild;
                 while (next.leftChild != null)
                     next = next.leftChild;
-                return (E) retNode.value;
+                return retNode.value;
 
             }else while(true){
                 if(next.parent == null){
                     next = null;
-                    return (E) retNode.value;
+                    return retNode.value;
                 }
                 if(next.parent.leftChild == next){
                     next = next.parent;
-                    return (E) retNode.value;
+                    return retNode.value;
                 }
                 next = next.parent;
             }
