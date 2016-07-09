@@ -545,7 +545,7 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
         @Override
         public E next() {
 
-            if(!hasNext()) throw new NoSuchElementException();
+//            if(!hasNext()) throw new NoSuchElementException();
 
             Node<E> retNode = next;
 
