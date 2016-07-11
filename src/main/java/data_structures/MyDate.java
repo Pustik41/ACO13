@@ -1,9 +1,11 @@
 package data_structures;
 
+import java.io.Serializable;
+
 /**
  * Created by Pustik41 on 22.05.16.
  */
-public class MyDate implements Comparable<MyDate> {
+public class MyDate implements Comparable<MyDate>, Serializable {
 
     private int yearBirth;
     private int monthBirth;

@@ -1,8 +1,6 @@
 package data_structures.binary_tree;
 
 
-import data_structures.node.Node;
-
 import java.util.*;
 
 /**
@@ -202,6 +200,8 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
         return null;
     }
 
+
+
     @Override
     public Iterator<E> iterator() {
         return new MyBinaryTreeIterator();
@@ -319,38 +319,34 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
     @Override
     public boolean add(E e) {
 
-            if (root == null) {
-                canCompare(e, e);
-                root = new Node<>(e);
-                size++;
-                return true;
-            } else {
-
-                Node<E> iterator = root;
-                Node<E> parent;
-                int compareResult;
-
-                do {
-                    parent = iterator;
-                    compareResult = canCompare(e, iterator.value);
-                    if (compareResult > 0) {
-                        iterator = iterator.rightChild;
-                    } else if (compareResult < 0) {
-                        iterator = iterator.leftChild;
-                    } else {
-                        return false;
-                    }
-                } while (iterator != null);
-
+        if (root == null) {
+            canCompare(e, e);
+            root = new Node<>(e);
+            size++;
+            return true;
+        } else {
+            Node<E> iterator = root;
+            Node<E> parent;
+            int compareResult;
+            do {
+                parent = iterator;
+                compareResult = canCompare(e, iterator.value);
                 if (compareResult > 0) {
-                    parent.rightChild = new Node<>(e, parent);
+                    iterator = iterator.rightChild;
+                } else if (compareResult < 0) {
+                    iterator = iterator.leftChild;
                 } else {
-                    parent.leftChild = new Node<E>(e, parent);
+                    return false;
                 }
-                size++;
-                return true;
-
+            } while (iterator != null);
+            if (compareResult > 0) {
+                parent.rightChild = new Node<>(e, parent);
+            } else {
+                parent.leftChild = new Node<E>(e, parent);
             }
+            size++;
+            return true;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -506,6 +502,18 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements NavigableSet<
         while (root != null){
             remove(root.value);
         }
+    }
+
+    public void showTree(){
+        deepSearch(root);
+    }
+
+    private void deepSearch(Node<E> next){
+
+        if(next == null) return;
+        deepSearch(root.leftChild);
+        System.out.println(root.value);
+        deepSearch(root.rightChild);
     }
 
     static class Node<E> {

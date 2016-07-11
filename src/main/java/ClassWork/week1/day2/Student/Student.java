@@ -2,10 +2,12 @@ package ClassWork.week1.day2.Student;
 
 import data_structures.MyDate;
 
+import java.io.Serializable;
+
 /**
  * Created by Pustik41 on 22.05.16.
  */
-public class Student implements Comparable {
+public class Student implements Comparable, Serializable {
 
     private String name;
     private String surName;

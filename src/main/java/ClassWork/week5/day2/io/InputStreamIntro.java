@@ -16,6 +16,7 @@ public class InputStreamIntro {
 
         int readByte;
 
+
         while ((readByte = is.read()) != -1){
             os.write(readByte);
         }
