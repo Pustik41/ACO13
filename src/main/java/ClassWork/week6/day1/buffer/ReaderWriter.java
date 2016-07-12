@@ -7,25 +7,28 @@ import java.io.*;
  */
 public class ReaderWriter {
 
-    public static void main(String[] args) throws IOException {
 
-        InputStream inputStream =new BufferedInputStream( new FileInputStream("/home/tania/IdeaProjects/ArtCode/ACO13/src/main.java.ClassWork/week6/Test2.txt"));
+        public static void main(String[] args) throws IOException {
+            InputStream is = new BufferedInputStream(
+                    new FileInputStream("/Users/dfsdfsddfsdf/IdeaProjects/ACO13/src/main/java/ClassWork/week6/Test2.txt"));
+
 
         /*int readByte;
-
-        while ((readByte = inputStream.read()) != -1){
+        while ((readByte = is.read()) != -1){
             System.out.print((char) readByte);
         }*/
 
-        Reader reader =new BufferedReader(
-                    new FileReader("/home/tania/IdeaProjects/ArtCode/ACO13/src/main.java.ClassWork/week6/Test2.txt"));
 
-        reader.read();
+            Reader reader = new BufferedReader(
+                    new FileReader("/Users/dfsdfsddfsdf/IdeaProjects/ACO13/src/main/java/ClassWork/week6/Test2.txt"));
 
-        int readChar;
 
-        while ((readChar = inputStream.read()) != -1){
-            System.out.print(readChar + " ");
+            int readChar;
+            while ((readChar = reader.read()) != -1) {
+                System.out.print(readChar + " ");
+            }
+
+
         }
-    }
+
 }
