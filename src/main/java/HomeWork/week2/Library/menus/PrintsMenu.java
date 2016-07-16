@@ -109,7 +109,7 @@ public class PrintsMenu {
         try {
             year = Integer.parseInt(reader.readLine());
         } catch (NumberFormatException e) {
-            System.out.println("Wrong data try again");
+            System.out.println("Wrong date try again");
             addPrint(lib);
             return lib;
         } catch (IOException e) {
@@ -120,7 +120,7 @@ public class PrintsMenu {
         try {
             numOfPage = Integer.parseInt(reader.readLine());
         } catch (NumberFormatException e) {
-            System.out.println("Wrong data try again");
+            System.out.println("Wrong date try again");
             addPrint(lib);
             return lib;
         } catch (IOException e) {

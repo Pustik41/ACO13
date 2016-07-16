@@ -98,7 +98,7 @@ public class SearchMenu {
         try {
             year = Integer.parseInt(reader.readLine());
         } catch (NumberFormatException e) {
-            System.out.println("Wrong data try again");
+            System.out.println("Wrong date try again");
             searchByYear(lib);
             return;
         } catch (IOException e) {
