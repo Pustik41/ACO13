@@ -1,9 +1,6 @@
-package ClassWork.week4.day1.my_linkedList;
+package data_structures.myList.my_linkedList;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 /**
  * Created by zhabenya on 18.06.16.
@@ -26,6 +23,25 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
+
+        Node<T> iter = head;
+
+        if (o == null) {
+            while (iter != null) {
+                if (iter.value == null) {
+                    return true;
+                }
+                iter = iter.next;
+            }
+        } else {
+            while (iter != null) {
+                if (o.equals(iter.value)) {
+                    return true;
+                }
+                iter = iter.next;
+            }
+        }
+
         return false;
     }
 
@@ -37,18 +53,28 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public T[] toArray() {
-        return (T[])new Object[0];
+
+        T[] array = (T[]) new Object[size];
+        Node<T> iter = head;
+
+        for (int i = 0; i < size; i++) {
+            array[i] = iter.value;
+            iter = iter.next;
+        }
+
+        return array;
     }
 
     @Override
     public boolean add(Object o) {
+
         if(head == null){
             head = tail = new Node(o);
             size++;
             return true;
         }
 
-        Node newNode = new Node(tail, o);
+        Node<T> newNode = new Node<>(tail, (T) o);
         tail.next = newNode;
         tail = newNode;
         size++;
@@ -57,22 +83,65 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
+
+        Node<T> remNode = new Node<>((T) o);
+        Node<T> iter = head;
+
+        if (o == null) {
+            while (iter != null) {
+                if (iter.value == null) {
+                    delNode(iter);
+                    return true;
+                }
+                iter = iter.next;
+            }
+        } else {
+            while (iter != null) {
+                if (remNode.value.equals(iter.value)) {
+                    delNode(iter);
+                    return true;
+                }
+                iter = iter.next;
+            }
+        }
+
         return false;
     }
 
     @Override
     public boolean addAll(Collection c) {
-        return false;
+
+        for (Object o : c) {
+            add(o);
+        }
+
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection c) {
-        return false;
+
+        for (Object o : c) {
+            add(index, (T) o);
+            index++;
+        }
+
+        return true;
     }
 
     @Override
     public void clear() {
 
+        if(!isEmpty()){
+
+            while (tail != head){
+                tail = tail.previous;
+                tail.next = null;
+            }
+
+            head = tail = null;
+            size = 0;
+        }
     }
 
     @Override
@@ -84,13 +153,17 @@ public class MyLinkedList<T> implements List<T> {
     }
 
     private Node<T> findNode(int index) {
+
         if(index >= size || index < 0) {
             throw new MyIndexOutBoundExeption(String.valueOf(index));
         }
+
         Node<T> iter = head;
+
         for (int i = 0; i < index; i++) {
             iter = iter.next;
         }
+
         return iter;
     }
 
@@ -108,12 +181,43 @@ public class MyLinkedList<T> implements List<T> {
     @Override
     public void add(int index, T element) {
 
+        if(index == size) {
+            add(element);
+            size();
+            return;
+        }
+
+        Node<T> newAdd = new Node<>(element);
+
+        if(index == 0 && size != 0){
+            newAdd.next = head;
+            head = newAdd;
+            head.next.previous = head;
+            size++;
+            return;
+        }
+
+        Node<T> start = findNode(index - 1);
+        Node<T> finish = start.next;
+
+        finish.previous = newAdd;
+        newAdd.next = finish;
+        start.next = newAdd;
+        newAdd.previous = start;
+        size++;
+
     }
 
     @Override
     public T remove(int index) {
 
         Node<T> iter = findNode(index);
+
+        return delNode(iter);
+    }
+
+    private T delNode(Node<T> iter){
+
         if(iter == head){
             head = iter.next;
             if(iter.next == null){
@@ -128,13 +232,12 @@ public class MyLinkedList<T> implements List<T> {
             iter.previous = null;
 
         } else {
-//        previous-> me -> next --->  previous -> next
             iter.previous.next = iter.next;
-//        previous<- me <- next ---> previous <- next
             iter.next.previous = iter.previous;
             iter.previous = null;
             iter.next = null;
         }
+
         size--;
         return iter.value;
     }
@@ -160,7 +263,22 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+
+        Node<T> iter = tail;
+
+        if(o == null){
+            for (int i = size - 1; i >= 0; i--) {
+                if(iter.value == null) return i;
+                iter = iter.previous;
+            }
+        } else {
+            for (int i = size - 1; i >= 0; i--) {
+                if(o.equals(iter.value)) return i;
+                iter = iter.previous;
+            }
+        }
+
+        return -1;
     }
 
     @Override
@@ -178,22 +296,90 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public List subList(int fromIndex, int toIndex) {
-        return null;
+
+        if(fromIndex < 0 || fromIndex >= size || toIndex >= size) throw new IndexOutOfBoundsException();
+        if(fromIndex > toIndex) throw new IllegalArgumentException();
+
+        List<T> retList = new LinkedList<>();
+        Node<T> iter = findNode(fromIndex);
+
+        while (fromIndex != toIndex){
+            retList.add(iter.value);
+            iter = iter.next;
+            fromIndex++;
+        }
+
+        return retList;
     }
 
     @Override
     public boolean retainAll(Collection c) {
-        return false;
+
+        List<T> list;
+        int same = 0;
+        Node<T> iter = head;
+        Node<T> forDel;
+
+        try {
+            list = (MyLinkedList<T>) c;
+        } catch (ClassCastException ex){
+            throw new ClassCastException();
+        }
+
+        while (iter != null){
+
+            forDel = iter;
+            iter = iter.next;
+
+            for (T t : list) {
+                if(t.equals(forDel.value)) same++;
+            }
+
+            if(same == 0){
+                remove(forDel.value);
+            }
+
+            same = 0;
+        }
+
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection c) {
-        return false;
+
+        List<T> list;
+        int saveSize = size;
+
+        try {
+            list = (MyLinkedList<T>) c;
+        } catch (ClassCastException ex){
+            throw new ClassCastException();
+        }
+
+        for (T t : list) {
+            remove(t);
+        }
+
+        return saveSize > size;
     }
 
     @Override
     public boolean containsAll(Collection c) {
-        return false;
+
+        List<T> list;
+
+        try {
+            list = (MyLinkedList<T>) c;
+        } catch (ClassCastException ex){
+            throw new ClassCastException();
+        }
+
+        for (T t : list) {
+            if(!contains(t)) return false;
+        }
+
+        return true;
     }
 
     @Override
