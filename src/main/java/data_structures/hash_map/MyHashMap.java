@@ -221,7 +221,39 @@ public class MyHashMap<K, V> {
 
     public V remove(Object key) {
 
-        return null;
+        if(!containsKey(key)) return null;
+
+        int position = 0;
+
+        if(key != null){
+            position = findPosition((K) key);
+        }
+
+        MyEntry<K, V> iter = table[position];
+        MyEntry<K, V> parent = null;
+        V forDel = null;
+
+        if(iter.key == key){
+            forDel = iter.value;
+            table[position] = iter.next;
+        } else {
+
+            while (iter.next != null){
+                parent = iter;
+                iter = iter.next;
+                if(iter.key == key){
+                    parent.next = iter.next;
+                    forDel = iter.value;
+                }
+            }
+
+        }
+
+        iter.next = null;
+        iter = null;
+        size--;
+
+        return forDel;
     }
 
     public void putAll(Map<? extends K, ? extends V> m) {
@@ -234,6 +266,16 @@ public class MyHashMap<K, V> {
 
     public void clear() {
 
+        for (int i = 0; i < table.length; i++) {
+            if(table[i] == null) continue;
+            MyEntry<K, V> iterator = table[i];
+            MyEntry<K, V> parent;
+            while (iterator != null){
+                parent = iterator;
+                iterator = iterator.next;
+                remove(parent.key);
+            }
+        }
     }
 
     public Set<K> keySet() {

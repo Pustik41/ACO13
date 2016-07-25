@@ -131,4 +131,34 @@ public class MyHashMapTest {
         map.putAll(mapTest);
         assertFalse(map.containsValue("C"));
     }
+
+    @Test
+    public void testRemove_return_del_value() {
+        assertEquals("A", map.remove(6));
+        assertFalse(map.containsValue("A"));
+        assertEquals("C", map.get(18));
+    }
+
+    @Test
+    public void testRemove_if_have_collision() {
+        assertEquals("C", map.remove(18));
+        assertFalse(map.containsValue("C"));
+        assertEquals("D", map.get(42));
+    }
+
+    @Test
+    public void testRemove_if_key_null() {
+        assertEquals("Z", map.remove(null));
+        assertFalse(map.containsValue("Z"));
+    }
+
+    @Test
+    public void testRemove_if_key_not_contains() {
+        assertEquals(null, map.remove(19));
+    }
+
+    @Test
+    public void testClear() {
+        map.clear();
+    }
 }
