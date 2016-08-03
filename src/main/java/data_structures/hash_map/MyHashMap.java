@@ -80,14 +80,24 @@ public class MyHashMap<K, V> {
     }
 
     public V get(Object key) {
-        return findByKey(key).value;
+
+        MyEntry<K, V> forReturn = findByKey(key);
+
+        return forReturn != null ? forReturn.value : null;
     }
 
     private MyEntry<K, V> findByKey(Object key){
 
+        int position = 0;
+
+        if(key != null){
+            position = findPosition((K) key);
+        }
+
+        MyEntry<K, V> iterator = table[position];
+
         if(key == null){
 
-            MyEntry<K, V> iterator = table[0];
             while (iterator != null) {
                 if (iterator.key == null) {
                     return iterator;
@@ -96,9 +106,6 @@ public class MyHashMap<K, V> {
             }
         } else {
 
-            int position = findPosition((K) key);
-
-            MyEntry<K, V> iterator = table[position];
             while (iterator != null) {
                 if (key.equals(iterator.key)) {
                     return iterator;
@@ -112,13 +119,20 @@ public class MyHashMap<K, V> {
 
     public V put(K key, V value) {
 
-        if(key == null){
+        int position = 0;
 
-            if (table[0] == null) {
-                table[0] = new MyEntry<>(key, value);
-            } else {
-                MyEntry<K, V> iterator = table[0];
-                MyEntry<K, V> parent;
+        if(key != null) {
+            position = findPosition(key);
+        }
+
+        if (table[position] == null) {
+            table[position] = new MyEntry<>(key, value);
+        } else {
+
+            MyEntry<K, V> iterator = table[position];
+            MyEntry<K, V> parent;
+
+            if (key == null) {
                 do {
                     parent = iterator;
                     if (iterator.key == null) {
@@ -127,16 +141,8 @@ public class MyHashMap<K, V> {
                     iterator = iterator.next;
                 } while (iterator != null);
                 parent.next = new MyEntry<>(key, value);
-            }
-        } else {
 
-            int position = findPosition(key);
-
-            if (table[position] == null) {
-                table[position] = new MyEntry<>(key, value);
             } else {
-                MyEntry<K, V> iterator = table[position];
-                MyEntry<K, V> parent;
                 do {
                     parent = iterator;
                     if (key.equals(iterator.key)) {
@@ -183,35 +189,32 @@ public class MyHashMap<K, V> {
     private void putInNewTable(MyEntry<K, V>[] resized, MyEntry<K, V> current) {
 
         MyEntry<K, V> copy = new MyEntry<>(current.getKey(), current.getValue());
+        int position = 0;
 
-        if(current.key == null){
+        if (current.getKey() != null) {
+            position = findPosition(current.key);
+        }
 
-            if(resized[0] == null){
-                resized[0] = copy;
-            } else {
-                MyEntry<K, V> iterator = resized[0];
-                MyEntry<K,V> parent;
+        if (resized[position] == null) {
+            resized[position] = copy;
+        } else {
+
+            MyEntry<K, V> iterator = resized[position];
+            MyEntry<K, V> parent;
+
+            if (current.key == null) {
                 do {
                     parent = iterator;
                     iterator = iterator.next;
-                }  while (iterator != null);
+                } while (iterator != null);
+                parent.next = copy;
+            } else{
+                do {
+                    parent = iterator;
+                    iterator = iterator.next;
+                } while (iterator != null);
                 parent.next = copy;
             }
-            return;
-        }
-
-        int position = findPosition(current.key);
-
-        if(resized[position] == null){
-            resized[position] = copy;
-        } else {
-            MyEntry<K, V> iterator = resized[position];
-            MyEntry<K,V> parent;
-            do {
-                parent = iterator;
-                iterator = iterator.next;
-            }  while (iterator != null);
-            parent.next = copy;
         }
     }
 
